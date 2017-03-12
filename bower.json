@@ -1,0 +1,23 @@
+{
+  "name": "gravisim",
+  "authors": [
+    "Jakub Blaszczyk <j.blaszczyk95@gmail.com>",
+    "Adam Dlubak",
+    "Artur Schulz"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "angular": "^1.5.5",
+    "angular-route": "^1.5.5",
+    "angular-resource": "^1.5.5",
+    "bootstrap": "^3.3.6",
+    "angular-bootstrap": "^1.3.2"
+  }
+}

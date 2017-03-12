@@ -1,0 +1,16 @@
+.DS_Store
+.vscode
+.idea
+
+bin
+target
+lib
+include
+
+.Python
+pip-selfcheck.json
+
+db.sqlite3
+
+__pycache__
+*.pyc
