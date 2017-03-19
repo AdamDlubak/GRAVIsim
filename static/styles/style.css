@@ -1,7 +1,8 @@
 .simulator {
     position: relative;
-    width: 640px;
-    height: 480px;
+    width: 600px;
+    height: 600px;
+    margin: auto;
 }
 
 .simulator canvas {
