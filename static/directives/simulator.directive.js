@@ -9,6 +9,28 @@
                     link: function(scope, element, attrs, controller) {
                         var canvas = element.find('canvas').get()[0];
                         var ctx = canvas.getContext('2d');
+                        var url = '/static/media/test-simulator.json';
+
+                        scope.fps = 5;
+                        scope.pause = true;
+                        scope.maxFrame = 0;
+
+                        function startRender() {
+                            scope.pause = false;
+                            render(0);
+                        }
+
+                        function render(frame) {
+                            draw(frame);
+
+                            if (!scope.pause) {
+                                var delay = 1000 / scope.fps;
+                                setTimeout(function() {
+                                    var nextFrame = frame + 1 < scope.data.timeline.length ? frame + 1 : 0;
+                                    render(nextFrame);
+                                }, delay);
+                            }
+                        }
 
                         function draw(frame) {
                             ctx.clearRect(0, 0, 640, 480);
@@ -24,11 +46,10 @@
                             });
                         }
 
-                        var data = '/static/media/test-simulator.json';
-                        $http.get(data).then(
+                        $http.get(url).then(
                             function(result){
                                 scope.data = result.data;
-                                draw(0);
+                                startRender();
                             }, function(error){
                                 console.error('Cannot fetch data');
                             }
