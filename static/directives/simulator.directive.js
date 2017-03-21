@@ -12,7 +12,7 @@
                         var url = '/static/media/test-simulator.json';
                         var size = 1600;
 
-                        scope.fps = 5;
+                        scope.fps = 25;
                         scope.pause = true;
                         scope.maxFrame = 0;
 
