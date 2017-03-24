@@ -1,8 +1,10 @@
 (function(){
     angular.module('gravisim').
-        controller('MainController', ['$scope', '$http', '$location',
+        controller('SimulateController', ['$scope', '$http', '$location',
             function($scope, $http, $location) {
                 var self = this;
+
+                $scope.test = 'testowa zawartosc';
             }
         ]);
 })();
