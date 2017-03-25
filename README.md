@@ -9,7 +9,7 @@
 7. Install bower globally `npm i -g bower`
 8. Install frontend packages `bower install`
 9. Install Django `pip install Django`
-10. Run databases migrations `python manage.py migrate
+10. Run databases migrations `python manage.py migrate`
 
 ## Developing ##
 
