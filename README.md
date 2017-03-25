@@ -8,7 +8,8 @@
 6. Install python dependencies `pip install -r requirements.txt`
 7. Install bower globally `npm i -g bower`
 8. Install frontend packages `bower install`
-9. Run databases migrations `python manage.py migrate
+9. Install Django `pip install Django`
+10. Run databases migrations `python manage.py migrate
 
 ## Developing ##
 
