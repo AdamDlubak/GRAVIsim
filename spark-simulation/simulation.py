@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import json
 from math import sqrt, pow
@@ -7,10 +8,31 @@ from pyspark.sql.functions import lit
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-FORCE_FACTOR = 1
-FORCE_OFFSET = 0
+FORCE_FACTOR = 10**2
 G = 6.674 * 10**(-11)
-G_FACTOR = 2  # 1.3
+G_FACTOR = 1.4
+MIN_DISTANCE_LIMIT = 0.5
+
+
+def print_progress_bar(iteration, total, prefix='', suffix='', decimals=1, length=100, fill='#'):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        :param iteration: Required - current iteration (Int)
+        :param total: Required - total iterations (Int)
+        :param prefix: Optional - prefix string (Str)
+        :param suffix: Optional - suffix string (Str)
+        :param decimals: Optional - positive number of decimals in percent complete (Int)
+        :param length: Optional - character length of bar (Int)
+        :param fill: Optional - bar fill character (Str)
+    """
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filled_length = int(length * iteration // total)
+    bar = fill * filled_length + '-' * (length - filled_length)
+    print('\r%s |%s| %s%% %s' % (prefix, bar, percent, suffix), end='\r')
+    if iteration == total:
+        print()
+
 
 def prepare_result(data):
     return {
@@ -47,11 +69,9 @@ def reset_acc(rdd):
 def get_mass(mass):
     return mass * 10**30
 
+
 def get_distance(distance):
     return distance * 3.086 * 10**16
-
-def get_time_factor():
-    return 10**16
 
 
 def calculate_forces(rdd):
@@ -62,13 +82,14 @@ def calculate_forces(rdd):
     }).collect()
 
     def calculate(source, destiny):
-        if source['x'] == destiny['x'] and source['y'] == destiny['y']:
-            return 0, 0
-
         dx = get_distance(destiny['x'] - source['x'])
         dy = get_distance(destiny['y'] - source['y'])
-        r = sqrt(pow(dx, 2) + pow(dy, 2)) * FORCE_FACTOR
-        force = ((G * source['mass'] * destiny['mass']) / pow(r, G_FACTOR)) * get_time_factor()
+
+        r = sqrt(pow(dx, 2) + pow(dy, 2))
+        if r < get_distance(MIN_DISTANCE_LIMIT):
+            return 0, 0
+
+        force = ((G * source['mass'] * destiny['mass']) / pow(r, G_FACTOR)) * FORCE_FACTOR
         return (force * dx) / r, (force * dy) / r
 
     def update_particle(row):
@@ -130,7 +151,9 @@ if __name__ == '__main__':
     data = load_data()
     result = prepare_result(data)
 
-    for i in range(1, 300):
+    frames = 1800
+    for i in range(1, frames):
+        print_progress_bar(iteration=i, total=frames, prefix='Progress:', suffix='Complete', length=50)
         rdd = sc.parallelize(data)
         rdd = reset_acc(rdd)
         rdd = calculate_forces(rdd)

@@ -12,9 +12,13 @@
                         var url = '/static/media/output-data.json';
                         var size = 1600;
 
-                        scope.fps = 25;
+                        scope.factor = 1;
                         scope.pause = true;
                         scope.maxFrame = 0;
+                        scope.updateFPS = function() {
+                            scope.fps = Math.round(25 * scope.factor);
+                        };
+                        scope.updateFPS();
 
                         function startRender() {
                             scope.pause = false;
