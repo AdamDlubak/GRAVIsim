@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<!--<nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed"
@@ -33,4 +33,84 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav>-->
+
+<script type="text/javascript">
+  $("#menu-toggle").click(function (e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("active");
+  });
+
+$(window).innerWidth(function() {
+  if ($(window).width() <= 767) {
+    $("#wrapper").removeClass("active");
+  }
+  else {
+    $("#wrapper").addClass("active");  
+  }
+});
+// For example, get window size on window resize
+$(window).resize(function() {
+  if ($(window).width() <= 767) {
+    $("#wrapper").removeClass("active");
+  }
+  else {
+    $("#wrapper").addClass("active");  
+  }
+});
+</script>
+
+  <div id="sidebar-wrapper">
+    <ul id="sidebar_menu" class="sidebar-nav">
+      <li><a id="menu-toggle" href="#"><span id="main_icon" class="glyphicon glyphicon-align-justify" ></span></a></li>
+      <li class="sidebar-brand"></li>
+    </ul>
+    <ul class="sidebar-nav" id="sidebar">
+      <li><a>Home<span class="sub_icon glyphicon glyphicon-home"></span></a></li>
+      <li><a>Administration<span class="sub_icon glyphicon glyphicon-star-empty"></span></a></li>
+      <li><a>Preference<span class="sub_icon glyphicon glyphicon-globe"></span></a></li>
+      <li><a>Calculations<span class="sub_icon glyphicon glyphicon-eye-open"></span></a></li>
+      <!--<li>Logout<span class="sub_icon glyphicon glyphicon-off"></span>/li>-->
+    </ul>
+
+    <ul class="sidebar-nav" id="sidebar" style="position: absolute; bottom: 0px;">
+<li>  
+    <div class="row">
+<a data-toggle="modal" data-target=".bs-example-modal-sm" style="background: none; border: 0px; float: none">
+
+    <div class="col-sm-2" style="padding-left: 0px;">
+    <img src="static/images/user.jpg" class="img-circle user-image" alt="Cinque Terre" width="40" height="40">
+        
+        </div>
+          <div class="col-sm-8" style="color: #BBB; font-weight: bold; font-size: 14px; padding-left: 5px; line-height: 15px;">
+              <p style="font-size: 8px; font-weight: normal;  margin: 7px 0 0 0; line-height: 0px;">Logged as:</p> <br />
+               <p style="font-size: 14px; line-height: 8px; padding-left: 10px;">Adam Dłubak</p>
+        </div>
+        <div class="col-sm-2">
+               <span class="sub_icon glyphicon glyphicon-off" style="color: rgb(153, 153, 153); padding-right: 4px;"></span>
+            
+            </div>
+        </div>
+        </a>
+         </li>
+      <li><a href="homepage">My account<span class="sub_icon glyphicon glyphicon-user"></span></a></li>
+      <li><a href="/contact">Contact with admin<span class="sub_icon glyphicon glyphicon-envelope"></span></a></li>
+      <li><a href="/about">About us<span class="sub_icon glyphicon glyphicon-bullhorn"></span></a></li>
+      
+      <li class="footer"><p></p></li>
+    </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+
+<!-- Small modal -->
+
+<div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm" >
+    <div class="modal-content" >
+      <div class="modal-header"><h4>Logout <i class="fa fa-lock"></i></h4></div>
+      <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</div>
+      <div class="modal-footer" ><a href="javascript:;" class="btn btn-primary btn-block">Logout</a></div>
+    </div>
+  </div>
+</div>

@@ -22,4 +22,7 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='index'),
     url(r'^simulate/$', TemplateView.as_view(template_name='index.html'), name='simulate'),
     url(r'^about/$', TemplateView.as_view(template_name='index.html'), name='about'),
+    url(r'^homepage/$', TemplateView.as_view(template_name='index.html'), name='homepage'),
+    url(r'^contact/$', TemplateView.as_view(template_name='index.html'), name='contact'),
+    
 ]

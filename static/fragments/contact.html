@@ -1,0 +1,188 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#contact-form').bootstrapValidator({
+            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                subject: {
+                    validators: {
+                        stringLength: {
+                            min: 5,
+                            message: 'Subject should have more than 5 characters'
+                        },
+                        notEmpty: {
+                            message: 'Please supply subject'
+                        }
+                    }
+                },
+                message: {
+                    validators: {
+                        stringLength: {
+                            min: 10,
+                            message: 'Message should have more than 10 characters'
+                        },
+                        notEmpty: {
+                            message: 'Please write message'
+                        }
+                    }
+                }
+            }
+        })
+            .on('success.form.bv', function (e) {
+                $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#contact-form').data('bootstrapValidator').resetForm();
+
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+
+                // Use Ajax to submit form data
+                $.post($form.attr('action'), $form.serialize(), function (result) {
+                    console.log(result);
+                }, 'json');
+            });
+    });
+
+</script>
+<!-- Bootstrap Form Helpers -->
+<link href="/static/styles/bootstrap-form-helpers.min.css" rel="stylesheet" media="screen">
+
+
+
+<!-- Bootstrap Form Helpers -->
+<script src="contact_form.js"></script>
+
+
+
+
+
+
+<div id="page-content-wrapper">
+    <div class="container-fluid ">
+        <div class="row margin-25">
+
+            <div class="col-sm-8 contact-form-box">
+
+                <div class="well contact-form">
+                    <p class="well lead" style="text-align: center;">Contact Form</p>
+                    <form method="post" id="contact-form" class="form-inline" role="form" data-toggle="validator">
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Priority</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon" style="width: 46px; padding: 0px;"><i class="glyphicon glyphicon-fire"></i></span>
+                                    <select class="form-control form-input">
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                        <option value="Urgent">Urgent</option>
+                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Send to</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon" style="width: 46px; padding: 0px;"><i class="glyphicon glyphicon-envelope"></i></span>
+                                    <select class="form-control form-input">
+                        <option value="adam.dlubak@gmail.com">Adam Dłubak</option>
+                        <option value="jakub.blaszczyk@gmail.com">Jakub Błaszczyk</option>
+                        <option value="artur.schulz@gmail.com">Artur Schulz</option>
+                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Topic</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                    <input name="subject" placeholder="Message Subject" class="form-control form-input" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-8 control-label">Message</label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group" style="max-width: 750px; width: 100%">
+                                    <textarea class="form-control form-input" name="message" placeholder="Message content..." rows="10" id="message"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-load btn-lg margin-25" data-loading-text="Sending...">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="col-sm-4">
+
+                <div class="well contact-form " style="min-width: 350px;">
+                    <p class="well lead" style="text-align: center;">Administrator Informations</p>
+                        <div class="row">
+
+                    <div class="col-3 col-sm-3 contact-admin-info-avatar">
+                            <img src="static/images/user.jpg" class="img-circle user-image" alt="Adam Dłubak" width="100%">
+                    </div>
+                    <div class="col-9">
+                            <h4><strong>Adam Dłubak</strong></h4>
+                            <p style="margin-top: -10px; font-size: 12px;">System Administrator</p>
+                            <p>Phone:<strong> &nbsp; +48 669 277 242</strong></p>
+                            <p>Email:<strong> &nbsp; adam.dlubak@gmail.com</strong></p>
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                    <div class="col-sm-3"  style="max-width: 200px;">
+                        <div class="row">
+                            <img src="static/images/user2.jpg" class="img-circle user-image" alt="Cinque Terre" width="100%" height="100%">
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <h4><strong>Jakub Błaszczyk</strong></h4>
+                            <p style="margin-top: -10px; font-size: 12px;">Technical Administrator</p>
+                            <p>Phone:<strong> &nbsp; &nbsp; +48 702 430 209</strong></p>
+                            <p>Email:<strong> &nbsp; &nbsp; &nbsp; jakub.blaszczyk@gmail.com</strong></p>
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3"  style="max-width: 200px;">
+                        <div class="row">
+                            <img src="static/images/user3.jpg" class="img-circle user-image" alt="Cinque Terre" width="100%" height="100%">
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <h4><strong>Artur Schulz</strong></h4>
+                            <p style="margin-top: -10px; font-size: 12px;">Technical Administrator</p>
+                            <p>Phone:<strong> &nbsp; &nbsp; +48 721 256 219</strong></p>
+                            <p>Email:<strong> &nbsp; &nbsp; &nbsp; artur.schulz@gmail.com</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+
+            </div>
+            <!-- /#page-content-wrapper -->

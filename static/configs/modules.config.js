@@ -17,6 +17,12 @@
         when('/simulate', {
             templateUrl: 'static/fragments/simulate.html',
         }).
+        when('/homepage', {
+            templateUrl: 'static/fragments/homepage.html',
+        }).
+        when('/contact', {
+            templateUrl: 'static/fragments/contact.html',
+        }).
         otherwise({
             redirectTo: '/'
         });
