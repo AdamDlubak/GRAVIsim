@@ -169,10 +169,10 @@ if __name__ == '__main__':
         .getOrCreate()
     context = spark.sparkContext
 
-    inputFile = path.join(BASE_DIR, 'static/media/input-data.json')
+    inputFile = path.join(BASE_DIR, 'static/media/input.json')
     outputFile = path.join(BASE_DIR, 'static/media/output.json')
 
-    simulation = BarnesHut(900)
+    simulation = BarnesHut(3000)
     simulation.run()
 
     spark.stop()
