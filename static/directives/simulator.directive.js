@@ -9,7 +9,7 @@
                     link: function(scope, element, attrs, controller) {
                         var canvas = element.find('canvas').get()[0];
                         var ctx = canvas.getContext('2d');
-                        var url = '/static/media/output-data.json';
+                        var url = '/static/media/output.json';
                         var size = 1600;
 
                         scope.factor = 1;
