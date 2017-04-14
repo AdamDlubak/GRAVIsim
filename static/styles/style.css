@@ -2,296 +2,181 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
 
-html {
-    overflow-y: scroll;
-}
-
 body {
     padding-top: 0px;
     padding-bottom: 0px;
-    overflow-x: hidden; 
 }
 
+/*---------------------- GENERAL ----------------------*/
 
-#success_message{ display: none; margin: 100px;}
-.form-control-feedback {
-    right: 20px;
-    line-height: 40px;
+#success_message{ 
+    display: none; 
+    margin: 100px;
 }
-#wrapper {
-     padding-left: 50px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+
+.row {
+    margin: 0px;
+    padding: 0px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin-left:0px !important;
+    margin-right:0px !important;
 }
-#wrapper #sidebar-wrapper {
-    z-index: 1000;
-    position: fixed;
-    left: 50px;
-    width: 260px;
-    height: 100%;
-    margin-left: -260px;
-    overflow-y: auto;
-    background: #222;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+
+.row .main-box {
+    width: 60%;
+    min-width: 1000px;
+    margin: 25px 15px 5px 15px;
 }
-#page-content-wrapper {
+
+/*----------------------- SITES -----------------------*/
+
+/*--------------- ABOUT US ---------------*/
+
+.about-us-site .row .main-box {
     width: 100%;
-    position: relative;
-    margin-right: 0;     
+    max-width: 1300px;
+}
+.about-us-site .row .main-box .well #info {
+    margin-top: 20px;
+    font-size: 14px;
 }
 
+/*--------------- MY ACCOUNT ---------------*/
 
-#wrapper.active {
-    padding-left: 260px;
+.my-account-site .row .main-box {
+    width: 60%;
+    max-width: 1000px;
+    min-width: 775px;
+    margin: 25px 15px 5px 15px;
+    text-align: center;
+    height: 100%;
 }
-#wrapper.active #sidebar-wrapper {
-    width: 260px;
-}
-#wrapper.active #sidebar-wrapper {
-    left: 260px;
-}
-#wrapper.active #page-content-wrapper {
-    position: relative;
-    margin-right: 0;
-}
-
-
-
-
-.row{
-    margin-left:0px;
-    margin-right:0px;
+.my-account-site .row .right-box {
+    width: 40%;
+    width: 350px;
+    margin: 25px 15px 25px 0;
+    height: 100%;
 }
 
-#wrapper .sidebar-nav > .sidebar-brand  {
-    opacity: 0;
-    height: 0px;
-    transition: all .4s ease 0s;
+/*--------------- CONTACT ---------------*/
+
+.contact-site .row .right-box {
+    width: 40%;
+    width: 440px;
+    margin: 25px 15px 25px 0;
+}
+.contact-site .row .right-box .admin-info {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.contact-site .row .right-box .admin-info .admin-image {
+    width: 110px;
+    margin-right: 20px;
+}
+.contact-site .row .right-box .admin-describtion {
+    line-height: 13px;
+    width: 256px;
 }
 
-.sidebar-nav {
-    display: block;
-    float: left;
-    width: 260px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+@media (max-width: 1754px) {
+    .row .main-box {
+        width: 80%;
+        min-width: initial;
+    }
+    .row .right-box {
+        width: 80%;
+        margin: 0 15px 25px 15px;
+    }
     
-
-
-#sidebar_menu li a, .sidebar-nav li a {
-    color: #999;
-    display: block;
-    cursor: pointer;
-    
-    float: left;
-    text-decoration: none;
-    width: 260px;
-    background: #252525;
-    border-top: 1px solid #373737;
-    border-bottom: 1px solid #1A1A1A;
-    -webkit-transition: background .5s;
-    -moz-transition: background .5s;
-    -o-transition: background .5s;
-    -ms-transition: background .5s;
-    transition: background .5s;
-        transition: all .4s ease 0s;
-}
-.sidebar_name {
-    padding-top: 25px;
-    color: #fff;
-    opacity: .7;
-}
-
-.sidebar-nav li {
-  line-height: 40px;
-  text-indent: 20px;
-}
-
-.sidebar-nav li a {
-  color: #999999;
-  display: block;
-  text-decoration: none;
-}
-.user-image {
-    margin-bottom: 10px;
-}
-
-.sidebar-nav li a:hover {
-  color: #fff;
-  background: rgba(255,255,255,0.2);
-  text-decoration: none;
-}
-
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-  text-decoration: none;
-}
-
-#wrapper.active .sidebar-nav > .sidebar-brand {
-    background-image: url(../images/logo.png);
-    background-position: top center;
-    background-repeat: no-repeat;
-
-    background-size: contain;
-
-
-    height: 50px;
-    transition: all .5s ease 0s;
-    margin-top: 35%;
-    margin-bottom: 20%;
-    opacity: 1;
-           transition: all .4s ease 0s; 
-}
-
-.sidebar-nav > .sidebar-brand a {
-  color: #999999;
-
-}
-
-.sidebar-nav > .sidebar-brand a:hover {
-  color: #fff;
-  background: none;
-}
-
-#main_icon
-{
-    float:right;
-   padding: 15px 18px 20px 0;
-}
-.sub_icon
-{
-    float:right;
-   padding-right: 18px;
-   padding-top:10px;
-}
-.content-header {
-  height: 65px;
-  line-height: 65px;
-}
-
-.content-header h1 {
-  margin: 0;
-  margin-left: 20px;
-  line-height: 65px;
-  display: inline-block;
-}
-.contact-admin-info-avatar {
-    height: 120px;
-    width: 100px;
-    padding-top: 25px;
-    vertical-align: middle;
-}
-
-@media (max-width: 1340px){
-    .contact-form-box{
+    .row .right-box .row {
+        text-align: center;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+        display: flex;
+    }
+    .row .right-box .admin-info {
+        max-width: 300px;
+        min-width: 256px;
+        text-align: center;
+    }
+    .row .right-box .admin-info .admin-image {
+        width: 100%;
+        margin: 0;
+    }
+    .row .right-box .admin-info .admin-image .user-image {
+        margin: 0;
+    }
+    .row .right-box .admin-info .admin-describtion {
         width: 100%;
     }
 }
+@media (max-width: 1440px){
 
+    /*---------------------- GENERAL ----------------------*/
+    
+    .row .main-box {
+        width: 100%;
+        min-width: initial;
+    }
+    .row .right-box {
+        width: 100%;
+        margin: 0 15px 25px 15px;
+    }
 
+    /*--------------- MY ACCOUNT ---------------*/
 
-
-.footer {
-    color: #999;
-}
-.footer p:after {
-    content: "\00a9"; 
-    margin-left: 205px;  
-    font-size: 20px;
-}
-#wrapper.active .footer p:after {
-    content: "\00a9      2017 GRAVIsim. All Right Reserved";
-    margin-left: 0px;  
-    font-size: 11px;
-}
-
-
-
-.well {
-    overflow: hidden;
-}
-
-@media (max-width:767px) {
-#wrapper.active {
-     padding-left: 50px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-#wrapper.active #sidebar-wrapper {
-    z-index: 1000;
-    position: absoulute;
-    left: 50px;
-    width: 260px;
+    .my-account-site .row .main-box {
+        width: 100%;
+        min-width: initial;
+    }
+    .my-account-site .row .right-box {
+    width: 100%;   
+    margin: 25px 15px 5px 15px;
     height: 100%;
-    margin-left: -60px;
-    overflow-y: auto;
-    background: #222;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-#wrapper.active #page-content-wrapper {
-    width: 100%;
-    position: relative;
-    margin-right: 0;     
-}
+    }
+    .my-account-site .row .right-box .row {
+        max-width: 1000px;
+        text-align: initial;
+        justify-content: initial;
+        flex-direction: row;
+        align-items: initial;
+        display: flex;
+    }
+    .my-account-site .row .right-box .row .box {
+        max-width: 493px;
+        min-width: 300px;
+        margin-left: 2%;
+        width: 48%;
+    }
 
-/*
-    #sidebar_menu li a, .sidebar-nav li a {
-    color: #999;
-    display: block;
-    float: left;
-    text-decoration: none;
-    width: 150px;
-            transition: all .4s ease 0s;
+}
+@media (max-width: 1097px) {
+
+    /*---------------------- GENERAL ----------------------*/
+
+    .row .main-box {
+        width: 100%;
+        min-width: initial;
     }
-    .sidebar-nav {
-    width: 150px;
-        transition: all .4s ease 0s;
-    }
-    #wrapper.toggled .sidebar-nav > .sidebar-brand {
-    height: 30px;
-    margin-top: 50%;
-    margin: 50% 10% 20% 10%;
-    transition: all .4s ease 0s;
+    .row .right-box {
+        width: 100%;
+        margin: 0 0px 25px 0px;
     }
 }
+@media (max-width: 915px) {
 
-/*
-@media(min-width:768px) {
-    #wrapper {
-        padding-left: 0;
+    /*--------------- MY ACCOUNT ---------------*/
+    .my-account-site .row .right-box .row .box{
+    min-width: 300px;
+    width: 100% !important;
+    max-width: initial;
+    margin-left: 0px;
     }
-
-    #wrapper.toggled {
-        padding-left: 260px;
-    }
-
-    #sidebar-wrapper {
-        width: 0;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        width: 260px;
-    }
-
-    #page-content-wrapper {
-        padding: 20px;
-        position: relative;
-    }
-
-    #wrapper.toggled #page-content-wrapper {
-        position: relative;
-        margin-right: 0;
-    }
-}*/
+}
