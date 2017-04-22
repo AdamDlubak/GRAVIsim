@@ -162,11 +162,10 @@ class BarnesHut:
 
 
 if __name__ == '__main__':
-    spark = SparkSession \
-        .builder \
-        .appName("Simulation") \
-        .config(conf=SparkConf()) \
-        .getOrCreate()
+    conf = SparkConf()
+    conf.set("spark.executor.heartbeatInterval", "3600s")
+
+    spark = SparkSession.builder.appName("Simulation").config(conf=conf).getOrCreate()
     context = spark.sparkContext
 
     inputFile = path.join(BASE_DIR, 'static/media/input.json')
