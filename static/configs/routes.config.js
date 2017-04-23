@@ -11,9 +11,9 @@
 
         $routeProvider.
         when('/', {
-            templateUrl: 'static/fragments/home.html',
-            controller: 'AuthController',
-            controllerAs: 'home'
+            templateUrl: 'static/fragments/my-dashboard.html',
+            controller: 'MydashboardController',
+            controllerAs: 'dashboard',
         }).
         when('/about', {
             templateUrl: 'static/fragments/about.html',
@@ -28,6 +28,7 @@
         when('/my-dashboard', {
             templateUrl: 'static/fragments/my-dashboard.html',
             controller: 'MydashboardController',
+            controllerAs: 'dashboard',
         }).
         when('/current-tasks', {
             templateUrl: 'static/fragments/current-tasks.html',
@@ -48,9 +49,10 @@
         when('/contact', {
             templateUrl: 'static/fragments/contact.html',
         }).
-        when('/401', {
-            templateUrl: '/static/fragments/home.html',
-
+        when('/login', {
+            templateUrl: '/static/fragments/login.html',
+            controller: 'AuthController',
+            controllerAs: 'auth',
         }).
         when('/users', {
             templateUrl: 'static/fragments/users.html',
@@ -67,12 +69,7 @@
             $rootScope.$on('$routeChangeStart', function(event, next, current){
                 if(next.$$route){
                     if(!$authentication.isAuthenticated()) {
-                        $location.url('/401');
-                    }
-                }
-                else if(next.$$route){
-                    if($authentication.isAuthenticated()) {
-                        $location.url('/my-account');
+                        $location.url('/login');
                     }
                 }
             });
