@@ -3,13 +3,17 @@
         <div class="main-box">
             <div class="well">
                 <p class="well lead text-center">Simulation Demo</p>
-                <div class="btn-group text-center" role="group" aria-label="Simulations">
-                    <button type="button" class="btn btn-default"
-                            ng-repeat="item in views track by $index"
-                            ng-click="changeTo($index)">
-                        Simulation {{ $index + 1 }}
-                    </button>
+                <div class="text-center">
+                    <div class="btn-group" role="group" aria-label="Simulations">
+                        <button type="button" class="btn btn-default"
+                                ng-repeat="item in views track by $index"
+                                ng-click="changeTo($index)">
+                            Simulation {{ $index + 1 }}
+                        </button>
+                    </div>
                 </div>
+
+                <hr/>
 
                 <simulator ng-repeat="item in views track by $index"
                            ng-if="active == $index"
