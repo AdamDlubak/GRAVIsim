@@ -1,9 +1,38 @@
 <div class="container-fluid my-account-site">
-
+    
     <div class="row">
 
         <div class="well main-box">
             <p class="well lead">List of Users</p>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Login</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Joined Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users | orderBy : 'id'">
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>20.04.2017 16:13:55</td>
+                <td>Edit   Delete</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center green-text" ng-if="!hasUsers()">
+        <h1>Hurray!</h1>
+        <h2>There are no debts!</h2>
+    </div>
         </div>
         <div class="right-box">
 

@@ -4,9 +4,24 @@
             function($scope, $http, $location, $authentication) {
                 var self = this;
 
-               $scope.user = $authentication.getUser();
+               $scope.userek = $authentication.getUser();
+
+                var api = '/api/users/';
+                
+                $scope.fetchData = function(){
+                    $http.get(api, {headers: $authentication.getHeader()}).
+                        then(function(result){
+                            $scope.users = result.data;
+                        }, function(error){
+                            console.log(error);
+                        });
+                };
+                $scope.fetchData();
 
 
+                $scope.hasUsers = function(){
+                    return ($scope.users);
+                };
 
                 $scope.register = function() {
                     $authentication

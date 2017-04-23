@@ -25,6 +25,26 @@
             templateUrl: 'static/fragments/my-account.html',
             controller: 'MyaccountController',
         }).
+        when('/my-dashboard', {
+            templateUrl: 'static/fragments/my-dashboard.html',
+            controller: 'MydashboardController',
+        }).
+        when('/current-tasks', {
+            templateUrl: 'static/fragments/current-tasks.html',
+
+        }).
+        when('/completed-tasks', {
+            templateUrl: 'static/fragments/completed-tasks.html',
+
+        }).
+        when('/order-task-with-file', {
+            templateUrl: 'static/fragments/order-task-with-file.html',
+
+        }).
+        when('/order-task-manually', {
+            templateUrl: 'static/fragments/order-task-manually.html',
+
+        }).
         when('/contact', {
             templateUrl: 'static/fragments/contact.html',
         }).

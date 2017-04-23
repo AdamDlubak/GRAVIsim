@@ -33,7 +33,16 @@ body {
     min-width: 1000px;
     margin: 25px 15px 5px 15px;
 }
-
+.table-hover > tbody > tr:hover {
+    background-color: #eee !important;
+}
+.table-hover > tbody > tr > td {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+.table-hover > thead > tr > th {
+    text-align: center !important;
+}
 /*----------------------- SITES -----------------------*/
 
 /*--------------- ABOUT US ---------------*/
