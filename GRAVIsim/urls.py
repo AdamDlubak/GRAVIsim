@@ -46,7 +46,7 @@ urlpatterns = [
     url(r'^contact/$', TemplateView.as_view(template_name='index.html'), name='contact'),
     url(r'^login/$', TemplateView.as_view(template_name='index.html'), name='login'),
     url(r'^users/$', TemplateView.as_view(template_name='index.html'), name='users'),
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name='index'),
-    url(r'^401/$', TemplateView.as_view(template_name='index.html'), name='401'),
+    url(r'^$', TemplateView.as_view(template_name='login.html'), name='index'),
+    url(r'^401/$', TemplateView.as_view(template_name='login.html'), name='401'),
 ]
 
