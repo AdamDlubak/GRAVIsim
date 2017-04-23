@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="gravisim">
-
-        <script src="/static/controllers/main.controller.js"></script>
-        <script src="/static/controllers/home.controller.js"></script>
-        <script src="/static/controllers/about.controller.js"></script>
-        <script src="/static/controllers/simulate.controller.js"></script>
 <head>
     <base href="/">
     <meta charset="utf-8">
@@ -12,18 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GRAVIsim</title>
 
-        <script src="/static/directives/header.directive.js"></script>
-        <script src="/static/directives/simulator.directive.js"></script>
-        <script src="/static/directives/logger.directive.js"></script>
-
-        <script src="/static/services/socket.service.js"></script>
-    </head>
-    <body ng-controller="MainController as main">
-        <div class="container">
-            <header></header>
-            <div ng-view></div>
-            
-            <footer></footer>
     <!-- Font files -->
     <link href="http://fonts.googleapis.com/css?family=Advent+Pro:200&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 
@@ -47,21 +30,23 @@
     <!-- Config Files -->
     <script src="/static/configs/routes.config.js"></script>    
     <script src="/static/configs/modules.config.js"></script>
-            <script src="/static/configs/filters.js"></script>
+    <script src="/static/configs/filters.js"></script>
     <script src="/static/configs/http-provider.config.js"></script>
-            <script src="/static/services/authentication.service.js"></script>
-
+	
+	<!-- Services -->
+    <script src="/static/services/authentication.service.js"></script>
+	<script src="/static/services/socket.service.js"></script>
 
     <!-- Directives -->
     <script src="/static/directives/header.directive.js"></script>
     <script src="/static/directives/simulator.directive.js"></script>
     <script src="/static/directives/myaccount.directive.js"></script>
     <script src="/static/directives/contact.directive.js"></script>
-
+    <script src="/static/directives/logger.directive.js"></script>
     <!-- Controllers -->
     <script src="/static/controllers/main.controller.js"></script>
     <script src="/static/controllers/auth.controller.js"></script>
-    
+    <script src="/static/controllers/home.controller.js"></script>
     <script src="/static/controllers/about.controller.js"></script>
     <script src="/static/controllers/simulate.controller.js"></script>
     <script src="/static/controllers/myaccount.controller.js"></script>
@@ -79,7 +64,6 @@
         <div ng-view></div>
     </div>
 </div>
-
 
 <div ng-if="!isAuthenticated()">
 <div class="login-center" ng-controller="AuthController">
