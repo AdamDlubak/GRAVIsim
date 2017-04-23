@@ -73,6 +73,37 @@ body {
     height: 100%;
 }
 
+.logger {
+    background-color: rgb(230, 230, 230);
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 15px;
+    color: rgb(30, 30, 30);
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 0.8em;
+    padding: 15px 0;
+}
+
+.logger div {
+    padding: 0 30px;
+}
+
+.logger div:hover {
+    background-color: rgba(30, 30, 30, 0.15);
+}
+
+.logger span {
+    padding: 0 5px;
+    white-space: pre-wrap;
+}
+
+.logger span:first-child {
+    font-weight: bold;
+    display: inline-block;
+    text-align: right;
+    width: 30px;
+    border-right: 2px solid rgb(120, 120, 120);
+}
+
 /*--------------- CONTACT ---------------*/
 
 .contact-site .row .right-box {

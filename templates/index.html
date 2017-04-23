@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="gravisim">
 
+        <script src="/static/controllers/main.controller.js"></script>
+        <script src="/static/controllers/home.controller.js"></script>
+        <script src="/static/controllers/about.controller.js"></script>
+        <script src="/static/controllers/simulate.controller.js"></script>
 <head>
     <base href="/">
     <meta charset="utf-8">
@@ -8,6 +12,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GRAVIsim</title>
 
+        <script src="/static/directives/header.directive.js"></script>
+        <script src="/static/directives/simulator.directive.js"></script>
+        <script src="/static/directives/logger.directive.js"></script>
+
+        <script src="/static/services/socket.service.js"></script>
+    </head>
+    <body ng-controller="MainController as main">
+        <div class="container">
+            <header></header>
+            <div ng-view></div>
+            
+            <footer></footer>
     <!-- Font files -->
     <link href="http://fonts.googleapis.com/css?family=Advent+Pro:200&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 
