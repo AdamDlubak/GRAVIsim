@@ -108,9 +108,10 @@ class ParticlesOperations:
         return rdd.map(updateParticle).cache()
 
 
-class BarnesHut:
+class Simulation:
     def __init__(self, iterations):
         self.iterations = iterations
+        print("Application ID: {}".format(context.applicationId))
 
     def run(self):
         data = self.loadData()
@@ -162,17 +163,16 @@ class BarnesHut:
 
 
 if __name__ == '__main__':
-    spark = SparkSession \
-        .builder \
-        .appName("Simulation") \
-        .config(conf=SparkConf()) \
-        .getOrCreate()
+    conf = SparkConf()
+    conf.set("spark.executor.heartbeatInterval", "3600s")
+
+    spark = SparkSession.builder.appName("Simulation").config(conf=conf).getOrCreate()
     context = spark.sparkContext
 
     inputFile = path.join(BASE_DIR, 'static/media/input.json')
     outputFile = path.join(BASE_DIR, 'static/media/output.json')
 
-    simulation = BarnesHut(3000)
+    simulation = Simulation(3000)
     simulation.run()
 
     spark.stop()

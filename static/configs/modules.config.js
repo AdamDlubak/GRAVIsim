@@ -1,6 +1,9 @@
 (function() {
+    angular.module('utils', []);
+
     angular.module('gravisim', [
-        'ngRoute', 
+        'utils',
+        'ngRoute',
         'ui.bootstrap',
     ]).
     config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
@@ -10,6 +13,7 @@
         $routeProvider.
         when('/', {
             templateUrl: 'static/fragments/home.html',
+            controller: 'HomeController',
         }).
         when('/about', {
             templateUrl: 'static/fragments/about.html',
