@@ -108,9 +108,10 @@ class ParticlesOperations:
         return rdd.map(updateParticle).cache()
 
 
-class BarnesHut:
+class Simulation:
     def __init__(self, iterations):
         self.iterations = iterations
+        print("Application ID: {}".format(context.applicationId))
 
     def run(self):
         data = self.loadData()
@@ -171,7 +172,7 @@ if __name__ == '__main__':
     inputFile = path.join(BASE_DIR, 'static/media/input.json')
     outputFile = path.join(BASE_DIR, 'static/media/output.json')
 
-    simulation = BarnesHut(3000)
+    simulation = Simulation(3000)
     simulation.run()
 
     spark.stop()

@@ -1,7 +1,7 @@
 (function(){
     "use strict";
 
-    var url = 'ws://localhost:8888';
+    var endpoint = 'ws://localhost:8888';
 
     function Socket() {
         var _this = this;
@@ -10,7 +10,7 @@
         _this.onMessageListeners = [];
 
         var connect = function(path) {
-            // var url = endpoint + '/' + path;
+            var url = endpoint + '/' + path;
 
             _this.ws = new WebSocket(url);
             _this.ws.onmessage = function(event) {
@@ -32,8 +32,6 @@
 
     angular.module('utils')
         .factory('socket', function() {
-            var socket = new Socket();
-            socket.connect();
-            return socket;
+            return new Socket();
         });
 })();
