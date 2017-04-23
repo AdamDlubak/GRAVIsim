@@ -29,7 +29,7 @@
                         .login($scope.loginData.email, $scope.loginData.password)
                         .then(function() {
                             $scope.loginError = false;
-                           window.location.replace("/my-account");
+                           window.location.replace("/my-dashboard");
                         }, function(error) {
                             $scope.loginError = true;
                         });

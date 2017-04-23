@@ -11,7 +11,7 @@
 
         $routeProvider.
         when('/', {
-            templateUrl: 'static/fragments/home.html',
+            templateUrl: 'static/fragments/my-dashboard.html',
             controller: 'AuthController',
             controllerAs: 'home'
         }).
@@ -72,7 +72,7 @@
                 }
                 else if(next.$$route){
                     if($authentication.isAuthenticated()) {
-                        $location.url('/my-account');
+                        $location.url('/my-dashboard');
                     }
                 }
             });
