@@ -8,7 +8,7 @@
 
                $scope.logout = function(){
                             $authentication.logout();
-                            window.location.replace("/401");
+                            window.location.replace("/");
                         };
             }
         ]);

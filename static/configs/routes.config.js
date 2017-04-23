@@ -11,9 +11,9 @@
 
         $routeProvider.
         when('/', {
-            templateUrl: 'static/fragments/my-dashboard.html',
-            controller: 'MydashboardController',
-            controllerAs: 'dashboard',
+            templateUrl: 'static/fragments/home.html',
+            controller: 'AuthController',
+            controllerAs: 'auth',
         }).
         when('/about', {
             templateUrl: 'static/fragments/about.html',
@@ -50,7 +50,7 @@
             templateUrl: 'static/fragments/contact.html',
         }).
         when('/login', {
-            templateUrl: '/static/fragments/login.html',
+            templateUrl: '/static/fragments/home.html',
             controller: 'AuthController',
             controllerAs: 'auth',
         }).
