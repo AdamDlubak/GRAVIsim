@@ -4,12 +4,14 @@
             function($window, $location, $http){
                 return {
                     restrict: 'E',
-                    scope: {},
+                    scope: {
+                        url: '=',
+                    },
                     templateUrl: '/static/fragments/simulator.html',
                     link: function(scope, element, attrs, controller) {
                         var canvas = element.find('canvas').get()[0];
                         var ctx = canvas.getContext('2d');
-                        var url = '/static/media/output.json';
+                        var url = '/static/media/' + scope.url;
                         var size = 1600;
 
                         scope.factor = 1;

@@ -59,6 +59,14 @@
             controller: 'UsersController',
             controllerAs: 'users'
         }).
+        when('/demo/logger', {
+            templateUrl: 'static/fragments/demo-logger.html',
+            controller: 'DemoLoggerController',
+        }).
+        when('/demo/canvas', {
+            templateUrl: 'static/fragments/demo-canvas.html',
+            controller: 'DemoCanvasController',
+        }).
         otherwise({
             redirectTo: '/'
                 });

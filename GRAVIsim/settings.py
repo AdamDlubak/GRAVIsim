@@ -46,7 +46,7 @@ REST_FRAMEWORK = {
 
 
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': timedelta(seconds=1800)
+    'JWT_EXPIRATION_DELTA': timedelta(seconds=3600)
 }
 # Application definition
 

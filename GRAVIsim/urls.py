@@ -46,6 +46,8 @@ urlpatterns = [
     url(r'^contact/$', TemplateView.as_view(template_name='index.html'), name='contact'),
     url(r'^login/$', TemplateView.as_view(template_name='index.html'), name='login'),
     url(r'^users/$', TemplateView.as_view(template_name='index.html'), name='users'),
+    url(r'^demo/logger/$', TemplateView.as_view(template_name='index.html'), name='demo-logger'),
+    url(r'^demo/canvas/$', TemplateView.as_view(template_name='index.html'), name='demo-canvas'),
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='index'),
     url(r'^401/$', TemplateView.as_view(template_name='index.html'), name='401'),
 ]
