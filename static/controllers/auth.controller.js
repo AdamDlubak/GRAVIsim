@@ -4,13 +4,8 @@
             function($scope, $http, $location, $authentication) {
                 var self = this;
                 
+                $scope.isAuthenticated = $authentication.isAuthenticated;
                 
-                
-                
-                $scope.test = 'testowa zawartosc';
-
-
-
                 $scope.loginError = false;
                 $scope.registerView = false;
                 $scope.changeButtonMsg = 'Create account';
@@ -34,7 +29,7 @@
                         .login($scope.loginData.email, $scope.loginData.password)
                         .then(function() {
                             $scope.loginError = false;
-                            $location.path('/');
+                           window.location.replace("/my-account");
                         }, function(error) {
                             $scope.loginError = true;
                         });

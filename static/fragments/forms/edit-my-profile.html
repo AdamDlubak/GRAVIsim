@@ -2,7 +2,7 @@
 <script src="/static/js/jasny-bootstrap.min.js"></script>
 <link href="/static/styles/jasny-bootstrap.min.css" rel="stylesheet">
 
-<form method="post" id="edit-profile-form" class="form-inline" role="form" data-toggle="validator">
+<div id="edit-profile-form" class="form-inline" role="form" data-toggle="validator"  ng-controller="MyaccountController">
 
   <div class="row">
 
@@ -14,7 +14,7 @@
         <div class="col-md-70 inputGroupContainer control-input">
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input name="first_name" placeholder="First Name" class="form-control form-input" type="text">
+            <input name="first_name" placeholder="{{ user.first_name }}" ng-value="user.first_name" ng-model="user.first_name" class="form-control form-input" type="text">
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@
         <div class="col-md-70 inputGroupContainer control-input">
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-tower"></i></span>
-            <input name="last_name" placeholder="Last Name" class="form-control form-input" type="text">
+            <input name="last_name" placeholder="{{ user.last_name }}" ng-value="user.last_name" ng-model="user.last_name" class="form-control form-input" type="text">
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
         <div class="col-md-70 inputGroupContainer control-input">
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-            <input name="email" placeholder="E-Mail Address" class="form-control form-input" type="text">
+            <input name="email" placeholder="{{ user.email }}" ng-value="user.email" ng-model="user.email" class="form-control form-input" type="text">
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
         <div class="col-md-70 inputGroupContainer control-input">
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-            <input name="phone" placeholder="+48 111 222 333" class="form-control form-input bfh-phone" type="text" data-format="+48 ddd-ddd-ddd">
+            <input name="phone" placeholder="{{ user.profile.phone }}" class="form-control form-input bfh-phone" type="text" data-format="+48 ddd-ddd-ddd">
           </div>
         </div>
       </div>
@@ -90,9 +90,9 @@
 
     <!-- Submit button -->
     <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-load btn-lg" data-loading-text="Updating profile...">Update Profile</button>
+      <button class="btn btn-primary btn-load btn-lg" ng-click="submit()" data-loading-text="Updating profile...">Update Profile</button>
     </div>
 
 
   </div>
-</form>
+</div>

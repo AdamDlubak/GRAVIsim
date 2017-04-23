@@ -46,7 +46,7 @@
                         password: data.password,
                         first_name: data.firstName,
                         last_name: data.lastName,
-                        account: data.account,
+                        username: data.username,
                     })
                 ).then(function(user){
                     resolve(user);
