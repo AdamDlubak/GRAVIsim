@@ -77,7 +77,7 @@
             $rootScope.$on('$routeChangeStart', function(event, next, current){
                 if(next.$$route){
                     if(!$authentication.isAuthenticated()) {
-                        $location.url('/login');
+                        $location.url('/');
                     }
                 }
             });

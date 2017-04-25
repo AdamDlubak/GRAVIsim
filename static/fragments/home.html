@@ -1,42 +1,55 @@
-<div class="login-center" ng-controller="AuthController">
 
-    <div class="container min-height" style="margin-top: 20px;">
-        <div class="logo"></div>
-        <div class="row">
+<div class="container" ng-controller="AuthController">
+    <div class="row">
 
-            <div class="login-right-box">
-                <div class="login" id="card">
-                    <div class="front signin_form">
-
-
-
-
-                        <p><b>Login Your Account</b></p>
-                        <form class="login-form">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" ng-value="loginData.email" ng-model="loginData.email" class="form-control" placeholder="Type your email">
-                                    <span class="input-group-addon">
-                                          <i class="glyphicon glyphicon-user"></i>
-                                      </span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="password" ng-value="loginData.password" ng-model="loginData.password" class="form-control" placeholder="Type your password">
-                                    <span class="input-group-addon">
-                                          <i class="glyphicon glyphicon-lock"></i>
-                                      </span>
-                                </div>
-                            </div>
-                            <div class="form-group sign-btn">
-                                <input type="submit" ng-click="login()" class="btn" value="Log in">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <div class="col-xs-offset-2 col-xs-8 
+                    col-sm-offset-2 col-sm-8
+                    col-lg-offset-0 col-lg-4
+                    top-buffer-10">
+                <div class="logo"></div>
         </div>
+
+        <div class="col-xs-12 
+                    col-sm-offset-2 col-sm-8 
+                    col-lg-offset-4 col-lg-4
+                    top-buffer-25">
+
+            <h4 class="login-header">Login Your Account</h4>
+            <form data-toggle="validator">
+
+
+
+                <div class="form-group has-feedback" >
+                    <label for="inputLogin" class="control-label">Login</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" ng-value="loginData.email" ng-model="loginData.email" pattern="^[_A-z0-9]{1,}$" class="form-control input-size"
+                            id="inputLogin" placeholder="Type login" oninvalid="this.setCustomValidity('This field cannot be empty')" required>
+                    </div>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <div class="help-block with-errors"></div>
+                </div>
+
+                <div class="form-group has-feedback">
+                    <label for="inputPassword" class="control-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" ng-value="loginData.password" ng-model="loginData.password" class="form-control input-size"
+                            id="inputPassword" placeholder="Type password" oninvalid="this.setCustomValidity('This field cannot be empty')" required >
+                    </div>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <div class="help-block with-errors"></div>
+                </div>
+
+
+                <div class="form-group">
+                    <button type="submit" ng-click="login()" class="btn button-blue btn-primary btn-block">Login</button>
+                </div>
+            </form>
+
+
+        </div>
+
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Flip/1.0.18/jquery.flip.js"></script>
+
