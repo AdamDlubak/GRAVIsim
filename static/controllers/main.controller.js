@@ -5,7 +5,7 @@
                 var self = this;
                 
                 $scope.isAuthenticated = function() {
-                    return $authentication.isAuthenticated;
+                    return $authentication.isAuthenticated();
                 };
             }
         ]);
