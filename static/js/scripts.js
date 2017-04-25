@@ -84,25 +84,3 @@
   //     });
   // });
 
-  $("#menu-toggle").click(function (e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("active");
-  });
-
-  $(window).innerWidth(function () {
-    if ($(window).width() >= 767) {
-      $("#wrapper").removeClass("active");
-    }
-    else {
-      $("#wrapper").addClass("active");
-    }
-  });
-  // For example, get window size on window resize
-  $(window).resize(function () {
-    if ($(window).width() <= 767) {
-      $("#wrapper").removeClass("active");
-    }
-    else {
-      $("#wrapper").addClass("active");
-    }
-  });

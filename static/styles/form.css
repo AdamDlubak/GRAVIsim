@@ -30,9 +30,8 @@
 .form-group label {
     font-size: 15px;
     margin-top: 10px;
-    width: auto;
-    text-align: right;    
-    padding-right: 30px;  
+    text-align: left;    
+    font-weight: normal;
 }
 
 .form-group input {
