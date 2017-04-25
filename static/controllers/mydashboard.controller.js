@@ -4,7 +4,8 @@
             function($scope, $http, $location, $authentication) {
                 var self = this;
 
-               $scope.user = $.extend({}, $authentication.getUser());
+                $scope.user = $.extend({}, $authentication.getUser());
+                $scope.filename = '';
 
                 $scope.submit = function() {
 
