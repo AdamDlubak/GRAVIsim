@@ -4,13 +4,12 @@
             function($scope, $http, $location, $authentication) {
                 var self = this;
 
-               $scope.user = $authentication.getUser();
+                $scope.user = $authentication.getUser();
 
-               $scope.logout = function(){
-                            $authentication.logout();
-                            window.location.replace("/");
-                        };
+                $scope.logout = function(){
+                    $authentication.logout();
+                    $location.path("/");
+                };
             }
         ]);
-
 })();
