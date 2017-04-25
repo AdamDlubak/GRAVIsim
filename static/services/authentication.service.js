@@ -26,7 +26,7 @@
             return user;
         };
         
-        var isAuthenticated = function(){
+        var isAuthenticated = function() {
             return is_authenticated;
         };
 
