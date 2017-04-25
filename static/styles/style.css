@@ -5,20 +5,23 @@
 body {
     font-family: 'Raleway',sans-serif;
     color: #000;
+    background-image: url(../images/pattern_bg.png);
 }
 
 /*---------------------- GENERAL ----------------------*/
 .top-buffer-10 { margin-top: 10%; }
 .top-buffer-25 { margin-top: 25%; }
-
-.button-gray { color: #333; }
+.top-buffer-25px { margin-top: 25px; }
+.left-buffer-20px { margin-left: 20px; }
+.button-gray { background-color: #333; color: #eee; }
+.button-gray:hover { background-color: #222; color: #eee; transition: 0.2s }
 
 .input-size { height: 42px; padding: 8px 12px; font-size: 14px; line-height: 1.42857143; border-radius: 4px; }
+
 #success_message{ 
     display: none; 
     margin: 100px;
 }
-
 /*.row {
     margin: 0px;
     padding: 0px;
@@ -33,21 +36,17 @@ body {
     margin-right:0px !important;
 }*/
 
-.row .main-box {
-    width: 60%;
-    min-width: 1000px;
-    margin: 25px 15px 5px 15px;
+.gravi-table > thead > tr > th {
+    text-align: center;
 }
-.table-hover > tbody > tr:hover {
-    background-color: #eee !important;
+.gravi-table > tbody > tr:hover {
+    background-color: #eee;
 }
-.table-hover > tbody > tr > td {
-    padding-top: 15px !important;
-    padding-bottom: 15px !important;
+.gravi-table > tbody > tr > td {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
-.table-hover > thead > tr > th {
-    text-align: center !important;
-}
+
 /*----------------------- SITES -----------------------*/
 
 /*--------------- ABOUT US ---------------*/
