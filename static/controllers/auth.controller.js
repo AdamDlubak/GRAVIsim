@@ -30,7 +30,7 @@
                         .login($scope.loginData.email, $scope.loginData.password)
                         .then(function() {
                             $scope.loginError = false;
-                           window.location.replace("/my-dashboard");
+                            $location.path('/my-dashboard');
                         }, function(error) {
                             $scope.loginError = true;
                         });
