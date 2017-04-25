@@ -1,4 +1,3 @@
-
 <div class="container" ng-controller="AuthController">
     <div class="row">
 
@@ -6,7 +5,7 @@
                     col-sm-offset-2 col-sm-8
                     col-lg-offset-0 col-lg-4
                     top-buffer-10">
-                <div class="logo"></div>
+            <div class="logo"></div>
         </div>
 
         <div class="col-xs-12 
@@ -19,12 +18,13 @@
 
 
 
-                <div class="form-group has-feedback" >
+                <div class="form-group has-feedback">
                     <label for="inputLogin" class="control-label">Login</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <input type="text" ng-value="loginData.email" ng-model="loginData.email" pattern="^[_A-z0-9]{1,}$" class="form-control input-size"
-                            id="inputLogin" placeholder="Type login" oninvalid="this.setCustomValidity('This field cannot be empty')" required>
+                            id="inputLogin" placeholder="Type login" oninvalid="this.setCustomValidity('This field cannot be empty')"
+                            required>
                     </div>
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                     <div class="help-block with-errors"></div>
@@ -34,8 +34,8 @@
                     <label for="inputPassword" class="control-label">Password</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="password" ng-value="loginData.password" ng-model="loginData.password" class="form-control input-size"
-                            id="inputPassword" placeholder="Type password" oninvalid="this.setCustomValidity('This field cannot be empty')" required >
+                        <input type="password" ng-value="loginData.password" ng-model="loginData.password" class="form-control input-size" id="inputPassword"
+                            placeholder="Type password" oninvalid="this.setCustomValidity('This field cannot be empty')" required>
                     </div>
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                     <div class="help-block with-errors"></div>
@@ -52,4 +52,3 @@
 
     </div>
 </div>
-
