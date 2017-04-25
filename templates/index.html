@@ -58,17 +58,17 @@
 </head>
 
 <body ng-controller="MainController as main">
-
+<div class="site-bg-index">
     <div ng-if="isAuthenticated()">
         <div id="wrapper" class="active">
             <header></header>
             <div ng-view></div>
         </div>
     </div>
+</div>
+    <div class="site-bg-login" ng-if="!isAuthenticated()">
 
-    <div ng-if="!isAuthenticated()">
-
-<div class="container" ng-controller="AuthController">
+<div class="container" ng-controller="AuthController" >
     <div class="row">
 
         <div class="col-xs-offset-2 col-xs-8 
@@ -124,6 +124,7 @@
 </div>
 
     </div>
+
 </body>
 
 
