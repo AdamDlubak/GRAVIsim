@@ -4,7 +4,9 @@
             function($scope, $http, $location, $authentication) {
                 var self = this;
                 
-                $scope.isAuthenticated = $authentication.isAuthenticated;
+                $scope.isAuthenticated = function() {
+                    return $authentication.isAuthenticated;
+                };
             }
         ]);
 })();

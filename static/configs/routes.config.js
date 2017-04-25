@@ -1,6 +1,7 @@
 (function(){
     angular.module('gravisim')
-    .config(['$routeProvider', function($routeProvider) {
+    .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+        $locationProvider.html5Mode(true);
         $routeProvider.
             when('/', {
                 templateUrl: 'static/fragments/home.html',
@@ -61,10 +62,9 @@
             }).
             otherwise({
                 redirectTo: '/'
-                    });
-            }
-    ]).
-    run(['$rootScope', '$location', 'authentication',
+            });
+    }])
+    .run(['$rootScope', '$location', 'authentication',
         function($rootScope, $location, $authentication){
             $rootScope.$on('$routeChangeStart', function(event, next, current){
                 if(next.$$route){
@@ -74,5 +74,4 @@
                 }
             });
         }]);
-    
 })();
