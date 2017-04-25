@@ -8,13 +8,19 @@ body {
 }
 
 /*---------------------- GENERAL ----------------------*/
+.top-buffer-10 { margin-top: 10%; }
+.top-buffer-25 { margin-top: 25%; }
 
+.button-gray { color: #333; }
+.button-blue {background: #1b5a7c; border-radius: 4px; height: 42px; padding: 8px 12px; font-weight: bold;}
+.button-blue:hover { text-decoration: underline; background: #144b68; transition-duration: 0.2s; }
+.input-size { height: 42px; padding: 8px 12px; font-size: 14px; line-height: 1.42857143; border-radius: 4px; }
 #success_message{ 
     display: none; 
     margin: 100px;
 }
 
-.row {
+/*.row {
     margin: 0px;
     padding: 0px;
     display: -webkit-box;
@@ -26,7 +32,7 @@ body {
     flex-flow: row wrap;
     margin-left:0px !important;
     margin-right:0px !important;
-}
+}*/
 
 .row .main-box {
     width: 60%;

@@ -9,6 +9,7 @@
                 $scope.loginError = false;
                 $scope.registerView = false;
                 $scope.changeButtonMsg = 'Create account';
+            
 
                 var resetData = function() {
                     $scope.registerData = {};
@@ -56,6 +57,7 @@
                     $scope.loginError = false;
                     resetData();
                 }
+
             }
         ]);
 })();
