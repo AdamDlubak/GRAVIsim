@@ -3,8 +3,8 @@
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
 
 body {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    font-family: 'Raleway',sans-serif;
+    color: #000;
 }
 
 /*---------------------- GENERAL ----------------------*/
@@ -12,8 +12,7 @@ body {
 .top-buffer-25 { margin-top: 25%; }
 
 .button-gray { color: #333; }
-.button-blue {background: #1b5a7c; border-radius: 4px; height: 42px; padding: 8px 12px; font-weight: bold;}
-.button-blue:hover { text-decoration: underline; background: #144b68; transition-duration: 0.2s; }
+
 .input-size { height: 42px; padding: 8px 12px; font-size: 14px; line-height: 1.42857143; border-radius: 4px; }
 #success_message{ 
     display: none; 
