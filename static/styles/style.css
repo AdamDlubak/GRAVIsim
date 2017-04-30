@@ -1,16 +1,82 @@
-html {
-    overflow-y: scroll;
-}
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300,100);
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
 
 body {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+/*---------------------- GENERAL ----------------------*/
+
+#success_message{ 
+    display: none; 
+    margin: 100px;
+}
+
+.row {
+    margin: 0px;
+    padding: 0px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin-left:0px !important;
+    margin-right:0px !important;
+}
+
+.row .main-box {
+    width: 60%;
+    min-width: 1000px;
+    margin: 25px 15px 5px 15px;
+}
+.table-hover > tbody > tr:hover {
+    background-color: #eee !important;
+}
+.table-hover > tbody > tr > td {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+.table-hover > thead > tr > th {
+    text-align: center !important;
+}
+/*----------------------- SITES -----------------------*/
+
+/*--------------- ABOUT US ---------------*/
+
+.about-us-site .row .main-box {
+    width: 100%;
+    max-width: 1300px;
+}
+.about-us-site .row .main-box .well #info {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+/*--------------- MY ACCOUNT ---------------*/
+
+.my-account-site .row .main-box {
+    width: 60%;
+    max-width: 1000px;
+    min-width: 775px;
+    margin: 25px 15px 5px 15px;
+    text-align: center;
+    height: 100%;
+}
+.my-account-site .row .right-box {
+    width: 40%;
+    width: 350px;
+    margin: 25px 15px 25px 0;
+    height: 100%;
 }
 
 .simulator {
     position: relative;
-    width: 600px;
-    height: 600px;
+    width: 60%;
+    height: 60%;
     margin: auto;
 }
 
@@ -49,4 +115,121 @@ body {
     text-align: right;
     width: 30px;
     border-right: 2px solid rgb(120, 120, 120);
+}
+
+/*--------------- CONTACT ---------------*/
+
+.contact-site .row .right-box {
+    width: 40%;
+    width: 440px;
+    margin: 25px 15px 25px 0;
+}
+.contact-site .row .right-box .admin-info {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.contact-site .row .right-box .admin-info .admin-image {
+    width: 110px;
+    margin-right: 20px;
+}
+.contact-site .row .right-box .admin-describtion {
+    line-height: 13px;
+    width: 256px;
+}
+
+@media (max-width: 1754px) {
+    .row .main-box {
+        width: 80%;
+        min-width: initial;
+    }
+    .row .right-box {
+        width: 80%;
+        margin: 0 15px 25px 15px;
+    }
+    
+    .row .right-box .row {
+        text-align: center;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+        display: flex;
+    }
+    .row .right-box .admin-info {
+        max-width: 300px;
+        min-width: 256px;
+        text-align: center;
+    }
+    .row .right-box .admin-info .admin-image {
+        width: 100%;
+        margin: 0;
+    }
+    .row .right-box .admin-info .admin-image .user-image {
+        margin: 0;
+    }
+    .row .right-box .admin-info .admin-describtion {
+        width: 100%;
+    }
+}
+@media (max-width: 1440px){
+
+    /*---------------------- GENERAL ----------------------*/
+    
+    .row .main-box {
+        width: 100%;
+        min-width: initial;
+    }
+    .row .right-box {
+        width: 100%;
+        margin: 0 15px 25px 15px;
+    }
+
+    /*--------------- MY ACCOUNT ---------------*/
+
+    .my-account-site .row .main-box {
+        width: 100%;
+        min-width: initial;
+    }
+    .my-account-site .row .right-box {
+    width: 100%;   
+    margin: 25px 15px 5px 15px;
+    height: 100%;
+    }
+    .my-account-site .row .right-box .row {
+        max-width: 1000px;
+        text-align: initial;
+        justify-content: initial;
+        flex-direction: row;
+        align-items: initial;
+        display: flex;
+    }
+    .my-account-site .row .right-box .row .box {
+        max-width: 493px;
+        min-width: 300px;
+        margin-left: 2%;
+        width: 48%;
+    }
+
+}
+@media (max-width: 1097px) {
+
+    /*---------------------- GENERAL ----------------------*/
+
+    .row .main-box {
+        width: 100%;
+        min-width: initial;
+    }
+    .row .right-box {
+        width: 100%;
+        margin: 0 0px 25px 0px;
+    }
+}
+@media (max-width: 915px) {
+
+    /*--------------- MY ACCOUNT ---------------*/
+    .my-account-site .row .right-box .row .box{
+    min-width: 300px;
+    width: 100% !important;
+    max-width: initial;
+    margin-left: 0px;
+    }
 }

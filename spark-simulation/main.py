@@ -112,6 +112,9 @@ class Simulation:
     def __init__(self, iterations):
         self.iterations = iterations
         print("Application ID: {}".format(context.applicationId))
+        print("Method: Exact Algorithm")
+        print("Animation duration: {} frames.".format(iterations))
+        print("---------------------------------")
 
     def run(self):
         data = self.loadData()
@@ -130,6 +133,7 @@ class Simulation:
             result['timeline'].append(frame)
 
         self.saveData(result)
+        print("Simulation Completed Successfully")
 
     def normalize(self, rdd):
         return rdd.map(lambda p: {
@@ -172,7 +176,7 @@ if __name__ == '__main__':
     inputFile = path.join(BASE_DIR, 'static/media/input.json')
     outputFile = path.join(BASE_DIR, 'static/media/output.json')
 
-    simulation = Simulation(3000)
+    simulation = Simulation(2000)
     simulation.run()
 
     spark.stop()

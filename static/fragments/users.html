@@ -1,0 +1,90 @@
+<div class="container-fluid my-account-site">
+    
+    <div class="row">
+
+        <div class="well main-box">
+            <p class="well lead">List of Users</p>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Login</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Joined Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users | orderBy : 'id'">
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>20.04.2017 16:13:55</td>
+                <td>Edit   Delete</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center green-text" ng-if="!hasUsers()">
+        <h1>Hurray!</h1>
+        <h2>There are no debts!</h2>
+    </div>
+        </div>
+        <div class="right-box">
+
+            <div class="row">
+
+                <div class="well box">
+                    <p class="well lead text-center">Add New User</p>
+
+                    <form method="post" id="login-form" class="form-inline">
+
+                        <div class="form-group" style="margin-top: 0px;">
+                            <label for="login">Login</label>
+                            <input name="login" class="form-input form-control" ng-value="registerData.username" ng-model="registerData.username" type="text" id="username" placeholder="Insert login" />
+                        </div>
+
+                        <div class="form-group" style="margin-top: 0px;">
+                            <label for="email">E-mail</label>
+                            <input name="email" class="form-input form-control" ng-model="registerData.email" ng-value="registerData.email" type="text" id="email" placeholder="Insert e-mail" />
+                        </div>
+
+                        <div class="form-group" style="margin-top: 0px;">
+                            <label for="first_name">First Name</label>
+                            <input name="first_name" class="form-input form-control" ng-model="registerData.firstName" ng-value="registerData.firstName" type="text" id="first_name" placeholder="Insert first name" />
+                        </div>
+
+                        <div class="form-group" style="margin-top: 0px;">
+                            <label for="last_name">Last Name</label>
+                            <input name="last_name" class="form-input form-control" ng-model="registerData.lastName" ng-value="registerData.lastName" type="text" id="last_name" placeholder="Insert last name" />
+                        </div>
+
+                        <div class="form-group" style="margin-top: 0px;">
+                            <label for="password">Password</label>
+                            <input name="password" class="form-input form-control" ng-model="registerData.password" ng-value="registerData.password" type="password" id="password" placeholder="Insert password" />
+                        </div>
+
+                        <div class="form-group" style="margin-top: 0px;">
+                            <label for="password2">Repeat Password</label>
+                            <input name="password2" class="form-input form-control" ng-model="registerData.password2" ng-value="registerData.password2" type="password" id="password2" placeholder="Repeat password" />
+                        </div>
+                        <!-- Submit button -->
+                        <div class="form-group">
+                            <button ng-click="register()" class="btn btn-primary btn-load btn-lg" data-loading-text="Creating User...">Create User</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

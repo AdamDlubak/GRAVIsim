@@ -1,0 +1,163 @@
+<script>
+    $(function () {
+
+        // We can attach the `fileselect` event to all file inputs on the page
+        $(document).on('change', ':file', function () {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+
+        // We can watch for our custom `fileselect` event like this
+        $(document).ready(function () {
+            $(':file').on('fileselect', function (event, numFiles, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+
+            });
+        });
+
+    });
+
+</script>
+
+<div class="container-fluid my-account-site">
+
+    <div class="row">
+
+        <div class="well main-box">
+            <p class="well lead">My Current Tasks</p>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Action Time</th>
+                        <th>Ordered</th>
+                        <th>Started</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr ng-repeat="user in users">-->
+                    <tr>
+                        <td>1</td>
+                        <td>Badanie gwiazdozbioru Oranzy</td>
+                        <td>3:14:65</td>
+                        <td>20.04.2017 13:45:43</td>
+                        <td>20.04.2017 14:15:45</td>
+                        <td style="color: green; font-weight: bold;">Active</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Badanie gwiazdozbioru Słonia</td>
+                        <td>3:14:65</td>
+                        <td>20.04.2017 13:45:43</td>
+                        <td>20.04.2017 14:15:45</td>
+                        <td style="color: green; font-weight: bold;">Active</td>
+                    </tr>                    
+                    <tr>
+                        <td>3</td>
+                        <td>Badanie gwiazdozbioru Tygrysa</td>
+                        <td>3:14:65</td>
+                        <td>20.04.2017 13:45:43</td>
+                        <td>20.04.2017 14:15:45</td>
+                        <td style="color: green; font-weight: bold;">Active</td>                        
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Kolonizacja Marsa</td>
+                        <td>3:14:65</td>
+                        <td>20.04.2017 13:45:43</td>
+                        <td>20.04.2017 14:15:45</td>
+                        <td style="color: orange; font-weight: bold;">Paused</td>  
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Badanie Drogi Mlecznej</td>
+                        <td>3:14:65</td>
+                        <td>20.04.2017 13:45:43</td>
+                        <td>20.04.2017 14:15:45</td>
+                        <td style="color: green; font-weight: bold;">Active</td>
+                    </tr>                                        
+
+                </tbody>
+            </table>
+
+            <div class="well main-box" style="width: 100%">
+                <p class="well lead">Demo</p>
+                <div class="text-center" aria-label="Demo">
+                    <a href="/demo/logger" class="btn btn-primary btn-lg">Monitor</a>
+                    <a href="/demo/canvas" class="btn btn-primary btn-lg">Simulation</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-box">
+
+            <div class="row">
+
+                <div class="well box">
+                    <p class="well lead text-center">Order Task with File</p>
+
+                    <form method="post" id="password-form" class="form-inline">
+
+                        <h4>Upload file with data</h4>
+                        <div class="input-group">
+                            <label class="input-group-btn">
+                    <span class="btn btn-primary">
+                        Browse&hellip; <input type="file" class="form-input form-control" style="display: none;">
+                    </span>
+                </label>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+
+                        <!-- Text input -->
+                        <div class="form-group" style="margin-top: 0px;">
+                            <label for="title">Title</label>
+                            <input name="title" class="form-input form-control" type="text" value="" id="title" placeholder="Title of task" />
+                        </div>
+
+                        <!-- Text input -->
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control form-input" name="description" placeholder="Description..." rows="4" id="description"></textarea>
+
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-load btn-lg" data-loading-text="password...">Order Task</button>
+                        </div>
+                    </form>
+                </div>
+
+
+
+                <div class="well box">
+                    <p class="well lead text-center" style="margin-bottom: 0px;">Order Task Manually</p>
+
+                    <!-- Submit button -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-load btn-lg" data-loading-text=" password...">Order Task</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

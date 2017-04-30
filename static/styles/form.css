@@ -1,0 +1,115 @@
+.box-margin {
+    margin: 25px 15px 0 15px;
+}
+
+.form-group {
+    display: inline-block;  
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.form-group .control-label {
+    min-width: 120px;
+}
+
+.form-group .control-input {
+    min-width: 300px;
+}
+
+.form-group .input-group {
+    max-width: 300px;
+    width: 100%;
+}
+.form-input {
+    height: 40px;
+    padding: 10px 16px;
+    font-size: 15px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #333 !important;
+}
+
+.photo-thumbnail {
+    width: 190px; 
+    height: 190px; 
+    border-radius: 50%;
+}
+
+.fileinput .thumbnail > img {
+    border-radius: 50%;
+}
+
+.form-group label {
+    font-size: 15px;
+    margin-top: 10px;
+    width: auto;
+    text-align: right;    
+    padding-right: 30px;  
+}
+
+.form-group input {
+    max-width: 100%;
+    width: 100% !important;    
+}
+
+.form-group textarea {
+    max-width: 750px;
+    width: 100% !important;    
+}
+
+.form-group button {
+    width: 100%;    
+}
+
+.max-width-400 {
+    max-width: 400px;
+}
+/* Stron kontakt*/
+
+@media (max-width: 1661px){
+    .max-width-400 {
+        max-width: none;
+    }
+}
+
+@media (max-width: 1097px) {
+    .col-md-70 {
+        width: 100% !important;
+    }
+    .max-width-400 {
+        max-width: 100%;
+    } 
+    .form-group{
+        margin-top: 10px;
+    }
+    .input-group{
+        max-width: none !important;
+    }
+    .form-group label {
+        text-align: left;
+        width: 100% !important;   
+    }
+    .form-group .control-input {
+        min-width: none !important;
+    }  
+} 
+
+@media (max-width:767px) {
+    .input-group {
+        max-width: 100%;
+    }
+    .form-group{
+         margin-top: 0px;
+         margin-bottom: 0px;
+     }
+    .form-group input {
+        max-width: 100%;
+    }
+    .form-group button {
+        margin-top: 10px;
+    }
+}
