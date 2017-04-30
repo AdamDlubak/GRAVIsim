@@ -2,6 +2,7 @@ from __future__ import print_function
 from os import path
 import json
 from math import sqrt, pow
+from functools import reduce
 from pyspark.sql import SparkSession
 from pyspark.conf import SparkConf
 
@@ -159,7 +160,8 @@ class Simulation:
 
     def saveData(self, result):
         with open(outputFile, 'w') as file:
-            json.dump(result, file)
+            resultJson = json.dumps(dict(result), default=lambda x: list(x))
+            file.write(resultJson)
 
     def saveStep(self, rdd):
         frame = rdd.map(lambda row: [row['x'], row['y']])
@@ -176,7 +178,7 @@ if __name__ == '__main__':
     inputFile = path.join(BASE_DIR, 'static/media/input.json')
     outputFile = path.join(BASE_DIR, 'static/media/output.json')
 
-    simulation = Simulation(2000)
+    simulation = Simulation(100)
     simulation.run()
 
     spark.stop()
