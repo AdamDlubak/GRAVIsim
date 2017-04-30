@@ -43,7 +43,13 @@ class Command(BaseCommand):
         self.process_job(instance, *args, **options)
 
     def process_job(self, instance, *args, **options):
-        command = CMD.format(options['master'], SIMULATION_FILE)
+        simulation = ' '.join([
+            SIMULATION_FILE,
+            str(instance.id),
+            str(instance.iterations),
+            instance.inputFile
+        ])
+        command = CMD.format(options['master'], simulation)
         path = "{}/{}.log".format(LOGS_DIR, instance.id)
         with open(path, 'wb') as log:
             p = Popen(command, stdout=log, stderr=log, shell=True)

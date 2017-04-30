@@ -10,7 +10,7 @@ LOGS_DIR = os.path.join(BASE_DIR, 'spark-simulation/logs')
 
 
 class Command(BaseCommand):
-    help = 'Apache Spark Job Scheduler'
+    help = 'WebSockets Server'
 
     def log(self, msg):
         now = datetime.now().strftime("%d/%b/%Y %H:%M:%S")
