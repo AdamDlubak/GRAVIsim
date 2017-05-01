@@ -6,6 +6,7 @@ SparkJobStates = {
     'WAITING': '0',
     'RUNNING': '1',
     'FINISHED': '2',
+    'SUSPENDED': '3',
 }
 
 class SparkJob(models.Model):
@@ -16,8 +17,8 @@ class SparkJob(models.Model):
     author = models.ForeignKey(User)
     state = models.CharField(max_length=1, choices=STATE_TYPES)
     priority = models.SmallIntegerField(default=5)
-    iterations = models.IntegerField(default=100)
-    inputFile = models.CharField(max_length=80, default='input.json')
+    iterations = models.IntegerField()
+    inputFile = models.CharField(max_length=80)
     created = models.DateTimeField(default=datetime.now)
     started = models.DateTimeField(blank=True, null=True)
     finished = models.DateTimeField(blank=True, null=True)

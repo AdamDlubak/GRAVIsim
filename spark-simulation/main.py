@@ -191,7 +191,6 @@ if __name__ == '__main__':
     context = spark.sparkContext
 
     inputFile = path.join(INPUT_DIR, kwargs['input'])
-    # inputFile = path.join(INPUT_DIR, '{}.json'.format(kwargs['id']))
     outputFile = path.join(OUTPUT_DIR, '{}.json'.format(kwargs['id']))
 
     simulation = Simulation(kwargs['iterations'])
