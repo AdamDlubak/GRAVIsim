@@ -2,6 +2,24 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
 
+
+
+.col-fixed-240{
+    width:240px;
+    background:#333;
+    position:fixed;
+    height:100%;
+    z-index:1;
+    margin-left: 0px;
+}
+
+.col-offset-400{
+    padding-left:0;
+    z-index:0;
+    position: fixed;
+    height: 100%;
+}
+
 body {
     font-family: 'Raleway',sans-serif;
     color: #000;
