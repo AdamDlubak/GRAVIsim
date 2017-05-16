@@ -1,11 +1,15 @@
 from __future__ import print_function
 from os import path
+import sys
 import json
 from math import sqrt, pow
+from functools import reduce
 from pyspark.sql import SparkSession
 from pyspark.conf import SparkConf
 
 BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
+INPUT_DIR = path.join(BASE_DIR, 'static/media/input')
+OUTPUT_DIR = path.join(BASE_DIR, 'static/media/output')
 
 class ProgressBar:
     def __init__(self, prefix='', suffix='', decimals=1, length=100, fill='#'):
@@ -159,24 +163,37 @@ class Simulation:
 
     def saveData(self, result):
         with open(outputFile, 'w') as file:
-            json.dump(result, file)
+            resultJson = json.dumps(dict(result), default=lambda x: list(x))
+            file.write(resultJson)
 
     def saveStep(self, rdd):
         frame = rdd.map(lambda row: [row['x'], row['y']])
         return frame.collect(), rdd.collect()
 
 
+def get_args():
+    if len(sys.argv) < 4:
+        print('main.py <job-id> <length-of-simulation> <source-filename>')
+        sys.exit(2)
+    return {
+        'id': int(sys.argv[1]),
+        'iterations': int(sys.argv[2]),
+        'input': sys.argv[3],
+    }
+
+
 if __name__ == '__main__':
+    kwargs = get_args()
     conf = SparkConf()
     conf.set("spark.executor.heartbeatInterval", "3600s")
 
     spark = SparkSession.builder.appName("Simulation").config(conf=conf).getOrCreate()
     context = spark.sparkContext
 
-    inputFile = path.join(BASE_DIR, 'static/media/input.json')
-    outputFile = path.join(BASE_DIR, 'static/media/output.json')
+    inputFile = path.join(INPUT_DIR, kwargs['input'])
+    outputFile = path.join(OUTPUT_DIR, '{}.json'.format(kwargs['id']))
 
-    simulation = Simulation(2000)
+    simulation = Simulation(kwargs['iterations'])
     simulation.run()
 
     spark.stop()
