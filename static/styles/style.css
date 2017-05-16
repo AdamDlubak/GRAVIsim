@@ -117,6 +117,10 @@ body {
     border-right: 2px solid rgb(120, 120, 120);
 }
 
+.logger span.bold {
+    font-weight: bold;
+}
+
 /*--------------- CONTACT ---------------*/
 
 .contact-site .row .right-box {
