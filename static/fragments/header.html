@@ -1,32 +1,9 @@
-<script>
-    $("#menu-toggle").click(function (e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("active");
-  });
-
-  $(window).innerWidth(function () {
-    if ($(window).width() >= 767) {
-      $("#wrapper").removeClass("active");
-    }
-    else {
-      $("#wrapper").addClass("active");
-    }
-  });
-  // For example, get window size on window resize
-  $(window).resize(function () {
-    if ($(window).width() <= 767) {
-      $("#wrapper").removeClass("active");
-    }
-    else {
-      $("#wrapper").addClass("active");
-    }
-  });
-  </script>
-
-  
+ 
 <div id="sidebar-wrapper"  ng-controller="HeaderController">
   <ul id="sidebar_menu" class="sidebar-nav">
-    <li><a id="menu-toggle" href="#"><span id="main_icon" class="glyphicon glyphicon-align-justify" ></span></a></li>
+
+        <li><span id="main_icon" onclick="whichButton(this)"  style="margin-left: 200px;" class="glyphicon glyphicon-align-justify"></span></li>
+    <!--<a id="menu-toggle" href="#"><span id="main_icon" class="glyphicon glyphicon-align-justify" ></span></a>-->
     <li class="sidebar-brand"></li>
   </ul>
   <ul class="sidebar-nav" id="sidebar">

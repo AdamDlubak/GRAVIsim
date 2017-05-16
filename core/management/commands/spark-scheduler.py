@@ -8,9 +8,9 @@ from core.models import SparkJobStates, SparkJob
 SLEEP_DELAY = 5
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(THIS_DIR)))
-LOGS_DIR = os.path.join(BASE_DIR, 'spark-simulation/logs')
-SIMULATION_FILE = os.path.join(BASE_DIR, 'spark-simulation/main.py')
-CMD = "spark-submit --master '{}' {}"
+LOGS_DIR = os.path.join(BASE_DIR, 'spark-simulation', 'logs')
+SIMULATION_FILE = os.path.join(BASE_DIR, 'spark-simulation', 'main.py')
+CMD = "spark-submit --verbose --master {} {}"
 
 
 class Command(BaseCommand):
@@ -50,7 +50,7 @@ class Command(BaseCommand):
             instance.inputFile
         ])
         command = CMD.format(options['master'], simulation)
-        path = "{}/{}.log".format(LOGS_DIR, instance.id)
+        path =  os.path.join(LOGS_DIR, "{}.log".format(instance.id))
         with open(path, 'wb') as log:
             p = Popen(command, stdout=log, stderr=log, shell=True)
             p.wait()
