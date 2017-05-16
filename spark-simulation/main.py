@@ -3,6 +3,7 @@ from os import path
 import sys
 import json
 from math import sqrt, pow
+from datetime import datetime, timedelta
 from functools import reduce
 from pyspark.sql import SparkSession
 from pyspark.conf import SparkConf
@@ -27,18 +28,29 @@ class ProgressBar:
         self.decimals = decimals
         self.length = length
         self.fill = fill
+        self.start = datetime.now()
 
     def print(self, step, total):
         """
         Call in a loop to print terminal progress bar
         @params:
-            :param iteration: Required - current iteration (Int)
+            :param step: Required - current iteration (Int)
             :param total: Required - total iterations (Int)
         """
-        percent = ("{0:." + str(self.decimals) + "f}").format(100 * (step / float(total)))
+        progress = float(step) / float(total)
+        remain = 1 - progress
+        elapsed = datetime.now() - self.start
+        eta = round((elapsed.total_seconds() * remain) / progress)
+        percent = ("{0:." + str(self.decimals) + "f}").format(100 * progress)
         filled_length = int(self.length * step // total)
         bar = self.fill * filled_length + '-' * (self.length - filled_length)
-        print('\r%s |%s| %s%% %s' % (self.prefix, bar, percent, self.suffix), end='\r')
+        print('\r%s |%s| %s%% %s (ETA: %s)' % (
+            self.prefix,
+            bar,
+            percent,
+            self.suffix,
+            timedelta(seconds=eta)
+        ), end='\r')
         if step == total:
             print()
 
@@ -136,6 +148,7 @@ class Simulation:
             frame, data = self.saveStep(rdd)
             result['timeline'].append(frame)
 
+        progressBar.print(self.iterations, self.iterations)
         self.saveData(result)
         print("$[S]Simulation Completed Successfully")
 
@@ -157,8 +170,14 @@ class Simulation:
 
     def prepareResult(self, data):
         return {
-            'particles': map(lambda p: {'mass': p['mass']}, data),
-            'timeline': [map(lambda p: [p['x'], p['y']], data)],
+            'particles': map(lambda p: {
+                'mass': p['mass'],
+                'colour': p['colour'],
+            }, data),
+            'timeline': [map(lambda p: [
+                p['x'],
+                p['y']
+            ], data)],
         }
 
     def saveData(self, result):

@@ -54,10 +54,9 @@
                             ctx.lineTo(size / 2, size);
                             ctx.stroke();
 
-                            ctx.fillStyle = 'rgb(255, 255, 255)';
-
                             var timeline = scope.data.timeline[frame];
                             timeline.forEach(function(position, index) {
+                                ctx.fillStyle = '#' + scope.data.particles[index].colour;
                                 ctx.beginPath();
                                 ctx.arc(position[0] + size / 2, position[1] + size / 2,
                                         scope.data.particles[index].mass / 2,
