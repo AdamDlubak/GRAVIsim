@@ -34,6 +34,8 @@
             }).
             when('/order-task', {
                 templateUrl: 'static/fragments/order-task.html',
+                controller: 'OrderTaskController',
+                controllerAs: 'ordertask'
 
             }).
             when('/order-task-manually', {

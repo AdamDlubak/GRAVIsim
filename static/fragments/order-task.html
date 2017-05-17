@@ -2,29 +2,29 @@
     <div class="well">
         <p class="well lead text-center">Order Task Using File</p>
 
-        <form method="post" id="order-task">
+        <form  method="POST" enctype="multipart/form-data" id="order-task">
 
-
+<input name="csrfmiddlewaretoken" value="gGyyccVw03FUDOsZPQK3xF9Fj6VazZCdbV4YKp9KLpBJQqzMhyHsSoLm5pE3JiJF" type="hidden">
 
             <!-- Text input -->
             <div class="form-group" style="margin-top: 0px;">
                 <label for="title">Title</label>
-                <input name="title" class="input-size form-control" type="text" value="" id="title" placeholder="Title of task" />
+                <input name="name" class="input-size form-control" type="text" ng-value="taskData.name" ng-model="taskData.name" id="name" placeholder="Title of task" />
             </div>
 
             <!-- Text input -->
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control input-size" name="description" placeholder="Description..." rows="4" id="description"></textarea>
+                <textarea class="form-control input-size" name="description" ng-value="taskData.description" ng-model="taskData.description" placeholder="Description..." rows="4" id="description"></textarea>
             </div>
 
             <!-- Text input -->
             <div class="form-group">
-                <label for="description">File with simulation</label>
+                <label for="inputFile">File with simulation</label>
                 <div class="input-group">
                     <label class="input-group-btn">
                             <span class="btn button-gray">
-                                Browse&hellip; <input type="file" class="input-size form-control" style="display: none;" ng-model="filepath">
+                                Browse&hellip; <input type="file" class="input-size form-control" ng-value="taskData.inputFile" ng-model="taskData.inputFile" style="display: none;" name="inputFile" ng-model="filepath">
                             </span>
                         </label>
                     <input type="text" class="form-control" readonly ng-value="filename">
@@ -33,10 +33,10 @@
 
             <!-- Text input -->
             <div class="form-group" style="margin-top: 0px;">
-                <label for="title">Iterations</label>
-                <input type="range" name="amountRange" style="color: red" min="0" max="10000" value="0" oninput="this.form.amountInput.value=this.value"
+                <label for="iterations">Iterations</label>
+                <input type="range" name="amountRange" style="color: red" min="0" max="10000" value="0" oninput="this.form.iterations.value=this.value"
                 />
-                <input type="text" name="amountInput" class="form-control input-size" min="0" max="10000" value="0" oninput="this.form.amountRange.value=this.value"
+                <input type="text" name="iterations" ng-value="taskData.iterations" ng-model="taskData.iterations" class="form-control input-size" min="0" max="10000" value="0" oninput="this.form.amountRange.value=this.value"
                 />
             </div>
 
@@ -45,13 +45,13 @@
                 <label for="title">Priority</label>
 
                 <div class="input-group">
-                    <div id="radioBtn" class="btn-group">
+                    <div id="radioBtn" class="btn-group" name="priority">
                         <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="estadotwo" data-value="4">Urgent</span>
                         <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="estadotwo" data-value="3">High</span>
                         <span style="padding: 8px 17px;" class="btn button-gray btn-sm active" data-toggle="estadotwo" data-value="2">Normal</span>
                         <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="estadotwo" data-value="1">Low</span>
                     </div>
-                    <input type="hidden" name="estadotwo" id="estadotwo">
+                    <input type="hidden" name="estadotwo" id="estadotwo" ng-value="taskData.priority" ng-model="taskData.priority">
                 </div>
             </div>
             <script>
@@ -82,7 +82,7 @@
 
             <!-- Submit button -->
             <div class="form-group">
-                <button type="submit" class="btn button-gray btn-load btn-lg top-buffer-15px " data-loading-text="password...">Order Task</button>
+                <button type="submit" ng-click="sendTask()" class="btn button-gray btn-load btn-lg top-buffer-15px " data-loading-text="password...">Order Task</button>
             </div>
         </form>
 
