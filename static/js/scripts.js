@@ -1,3 +1,44 @@
+
+    function whichButton(buttonElement) {
+        var element = document.getElementById("wrapper");
+        var main_strona = document.getElementById("main-strona");
+
+        if (!element.classList.contains("active")) {
+
+            element.classList.add("active");
+            main_strona.classList.remove("col-md-12");
+            main_strona.classList.add("col-md-11");
+
+        }
+        else if (element.classList.contains("active")) {
+
+
+            element.classList.remove("active");
+            main_strona.classList.remove("col-md-11");
+            main_strona.classList.add("col-md-12");
+        }
+
+    }
+
+    $(window).innerWidth(function () {
+        if ($(window).width() >= 767) {
+            $("#wrapper").removeClass("active");
+        }
+        else {
+            $("#wrapper").addClass("active");
+        }
+    });
+    // For example, get window size on window resize
+    $(window).resize(function () {
+        if ($(window).width() <= 767) {
+            $("#wrapper").removeClass("active");
+        }
+        else {
+            $("#wrapper").addClass("active");
+        }
+    });
+
+
   // $(document).ready(function () {
   //   $('#contact-form').bootstrapValidator({
   //     // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
