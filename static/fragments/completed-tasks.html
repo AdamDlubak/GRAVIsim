@@ -1,82 +1,47 @@
 <div class="container-fluid my-account-site">
     <div class="row">
-        <div class="well main-box" style="max-width: none; width: 90%;">
-            <p class="well lead">My Current Tasks</p>
+        <div class="well main-box">
 
-            <table class="table table-hover">
+
+            <p class="well lead">My Completed Tasks</p>
+            <table class="table table-hover gravi-table">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>#</th>
                         <th>Title</th>
                         <th>Description</th>
-                        <th>Action Time</th>
-                        <th>Ordered</th>
+                        <th>Priority</th>
+                        <th>Created</th>
                         <th>Started</th>
-                        <th>Completed</th>
+                        <th>Finished</th>
                         <th>Status</th>
                         <th>Details</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!--<tr ng-repeat="user in users">-->
-                    <tr>
-                        <td>1</td>
-                        <td>Badanie gwiazdozbioru Oranzy</td>
-                        <td style="max-width: 400px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the since the 1500s, when...</td>
-                        <td>3:14:65</td>
-                        <td>20.04.2017 13:45:43</td>
-                        <td>20.04.2017 14:15:45</td>
-                        <td>21.04.2017 22:11:33</td>                                                
-                        <td style="color: red; font-weight: bold;">Completed</td>
-                        <td>Show Results</td>
+                    <tr ng-repeat="user in users | orderBy : 'id'">
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.description }}</td>
+                        <td>{{ user.priority }}</td>
+                        <td>{{ user.created }}</td>
+                        <td>{{ user.started }}</td>
+                        <td>{{ user.finished }}</td>
+                        <td class="task-completed">{{ user.state }}</td>
+                        <td>Show details</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Badanie gwiazdozbioru Słonia</td>
-                        <td style="max-width: 400px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the since the 1500s, when...</td>                        
-                        <td>3:14:65</td>
-                        <td>20.04.2017 13:45:43</td>
-                        <td>20.04.2017 14:15:45</td>
-                        <td>21.04.2017 22:11:33</td>                                                
-                        <td style="color: red; font-weight: bold;">Completed</td>
-                        <td>Show Results</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Badanie gwiazdozbioru Tygrysa</td>
-                        <td style="max-width: 400px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the since the 1500s, when...</td>
-                        <td>3:14:65</td>
-                        <td>20.04.2017 13:45:43</td>
-                        <td>20.04.2017 14:15:45</td>
-                        <td>21.04.2017 22:11:33</td>                                                
-                        <td style="color: red; font-weight: bold;">Completed</td>
-                        <td>Show Results</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Kolonizacja Marsa</td>
-                        <td style="max-width: 400px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the since the 1500s, when...</td>
-                        <td>3:14:65</td>
-                        <td>20.04.2017 13:45:43</td>
-                        <td>20.04.2017 14:15:45</td>
-                        <td>21.04.2017 22:11:33</td>                                                
-                        <td style="color: red; font-weight: bold;">Completed</td>
-                        <td>Show Results</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Badanie Drogi Mlecznej</td>
-                        <td style="max-width: 400px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the since the 1500s, when...</td>
-                        <td>3:14:65</td>
-                        <td>20.04.2017 13:45:43</td>
-                        <td>20.04.2017 14:15:45</td>
-                        <td>21.04.2017 22:11:33</td>                                                
-                        <td style="color: red; font-weight: bold;">Completed</td>
-                        <td>Show Results</td>
-                    </tr>
-
                 </tbody>
             </table>
+
         </div>
+ 
+
     </div>
+
 </div>
+
+
+
+
+
+

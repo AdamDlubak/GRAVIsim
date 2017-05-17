@@ -29,10 +29,11 @@
             }).
             when('/completed-tasks', {
                 templateUrl: 'static/fragments/completed-tasks.html',
-
+                controller: 'CompletedTasksController',
+                controllerAs: 'completed'
             }).
-            when('/order-task-with-file', {
-                templateUrl: 'static/fragments/order-task-with-file.html',
+            when('/order-task', {
+                templateUrl: 'static/fragments/order-task.html',
 
             }).
             when('/order-task-manually', {

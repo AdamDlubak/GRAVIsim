@@ -1,21 +1,21 @@
 
     function whichButton(buttonElement) {
         var element = document.getElementById("wrapper");
-        var main_strona = document.getElementById("main-strona");
+        var main_strona = document.getElementById("page-content");
 
         if (!element.classList.contains("active")) {
 
             element.classList.add("active");
-            main_strona.classList.remove("col-md-12");
-            main_strona.classList.add("col-md-11");
+            main_strona.classList.remove("col-xs-11");
+            main_strona.classList.add("col-xs-10");
 
         }
         else if (element.classList.contains("active")) {
 
 
             element.classList.remove("active");
-            main_strona.classList.remove("col-md-11");
-            main_strona.classList.add("col-md-12");
+            main_strona.classList.remove("col-xs-10");
+            main_strona.classList.add("col-xs-11");
         }
 
     }
