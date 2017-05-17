@@ -10,7 +10,7 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(THIS_DIR)))
 LOGS_DIR = os.path.join(BASE_DIR, 'spark-simulation', 'logs')
 SIMULATION_FILE = os.path.join(BASE_DIR, 'spark-simulation', 'main.py')
-CMD = "spark-submit --verbose --master {} {}"
+CMD = "spark-submit --master {} {}"
 
 
 class Command(BaseCommand):
