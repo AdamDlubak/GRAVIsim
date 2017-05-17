@@ -42,6 +42,7 @@
     <script src="/static/directives/myaccount.directive.js"></script>
     <script src="/static/directives/contact.directive.js"></script>
     <script src="/static/directives/logger.directive.js"></script>
+
     <!-- Controllers -->
     <script src="/static/controllers/main.controller.js"></script>
     <script src="/static/controllers/auth.controller.js"></script>
@@ -55,81 +56,33 @@
     <script src="/static/controllers/demo-logger.controller.js"></script>
     <script src="/static/controllers/demo-canvas.controller.js"></script>
 
-
 </head>
 
 <body ng-controller="MainController as main">
     <div class="site-bg-index">
         <div ng-if="isAuthenticated()">
-            <div id="wrapper">
+            <div id="wrapper" class="active">
 
-            <!--<header></header>-->
-            <!--<div ng-view></div>-->
-
-
-
-<script type="text/javascript">    
-function whichButton(buttonElement){
-    var element = document.getElementById("wrapper");
-    var main_strona = document.getElementById("main-strona");
-
-    if(!element.classList.contains("active")){
-    
-    element.classList.add("active");
-    main_strona.classList.remove("col-md-12");
-    main_strona.classList.add("col-md-11");
-
-}
-    else if(element.classList.contains("active")){
-
-        
-        element.classList.remove("active");
-            main_strona.classList.remove("col-md-11");
-    main_strona.classList.add("col-md-12");
-    }
-
-}
-
-  $(window).innerWidth(function () {
-    if ($(window).width() >= 767) {
-      $("#wrapper").removeClass("active");
-    }
-    else {
-      $("#wrapper").addClass("active");
-    }
-  });
-  // For example, get window size on window resize
-  $(window).resize(function () {
-    if ($(window).width() <= 767) {
-      $("#wrapper").removeClass("active");
-    }
-    else {
-      $("#wrapper").addClass("active");
-    }
-  });
-</script>
-
-
-            <div class="container" style="width: 100%;">
-                <div class="row">
-                    <div class="col-xs-2 col-sm-2 col-fixed-240">
-
-
-            <header></header>
-                    </div>
-                    <div id="main-strona" class="col-xs-12 col-sm-12 col-offset-400">
+                <div class="container" style="width: 100%;">
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-2 col-fixed-240">
+                            <header></header>
+                        </div>
+                        <div id="main-strona" class="col-xs-12 col-sm-12 col-offset-400">
                             <div ng-view></div>
+
+
+
+                        </div>
                     </div>
                 </div>
+
             </div>
-
-
-
-
-
         </div>
     </div>
-    </div>
+
+
+
     <div class="site-bg-login" ng-if="!isAuthenticated()">
 
         <div class="container" ng-controller="AuthController">
@@ -189,7 +142,25 @@ function whichButton(buttonElement){
         </div>
 
     </div>
+    <!-- Modal -->
+    <div class="modal fade text-center" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="HeaderController">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                   </button>
+                    <h4> Logout <i class="fa fa-lock"></i></h4>
 
+                </div>
+                <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</div>
+                <div class="modal-footer">
+
+                    <a href ng-click="logout()" data-dismiss="modal" class="btn button-gray btn-block">Logout</a></div>
+
+            </div>
+        </div>
+    </div>
 </body>
 
 

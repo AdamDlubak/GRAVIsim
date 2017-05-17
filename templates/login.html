@@ -48,10 +48,65 @@
 
 </head>
 
-<body ng-controller="MainController as main" style="background-image: url(../static/images/bg_photo3.jpg)">
-        <div ng-view></div>
+<body style="background-image: url(../static/images/bg_photo3.jpg)">
+   <div class="site-bg-login">
 
-        
+        <div class="container" ng-controller="AuthController">
+            <div class="row">
+
+                <div class="col-xs-offset-2 col-xs-8 
+                    col-sm-offset-2 col-sm-8
+                    col-lg-offset-0 col-lg-4
+                    top-buffer-10">
+                    <div class="logo"></div>
+                </div>
+
+                <div class="col-xs-12 
+                    col-sm-offset-2 col-sm-8 
+                    col-lg-offset-4 col-lg-4
+                    top-buffer-25">
+
+                    <h4 class="login-header">AAALogin Your Account</h4>
+                    <form data-toggle="validator">
+
+
+
+                        <div class="form-group has-feedback">
+                            <label for="inputLogin" class="control-label">Login</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input type="text" ng-value="loginData.email" ng-model="loginData.email" pattern="^[_A-z0-9]{1,}$" class="form-control input-size"
+                                    id="inputLogin" placeholder="Type login" oninvalid="this.setCustomValidity('This field cannot be empty')"
+                                    required>
+                            </div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group has-feedback">
+                            <label for="inputPassword" class="control-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" ng-value="loginData.password" ng-model="loginData.password" class="form-control input-size" id="inputPassword"
+                                    placeholder="Type password" oninvalid="this.setCustomValidity('This field cannot be empty')"
+                                    required>
+                            </div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <button ng-click="login()" class="btn button-blue btn-primary btn-block">Login</button>
+                        </div>
+                    </form>
+
+
+                </div>
+
+            </div>
+        </div>
+
 </body>
 
 </html>
