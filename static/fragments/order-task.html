@@ -2,20 +2,21 @@
     <div class="well">
         <p class="well lead text-center">Order Task Using File</p>
 
-        <form  method="POST" enctype="multipart/form-data" id="order-task">
+        <form method="POST" id="order-task">
 
-<input name="csrfmiddlewaretoken" value="gGyyccVw03FUDOsZPQK3xF9Fj6VazZCdbV4YKp9KLpBJQqzMhyHsSoLm5pE3JiJF" type="hidden">
 
             <!-- Text input -->
             <div class="form-group" style="margin-top: 0px;">
                 <label for="title">Title</label>
-                <input name="name" class="input-size form-control" type="text" ng-value="taskData.name" ng-model="taskData.name" id="name" placeholder="Title of task" />
+                <input name="name" class="input-size form-control" type="text" ng-value="taskData.name" ng-model="taskData.name" id="name"
+                    placeholder="Title of task" />
             </div>
 
             <!-- Text input -->
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control input-size" name="description" ng-value="taskData.description" ng-model="taskData.description" placeholder="Description..." rows="4" id="description"></textarea>
+                <textarea class="form-control input-size" name="description" ng-value="taskData.description" ng-model="taskData.description"
+                    placeholder="Description..." rows="4" id="description"></textarea>
             </div>
 
             <!-- Text input -->
@@ -23,62 +24,67 @@
                 <label for="inputFile">File with simulation</label>
                 <div class="input-group">
                     <label class="input-group-btn">
+                        <!--<div class="avatar" style="background-image: url({{ taskData.inputFile }})">-->
                             <span class="btn button-gray">
-                                Browse&hellip; <input type="file" class="input-size form-control" ng-value="taskData.inputFile" ng-model="taskData.inputFile" style="display: none;" name="inputFile" ng-model="filepath">
+                                Browse&hellip; <input type="file" class="input-size form-control input-avatar" id="input-avatar" ng-value="user.inputFile" ng-model="user.inputFile"  style="display: none;" name="inputFile" ng-model="filepath">
                             </span>
                         </label>
-                    <input type="text" class="form-control" readonly ng-value="filename">
+                    <input type="text" class="form-control avatar" readonly>
                 </div>
             </div>
+
+            <script>
+                $(function () {
+
+                    // We can attach the `fileselect` event to all file inputs on the page
+                    $(document).on('change', ':file', function () {
+                        var input = $(this),
+                            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                        input.trigger('fileselect', [numFiles, label]);
+                    });
+
+                    // We can watch for our custom `fileselect` event like this
+                    $(document).ready(function () {
+                        $(':file').on('fileselect', function (event, numFiles, label) {
+
+                            var input = $(this).parents('.input-group').find(':text'),
+                                log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                            if (input.length) {
+                                input.val(log);
+                            } else {
+                                if (log) alert(log);
+                            }
+
+                        });
+                    });
+
+                });
+            </script>
 
             <!-- Text input -->
             <div class="form-group" style="margin-top: 0px;">
                 <label for="iterations">Iterations</label>
-                <input type="range" name="amountRange" style="color: red" min="0" max="10000" value="0" oninput="this.form.iterations.value=this.value"
+                <input type="range" name="amountRange" min="0" max="10000" value="0" ng-value="taskData.iterations" oninput="this.form.iterations.value=this.value"
                 />
-                <input type="text" name="iterations" ng-value="taskData.iterations" ng-model="taskData.iterations" class="form-control input-size" min="0" max="10000" value="0" oninput="this.form.amountRange.value=this.value"
-                />
+                <input type="text" name="iterations" ng-value="taskData.iterations" ng-model="taskData.iterations" class="form-control input-size"
+                    min="0" max="10000" value="0" oninput="this.form.amountRange.value=this.value" />
             </div>
 
             <!-- Text input -->
             <div class="form-group" style="margin-top: 0px;">
-                <label for="title">Priority</label>
-
                 <div class="input-group">
-                    <div id="radioBtn" class="btn-group" name="priority">
-                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="estadotwo" data-value="4">Urgent</span>
-                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="estadotwo" data-value="3">High</span>
-                        <span style="padding: 8px 17px;" class="btn button-gray btn-sm active" data-toggle="estadotwo" data-value="2">Normal</span>
-                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="estadotwo" data-value="1">Low</span>
+                    <label for="priority">Priority</label>
+                    <div id="radioBtn" class="btn-group" style="display: block" name="priority">
+                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="priority" data-value="{{ priorities[3].id }}">{{ priorities[3].value }}</span>
+                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="priority" data-value="{{ priorities[2].id }}">{{ priorities[2].value }}</span>
+                        <span style="padding: 8px 17px;" class="btn button-gray btn-sm active" data-toggle="priority" data-value="{{ priorities[1].id }}">{{ priorities[1].value }}</span>
+                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="priority" data-value="{{ priorities[0].id }}">{{ priorities[0].value }}</span>
                     </div>
-                    <input type="hidden" name="estadotwo" id="estadotwo" ng-value="taskData.priority" ng-model="taskData.priority">
                 </div>
             </div>
-            <script>
-                $(document).ready(function () {
-                    // Use only for V1
-                    $('#radioBtn span').on('click', function () {
-                        var sel = $(this).data('value');
-                        var tog = $(this).data('toggle');
-                        $('#' + tog).val(sel);
-                        // You can change these lines to change classes (Ex. btn-default to btn-danger)
-                        $('span[data-toggle="' + tog + '"]').not('[data-value="' + sel + '"]').removeClass('active button-gray').addClass('notActive btn-default');
-                        $('span[data-toggle="' + tog + '"][data-value="' + sel + '"]').removeClass('notActive btn-default').addClass('active button-gray');
-                    });
 
-                    // Use only for V2
-                    $('#radioBtnV2 span').on('click', function () {
-                        var sel = $(this).data('value');
-                        var tog = $(this).data('toggle');
-                        var active = $(this).data('active');
-                        var classes = "btn-default button-gray btn-success btn-info btn-warning btn-danger btn-link";
-                        var notactive = $(this).data('notactive');
-                        $('#' + tog).val(sel);
-                        $('span[data-toggle="' + tog + '"]').not('[data-value="' + sel + '"]').removeClass('active ' + classes).addClass('notActive ' + notactive);
-                        $('span[data-toggle="' + tog + '"][data-value="' + sel + '"]').removeClass('notActive ' + classes).addClass('active ' + active);
-                    });
-                });
-            </script>
 
             <!-- Submit button -->
             <div class="form-group">
