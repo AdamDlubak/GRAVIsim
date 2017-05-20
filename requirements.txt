@@ -5,8 +5,8 @@ django-filter==1.0.2
 djangorestframework==3.6.2
 djangorestframework-jwt==1.10.0
 packaging==16.8
+websockets==3.3
 PyJWT==1.4.2
 pyparsing==2.2.0
-pyspark==2.1.0+hadoop2.7
 six==1.10.0
-websockets==3.3
+

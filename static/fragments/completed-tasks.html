@@ -4,44 +4,118 @@
 
 
             <p class="well lead">My Completed Tasks</p>
+                                                <div class="col-xs-6">
+                                                    <h3>Listing job:</h3>
+                                                    <div>
+                                                        <logger target="'default'"></logger>
+                                                    </div>
+                                                </div>
+            <div class="form-group" style="margin-top: 0px;">
+                <div class="input-group">
+                    <div id="radioBtn" class="btn-group" style="display: block" name="priority">
+                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="{{ priorities[0].id }}">{{ priorities[0].value }}</span>
+                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="{{ priorities[1].id }}">{{ priorities[1].value }}</span>
+                        <span style="padding: 8px 17px;" class="btn button-gray btn-sm active" data-toggle="{{ priorities[2].id }}">{{ priorities[2].value }}</span>
+                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="{{ priorities[3].id }}">{{ priorities[3].value }}</span>
+
+
+                    </div>
+                    <div id="radioBtn" class="btn-group" style="display: block" name="priority">
+                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="{{ priorities[5].id }}">All</span>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
             <table class="table table-hover gravi-table">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Title</th>
-                        <th>Description</th>
-                        <th>Priority</th>
                         <th>Created</th>
                         <th>Started</th>
                         <th>Finished</th>
+                        <th>Priority</th>
                         <th>Status</th>
-                        <th>Details</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr ng-repeat="user in users | orderBy : 'id'">
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.description }}</td>
-                        <td>{{ user.priority }}</td>
-                        <td>{{ user.created }}</td>
-                        <td>{{ user.started }}</td>
-                        <td>{{ user.finished }}</td>
-                        <td class="task-completed">{{ user.state }}</td>
-                        <td>Show details</td>
-                    </tr>
+                <tbody ng-repeat="user in results | orderBy : 'id'" style="border: 0px;">
+
+                    <div id="accordion" role="tablist" aria-multiselectable="false">
+                        <div class="card" role="tab">
+                            <tr id="tasks-list" data-toggle="collapse" data-target="#collapse-One{{user.id}}" class="accordion-toggle collapsed" aria-expanded="true">
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.created }}</td>
+                                <td>{{ user.started }}</td>
+                                <td>{{ user.finished }}</td>
+                                <td>{{ user.priority }}</td>
+                                <td ng-if="user.state == priorities[0].value" ng-style="{color: priorities[0].color}" id="task-status" ng-value="user.state">{{ user.state }}</td>
+                                <td ng-if="user.state == priorities[1].value" ng-style="{color: priorities[1].color}" id="task-status" ng-value="user.state">{{ user.state }}</td>
+                                <td ng-if="user.state == priorities[2].value" ng-style="{color: priorities[2].color}" id="task-status" ng-value="user.state">{{ user.state }}</td>
+                                <td ng-if="user.state == priorities[3].value" ng-style="{color: priorities[3].color}" id="task-status" ng-value="user.state">{{ user.state }}</td>
+                                <td class="arrow-in-list"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" class="hiddenRow">
+                                    <div class="accordian-body collapse" id="collapse-One{{user.id}}">
+
+
+
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-xs-6" style="text-align: left">
+                                                    <h2>{{user.name}}</h2>
+                                                    <p>{{ user.description }}</p>
+                                                    <p>Priority: {{ user.priority }}</p>
+                                                    <p>Status: </p>
+                                                    <p ng-if="user.state == priorities[0].value" ng-style="{color: priorities[0].color}" id="task-status" ng-value="user.state">{{ user.state }}</p>
+                                                    <p ng-if="user.state == priorities[1].value" ng-style="{color: priorities[1].color}" id="task-status" ng-value="user.state">{{ user.state }}</p>
+                                                    <p ng-if="user.state == priorities[2].value" ng-style="{color: priorities[2].color}" id="task-status" ng-value="user.state">{{ user.state }}</p>
+                                                    <p ng-if="user.state == priorities[3].value" ng-style="{color: priorities[3].color}" id="task-status" ng-value="user.state">{{ user.state }}</p>
+                                                </div>
+
+                                            </div>
+
+                                            <!--<div class="form-group">-->
+                                            <!--<label for="sel1">Select list:</label>-->
+                                            <!--<select class="selectpicker form-control btn dropdown-toggle" data-width="100px" style="width: auto;" data-style="btn-info">
+                                                    <option>Waiting</option>
+                                                    <option disabled>Running</option>
+                                                    <option>Completed</option>
+                                                    <option>Suspended</option>
+                                            </select>-->
+                                            <!--</div>-->
+                                        </div>
+                                </td>
+                            </tr>
+
+
+                            </div>
+
+                        </div>
+
+
+
                 </tbody>
             </table>
+            </div>
+
+
+            <script>
+                $('.collapse').on('show.bs.collapse', function () {
+                    $('.collapse.in').collapse('hide');
+                });
+            </script>
 
         </div>
- 
 
     </div>
 
+
+
 </div>
-
-
-
-
-
-

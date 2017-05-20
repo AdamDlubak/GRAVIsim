@@ -2,14 +2,32 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
 
-
-
+.hiddenRow {
+    padding: 0 !important;
+}
 
 .site-offset{
     margin-left: 255px;
     margin-bottom: 20px;
 }
 
+
+.accordion-toggle td.arrow-in-list:after {
+        font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+            content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    position: relative;
+    top: 1px;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.accordion-toggle.collapsed td.arrow-in-list:after {
+        content: "\e079";    /* adjust as needed, taken from bootstrap.css */
+
+}
 body {
     font-family: 'Raleway',sans-serif;
     color: #000;
@@ -43,7 +61,7 @@ h4.login-header {
 .button-gray { background-color: #333; color: #eee;}
 .button-gray:hover { background-color: #222; color: #eee; transition: 0.4s }
 .text-center { text-align: center; }
-.task-completed { font-weight: bold; color: green; }
+#task-status { font-weight: bold; }
 .input-size { height: 42px; padding: 8px 12px; font-size: 14px; line-height: 1.42857143; border-radius: 4px; }
 .site-bg-index {
 
@@ -51,6 +69,7 @@ h4.login-header {
     width: 100%;
     background-image: url(../images/pattern_bg.png);   
     position: fixed;
+    overflow-y: scroll;
 }
 
 
@@ -265,6 +284,11 @@ input[type=range]:focus::-ms-fill-upper {
     width: 30px;
     border-right: 2px solid rgb(120, 120, 120);
 }
+
+.logger span.bold {
+    font-weight: bold;
+}
+
 
 /*--------------- CONTACT ---------------*/
 

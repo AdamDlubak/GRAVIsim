@@ -22,10 +22,11 @@
                         "id": 4,
                         "value": "Urgent"
                     }
-                ]
+                ];
                 $scope.sendTask = function () {
+                    $scope.iterations = $('#iterations').val();
                     $tasks
-                        .sendTask($scope.taskData, $scope.filename, $scope.priority)
+                        .sendTask($scope.taskData, $scope.filename, $scope.priority, $scope.iterations)
                         .then(function () {
                             $scope.loginError = false;
                             $location.path('/my-dashboard');
@@ -34,7 +35,12 @@
                         });
                 }
                 $(document).ready(function () {
-                    // Use only for V1
+                    $('input#iterations').on('click', function () {
+                        var sel = $(this).data('value');
+                    });
+                });
+
+                $(document).ready(function () {
                     $('#radioBtn span').on('click', function () {
                         var sel = $(this).data('value');
                         var tog = $(this).data('toggle');

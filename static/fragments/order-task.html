@@ -66,11 +66,12 @@
             <!-- Text input -->
             <div class="form-group" style="margin-top: 0px;">
                 <label for="iterations">Iterations</label>
-                <input type="range" name="amountRange" min="0" max="10000" value="0" ng-value="taskData.iterations" oninput="this.form.iterations.value=this.value"
+                <input type="range" name="amountRange" min="0" max="10000" value="0" oninput="this.form.iterations.value=this.value"
                 />
-                <input type="text" name="iterations" ng-value="taskData.iterations" ng-model="taskData.iterations" class="form-control input-size"
+                <input type="text" id="iterations" name="iterations" value="0" ng-value="taskData.iterations" ng-model="taskData.iterations" class="form-control input-size"
                     min="0" max="10000" value="0" oninput="this.form.amountRange.value=this.value" />
             </div>
+            <!-- Text input --> 
 
             <!-- Text input -->
             <div class="form-group" style="margin-top: 0px;">
