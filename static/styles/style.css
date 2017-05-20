@@ -94,6 +94,8 @@ body {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     font-size: 0.8em;
     padding: 15px 0;
+    overflow-y: scroll;
+    max-height: 400px;
 }
 
 .logger div {
@@ -115,6 +117,10 @@ body {
     text-align: right;
     width: 30px;
     border-right: 2px solid rgb(120, 120, 120);
+}
+
+.logger span.bold {
+    font-weight: bold;
 }
 
 /*--------------- CONTACT ---------------*/
