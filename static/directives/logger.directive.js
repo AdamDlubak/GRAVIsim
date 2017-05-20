@@ -14,17 +14,21 @@
 
                         $socket.connect($scope.target);
                         $socket.subscribe(function(ev) {
-                            var record = _this.parseRecord(ev.data);
-                            if (!!record) {
-                                if (record.recursive &&
-                                    $scope.log.length > 0 &&
-                                    $scope.log[$scope.log.length - 1].recursive) {
-                                        $scope.log.splice(-1, 1, record);
-                                } else {
-                                    $scope.log.push(record);
-                                }
-                                $scope.$digest();
-                            }
+                            ev.data
+                                .split('\n')
+                                .forEach(function (item) {
+                                    var record = _this.parseRecord(item);
+                                    if (!!record) {
+                                        if (record.recursive &&
+                                            $scope.log.length > 0 &&
+                                            $scope.log[$scope.log.length - 1].recursive) {
+                                                $scope.log.splice(-1, 1, record);
+                                        } else {
+                                            $scope.log.push(record);
+                                        }
+                                    }
+                                });
+                            $scope.$digest();
                         });
 
                         _this.parseRecord = function(data) {

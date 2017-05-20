@@ -26,10 +26,13 @@ class Command(BaseCommand):
                 try:
                     with open(filepath, 'r') as f:
                         f.seek(offset)
+                        messages = list()
                         for line in f:
                             offset += len(line)
-                            await websocket.send(line)
-                    await asyncio.sleep(0.1)
+                            messages.append(line)
+                        if len(messages) > 0:
+                            await websocket.send('\n'.join(messages))
+                    await asyncio.sleep(0.5)
                 except FileNotFoundError as e:
                     await websocket.send("$[RBI]Waiting for start")
                     await asyncio.sleep(1)
