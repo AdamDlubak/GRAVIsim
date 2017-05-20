@@ -94,6 +94,8 @@ body {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     font-size: 0.8em;
     padding: 15px 0;
+    overflow-y: scroll;
+    max-height: 400px;
 }
 
 .logger div {

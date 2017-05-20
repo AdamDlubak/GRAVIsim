@@ -34,7 +34,7 @@ class Command(BaseCommand):
                             await websocket.send('\n'.join(messages))
                     await asyncio.sleep(0.5)
                 except FileNotFoundError as e:
-                    await websocket.send("$[RBI]Waiting for start")
+                    await websocket.send("$[XBI]Waiting for start")
                     await asyncio.sleep(1)
 
         except websockets.exceptions.ConnectionClosed:

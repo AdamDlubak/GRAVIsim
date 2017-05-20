@@ -127,16 +127,15 @@ class ParticlesOperations:
 class Simulation:
     def __init__(self, iterations):
         self.iterations = iterations
-        print("$[S]Application ID: {}".format(context.applicationId))
-        print("$[S]Method: Exact Algorithm")
-        print("$[BS]Animation duration: {} frames.".format(iterations))
-        print("---------------------------------")
+        print("$[DS]Application ID: {}".format(context.applicationId))
+        print("$[DS]Method: Exact Algorithm")
+        print("$[DBS]Animation duration: {} frames.".format(iterations))
 
     def run(self):
         data = self.loadData()
         result = self.prepareResult(data)
 
-        progressBar = ProgressBar(prefix='$[RI]Progress:', suffix='Complete', length=50)
+        progressBar = ProgressBar(prefix='$[PI]Progress:', suffix='Complete', length=50)
 
         for frame in range(1, self.iterations):
             progressBar.print(frame, self.iterations)
@@ -150,7 +149,7 @@ class Simulation:
 
         progressBar.print(self.iterations, self.iterations)
         self.saveData(result)
-        print("$[S]Simulation Completed Successfully")
+        print("$[XS]Simulation Completed Successfully")
 
     def normalize(self, rdd):
         return rdd.map(lambda p: {
