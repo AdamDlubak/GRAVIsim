@@ -38,9 +38,9 @@
                 controllerAs: 'ordertask'
 
             }).
-            when('/order-task-manually', {
-                templateUrl: 'static/fragments/order-task-manually.html',
-
+            when('/generator', {
+                templateUrl: 'static/fragments/generator.html',
+                controller: 'GeneratorController',
             }).
             when('/contact', {
                 templateUrl: 'static/fragments/contact.html',
