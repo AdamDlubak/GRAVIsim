@@ -55,9 +55,9 @@
                     ctx.stroke();
 
                     $scope.elements.forEach(function(element) {
-                        ctx.fillStyle = element.colour;
+                        ctx.fillStyle = '#' + element.colour;
                         ctx.beginPath();
-                        ctx.arc(element.x + element.mass / 2, element.y + element.mass / 2,
+                        ctx.arc(element.x + size / 2, element.y + size / 2,
                                 element.mass / 2,
                                 0, Math.PI * 2, true);
                         ctx.fill();
@@ -74,10 +74,10 @@
                 canvas.addEventListener('click', function(event) {
                     var rect = canvas.getBoundingClientRect();
                     var scale = (rect.right - rect.left) / size;
-                    var x = (event.clientX - rect.left) / scale;
-                    var y = (event.clientY - rect.top) / scale;
+                    var x = (event.clientX - rect.left) / scale - (size / 2);
+                    var y = (event.clientY - rect.top) / scale - (size / 2);
                     var colorRef = $scope.tools[$scope.current].color;
-                    var color = '#' + hex(colorRef.r) + hex(colorRef.g) + hex(colorRef.b);
+                    var color = hex(colorRef.r) + hex(colorRef.g) + hex(colorRef.b);
 
                     if ($scope.current == 0) {
                         $scope.elements.push({
@@ -89,7 +89,7 @@
                     } else if ($scope.current == 1) {
                         for(var i = 0; i < $scope.tools[$scope.current].quantity; i++) {
                             var theta = Math.random() * 2 * Math.PI;
-                            var R = Math.random() * $scope.tools[$scope.current].cloudSize;
+                            var R = Math.random() * ($scope.tools[$scope.current].cloudSize / 2);
 
                             $scope.elements.push({
                                 x: x + R * Math.cos(theta),

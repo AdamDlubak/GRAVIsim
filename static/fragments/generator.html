@@ -17,14 +17,14 @@
                                 <td>
                                     <form>
                                         <div class="form-group">
-                                            <label class="sr-only" for="exampleInputAmount">Size</label>
+                                            <label class="sr-only" for="exampleInputAmount">Mass</label>
                                             <div class="input-group">
-                                                <div class="input-group-addon">Size</div>
+                                                <div class="input-group-addon">Mass</div>
                                                 <div class="form-control">
-                                                    <input type="range" placeholder="Size"
-                                                    min="1" max="10" ng-model="tools[0].size" ng-value="tools[0].size">
+                                                    <input type="range" placeholder="Mass"
+                                                    min="0.5" max="10" step="0.01" ng-model="tools[0].size" ng-value="tools[0].size">
                                                 </div>
-                                                <div class="input-group-addon">{{ tools[0].size }}</div>
+                                                <div class="input-group-addon">{{ tools[0].size }} sol</div>
                                             </div>
 
                                             <label class="sr-only" for="exampleInputAmount">Color</label>
@@ -63,14 +63,14 @@
                                 <td>
                                     <form>
                                         <div class="form-group">
-                                            <label class="sr-only" for="exampleInputAmount">Size</label>
+                                            <label class="sr-only" for="exampleInputAmount">Mass</label>
                                             <div class="input-group">
-                                                <div class="input-group-addon">Size</div>
+                                                <div class="input-group-addon">Mass</div>
                                                 <div class="form-control">
-                                                    <input type="range" placeholder="Size"
-                                                    min="1" max="10" ng-model="tools[1].size" ng-value="tools[1].size">
+                                                    <input type="range" placeholder="Mass"
+                                                    min="0.5" max="10" step="0.01" ng-model="tools[1].size" ng-value="tools[1].size">
                                                 </div>
-                                                <div class="input-group-addon">{{ tools[1].size }}</div>
+                                                <div class="input-group-addon">{{ tools[1].size }} sol</div>
                                             </div>
                                             <div class="input-group">
                                                 <div class="input-group-addon">Cloud Size</div>
@@ -78,7 +78,7 @@
                                                     <input type="range" placeholder="Cloud Size"
                                                     min="1" max="1600" ng-model="tools[1].cloudSize" ng-value="tools[1].cloudSize">
                                                 </div>
-                                                <div class="input-group-addon">{{ tools[1].cloudSize }}</div>
+                                                <div class="input-group-addon">{{ tools[1].cloudSize }} pc</div>
                                             </div>
                                             <div class="input-group">
                                                 <div class="input-group-addon">Quantity</div>
