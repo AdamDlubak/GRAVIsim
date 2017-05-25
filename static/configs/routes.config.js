@@ -67,6 +67,9 @@
                 redirectTo: '/'
             });
     }])
+    .config(['$compileProvider', function ($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
+    }])
     .run(['$rootScope', '$location', 'authentication',
         function($rootScope, $location, $authentication){
             $rootScope.$on('$routeChangeStart', function(event, next, current){
