@@ -7,6 +7,11 @@
 
     var tasks = function ($window, $q, $http, $rootScope) {
         
+
+
+
+
+
         var user = null,
             is_authenticated = false;
 
