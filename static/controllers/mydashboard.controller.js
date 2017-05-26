@@ -6,9 +6,6 @@
 
                 $scope.user = $.extend({}, $authentication.getUser());
 
-
-                var choosen = [false, false, true, false];
-
                 $scope.status = [
                     waiting = {
                         "id": 0,
@@ -62,11 +59,12 @@
                     $http.get(api).
                         then(function (result) {
                             $scope.data = result.data;
+                            $scope.tasksAmt = [0, 0, 0, 0, $scope.data.length]
                             $scope.tasks = [];
                             for (i = 0; i < 4; i++) {
-                                if (choosen[i]) {
                                     ($scope.data.filter(job => job.state == i)).forEach(function (elem) {
                                         elem.state = $scope.status[i].value;
+                                        $scope.tasksAmt[i]++;
                                         for (j = 0; j < 4; j++) {
                                             if (elem.priority == j + 1)
                                                 elem.priority = $scope.priorities[j].value;
@@ -92,10 +90,10 @@
                                             elem.finishedDate = moment(elem.finished).format('DD.MM.YYYY');
                                             elem.finishedTime = moment(elem.finished).format('HH:mm:ss');
                                         }
-
+                                        if(elem.finished != null && elem.started != null) elem.calculationTime = moment.utc(moment.utc(elem.finished) - moment.utc(elem.started)).format("HH:mm:ss")
+                                        else elem.calculationTime = "-----";
                                         $scope.tasks.push(elem)
                                     });
-                                }
                             }
                         }, function (error) {
                             console.log(error);
