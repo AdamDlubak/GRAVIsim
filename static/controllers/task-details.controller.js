@@ -25,9 +25,6 @@
                         "value": "Suspended",
                         "color": "#c10773"
                     },
-                    all = {
-                        "id": 4
-                    }
                 ];
                 $scope.priorities = [
                     low = {
@@ -61,7 +58,7 @@
                         then(function (result) {
                             $scope.task = result.data;
                             for (i = 0; i < 4; i++) {
-                                if ($scope.task.status == i) $scope.task.state = $scope.status[i].value;
+                                if ($scope.task.state == i) $scope.task.state = $scope.status[i].value;
                                 if ($scope.task.priority == i + 1) $scope.task.priority =  $scope.priorities[i].value;
                             }
                             if ($scope.task.created == null) {

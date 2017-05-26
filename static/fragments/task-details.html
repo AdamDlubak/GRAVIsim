@@ -1,13 +1,48 @@
-<div class="container-fluid my-account-site" style="max-width: 1300px; margin-left: 0px;">
+<div class="container-fluid">
     <div class="row">
         <div class="well main-box">
 
-            <p class="well lead">#{{ id }} - {{ task.name }}</p>
-            {{ task.description }}
-            <h3>Listing job:</h3>
-            <div>
-                <logger style="text-align: left;" target="'52'"></logger>
+            <div class="well lead" style="display: inline-block; width: 100%;">
+                <a href="/task-details?id={{ task.id }}"><button class="btn button-gray btn-load btn-md" style="float: left; width: 100px;">Back</button></a>                #{{ id }} - {{ task.name }}
+                <a href="/task-details?id={{ task.id }}"><button class="btn button-gray btn-load btn-md" style="float: right; width: 100px;">Delete</button></a>
+
+                <a href="/task-details?id={{ task.id }}"><button class="btn button-gray btn-load btn-md" style="float: right; width: 100px; margin-right: 5px;">Edit</button></a>
+
             </div>
+
+            <div class="col-md-4" style="text-align: left;">
+                <p style="min-height: 200px; text-align: justify;">{{ task.description }}</p>
+                <div class="col-md-6">
+                    <p>Priority:</p>
+                    <p>Iterations:</p>
+                    <p>State:</p>
+                    <p>Created date:</p>
+                    <p>Started date:</p>
+                    <p>Finished date:</p>
+                    <p>Calcuation time:</p>
+                </div>
+
+                <div class="col-md-6">
+                </div>
+
+                <p><b>{{ task.priority}}</b></p>
+                <p><b>{{ task.iterations }}</b></p>
+                <p><b>{{ task.state }}</b></p>
+                <p><b>{{ task.createdDate }} {{ task.createdTime }}</b></p>
+                <p><b>{{ task.startedDate }} {{ task.startedTime }}</b></p>
+                <p><b>{{ task.finishedDate }} {{ task.finishedTime }}</b></p>
+                <p></p>
+
+
+            </div>
+
+            <div class="col-md-8">
+                <h3>Listing job:</h3>
+                <div>
+                    <logger style="text-align: left;" target="'52'"></logger>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
