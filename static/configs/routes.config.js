@@ -35,6 +35,10 @@
                 templateUrl: 'static/fragments/task-details.html',
                 controller: 'TaskDetailsController',
             }).
+            when('/task-details-edit', {
+                templateUrl: 'static/fragments/task-details-edit.html',
+                controller: 'TaskDetailsController',
+            }).            
             when('/order-task', {
                 templateUrl: 'static/fragments/order-task.html',
                 controller: 'OrderTaskController',
