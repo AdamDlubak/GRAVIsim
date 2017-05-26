@@ -25,6 +25,9 @@
         var getUser = function(){
             return user;
         };
+        var isAdmin = function() {
+            return user.is_staff;
+        }
         
         var isAuthenticated = function() {
             return is_authenticated;

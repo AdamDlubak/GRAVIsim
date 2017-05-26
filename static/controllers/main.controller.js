@@ -7,6 +7,9 @@
                 $scope.isAuthenticated = function() {
                     return $authentication.isAuthenticated();
                 };
+                $scope.isAdmin = function() {
+                    console.log($authentication.isAdmin());
+                }
             }
         ]);
 })();

@@ -27,10 +27,13 @@
                 templateUrl: 'static/fragments/current-tasks.html',
 
             }).
-            when('/completed-tasks', {
-                templateUrl: 'static/fragments/completed-tasks.html',
-                controller: 'CompletedTasksController',
-                controllerAs: 'completed'
+            when('/my-tasks', {
+                templateUrl: 'static/fragments/my-tasks.html',
+                controller: 'MyTasksController'
+            }).
+            when('/task-details', {
+                templateUrl: 'static/fragments/task-details.html',
+                controller: 'TaskDetailsController',
             }).
             when('/order-task', {
                 templateUrl: 'static/fragments/order-task.html',
