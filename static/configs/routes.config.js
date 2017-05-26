@@ -45,9 +45,9 @@
                 controllerAs: 'ordertask'
 
             }).
-            when('/order-task-manually', {
-                templateUrl: 'static/fragments/order-task-manually.html',
-
+            when('/generator', {
+                templateUrl: 'static/fragments/generator.html',
+                controller: 'GeneratorController',
             }).
             when('/contact', {
                 templateUrl: 'static/fragments/contact.html',
@@ -73,6 +73,9 @@
             otherwise({
                 redirectTo: '/'
             });
+    }])
+    .config(['$compileProvider', function ($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
     }])
     .run(['$rootScope', '$location', 'authentication',
         function($rootScope, $location, $authentication){
