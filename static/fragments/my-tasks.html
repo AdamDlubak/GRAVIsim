@@ -6,7 +6,7 @@
             <div class="form-group" style="margin-top: 0px; text-align: center">
                 <div class="input-group" style="display: block">
                     <div id="status-selection" class="btn-group" style="display: block" name="priority">
-                        <span id="shit" style="padding: 8px 17px; float: none; margin-right: -4px;" class="btn btn-default btn-sm notActive" data-toggle="{{ status[0].id }}">{{ status[0].value }}</span>
+                        <span style="padding: 8px 17px; float: none; margin-right: -4px;" class="btn btn-default btn-sm notActive" data-toggle="{{ status[0].id }}">{{ status[0].value }}</span>
                         <span style="padding: 8px 17px; float: none; margin-right: -4px;" class="btn btn-default btn-sm notActive" data-toggle="{{ status[1].id }}">{{ status[1].value }}</span>
                         <span style="padding: 8px 17px; float: none; margin-right: -4px;" class="btn button-gray btn-sm active" data-toggle="{{ status[2].id }}">{{ status[2].value }}</span>
                         <span style="padding: 8px 17px; float: none; margin-right: -4px;" class="btn btn-default btn-sm notActive" data-toggle="{{ status[3].id }}">{{ status[3].value }}</span>
@@ -29,21 +29,15 @@
                     </tr>
                 </thead>
                 <tbody ng-repeat="task in tasks | orderBy : 'id'" style="border: 0px;">
-                    <tr id="tasks-list">
+                    <tr>
                         <td>{{ task.id }}</td>
                         <td>{{ task.name }}</td>
-                        <td ng-if="task.priority == priorities[0].value" ng-style="{color: priorities[0].color}" id="task-status" ng-value="task.priority">{{ task.priority }}</td>
-                        <td ng-if="task.priority == priorities[1].value" ng-style="{color: priorities[1].color} " id="task-status" ng-value="task.priority">{{ task.priority }}</td>
-                        <td ng-if="task.priority == priorities[2].value" ng-style="{color: priorities[2].color}" id="task-status" ng-value="task.priority">{{ task.priority }}</td>
-                        <td ng-if="task.priority == priorities[3].value" ng-style="{color: priorities[3].color}" id="task-status" ng-value="task.priority">{{ task.priority }}</td>
+                        <td><span ng-style="{color: getPriorityColor(task.priority)}" class="task-status">{{ task.priority }}</span></td>
                         <td>{{ task.createdDate }}<br />{{ task.createdTime }}</td>
                         <td>{{ task.startedDate }}<br />{{ task.startedTime }}</td>
                         <td>{{ task.finishedDate }}<br />{{ task.finishedTime }}</td>
-                        <td ng-if="task.state == status[0].value" ng-style="{color: status[0].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
-                        <td ng-if="task.state == status[1].value" ng-style="{color: status[1].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
-                        <td ng-if="task.state == status[2].value" ng-style="{color: status[2].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
-                        <td ng-if="task.state == status[3].value" ng-style="{color: status[3].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
-                        <td><a href="/task-details?id={{ task.id }}"><button class="btn button-gray btn-sm">Manage</button></a></td>
+                        <td><span ng-style="{color: getStateColor(task.state)}" class="task-status">{{ task.state }}</span></td>
+                        <td><a ng-href="/task-details?id={{ task.id }}"><button class="btn button-gray btn-sm">Manage</button></a></td>
                     </tr>
                 </tbody>
             </table>

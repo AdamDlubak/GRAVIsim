@@ -75,7 +75,7 @@
             });
     }])
     .config(['$compileProvider', function ($compileProvider) {
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|local|data|chrome-extension|blob):/);
     }])
     .run(['$rootScope', '$location', 'authentication',
         function($rootScope, $location, $authentication){

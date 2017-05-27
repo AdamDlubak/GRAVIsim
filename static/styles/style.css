@@ -61,7 +61,7 @@ h4.login-header {
 .button-gray { background-color: #333; color: #eee;}
 .button-gray:hover { background-color: #222; color: #eee; transition: 0.4s }
 .text-center { text-align: center; }
-#task-status { font-weight: bold; }
+.task-status { font-weight: bold; }
 .input-size { height: 42px; padding: 8px 12px; font-size: 14px; line-height: 1.42857143; border-radius: 4px; }
 .site-bg-index {
 

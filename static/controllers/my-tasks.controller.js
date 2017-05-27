@@ -87,6 +87,24 @@
                     });
                 });
 
+                $scope.getPriorityColor = function(priority) {
+                    for (var item in $scope.priorities) {
+                        if (priority === $scope.priorities[item].value) {
+                            return $scope.priorities[item].color;
+                        }
+                    }
+                    return '#333';
+                }
+
+                $scope.getStateColor = function(state) {
+                    for (var item in $scope.status) {
+                        if (state === $scope.status[item].value) {
+                            return $scope.status[item].color;
+                        }
+                    }
+                    return '#333';
+                }
+
                 $scope.fetchData = function () {
                     var api = '/api/spark-jobs/'; // Do zmiany na wyszukiwanie dla usera ------------------------------------------------------------------------------------
                     //var api = '/api/spark-jobs/?author=' + $scope.user.id;

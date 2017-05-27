@@ -23,17 +23,11 @@
                         <tr id="tasks-list">
                             <td>{{ task.id }}</td>
                             <td>{{ task.name }}</td>
-                            <td ng-if="task.priority == priorities[0].value" ng-style="{color: priorities[0].color}" id="task-status" ng-value="task.priority">{{ task.priority }}</td>
-                            <td ng-if="task.priority == priorities[1].value" ng-style="{color: priorities[1].color} " id="task-status" ng-value="task.priority">{{ task.priority }}</td>
-                            <td ng-if="task.priority == priorities[2].value" ng-style="{color: priorities[2].color}" id="task-status" ng-value="task.priority">{{ task.priority }}</td>
-                            <td ng-if="task.priority == priorities[3].value" ng-style="{color: priorities[3].color}" id="task-status" ng-value="task.priority">{{ task.priority }}</td>
+                            <td><span ng-style="{color: getPriorityColor(task.priority)}" class="task-status">{{ task.priority }}</span></td>
                             <td>{{ task.calculationTime }}</td>
                             <td>{{ task.createdDate }}<br />{{ task.createdTime }}</td>
                             <td>{{ task.startedDate }}<br />{{ task.startedTime }}</td>
-                            <td ng-if="task.state == status[0].value" ng-style="{color: status[0].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
-                            <td ng-if="task.state == status[1].value" ng-style="{color: status[1].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
-                            <td ng-if="task.state == status[2].value" ng-style="{color: status[2].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
-                            <td ng-if="task.state == status[3].value" ng-style="{color: status[3].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
+                            <td><span ng-style="{color: getStateColor(task.state)}" class="task-status">{{ task.state }}</span></td>
                         </tr>
                     </tbody>
                 </table>
