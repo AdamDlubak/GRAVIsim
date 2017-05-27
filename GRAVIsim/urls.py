@@ -27,10 +27,6 @@ urlpatterns = [
     url(r'^api/', include(api.urls, namespace='api')),
     url(r'^api-auth/', include(rest_framework.urls, namespace='rest_framework')),
     url(r'^api-token-auth/', obtain_jwt_token),
-
-  #  url(r'^login/$', 'django.contrib.auth.views.login'),
-  #  url(r'^logout/$', 'django.contrib.auth.views.logout'),
-
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^/?.*$', TemplateView.as_view(template_name='index.html'), name='index'),
+    url(r'^', TemplateView.as_view(template_name='index.html'), name='index'),
 ]
