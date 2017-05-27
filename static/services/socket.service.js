@@ -24,9 +24,14 @@
             _this.onMessageListeners.push(fn);
         };
 
+        var unsubscribe = function(fn) {
+            _this.onMessageListeners.splice(_this.onMessageListeners.indexOf(fn), 1);
+        };
+
         return {
             connect: connect,
             subscribe: subscribe,
+            unsubscribe: unsubscribe,
         }
     }
 

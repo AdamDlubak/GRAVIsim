@@ -5,8 +5,18 @@
                 return {
                     restrict: 'E',
                     templateUrl: '/static/fragments/logger.html',
+                    scope: {},
                     link: function($scope, $element, $attrs) {
                         var _this = this;
+
+                        function socketCallback(ev) {
+                            ev.data
+                                .split('\n')
+                                .forEach(function (line) {
+                                    _this.parseLine(line);
+                                });
+                            $scope.$digest();
+                        };
 
                         $scope.log = [];
                         $scope.progress = {
@@ -20,17 +30,15 @@
                             'Animation duration': 'N/A'
                         };
 
+                        $socket.subscribe(socketCallback);
+
                         $scope.$on('dataFetched', function(event, id) {
+                            $scope.log = [];
                             $scope.target = id;
                             $socket.connect(id);
-                            $socket.subscribe(function(ev) {
-                                ev.data
-                                    .split('\n')
-                                    .forEach(function (line) {
-                                        _this.parseLine(line);
-                                    });
-                                $scope.$digest();
-                            });
+                        });
+                        $scope.$on('$destroy', function() {
+                            $socket.unsubscribe(socketCallback);
                         });
 
                         _this.parseLine = function(line) {
