@@ -125,8 +125,6 @@
                                             elem.finishedTime = moment(elem.finished).format('HH:mm:ss');
                                         }
 
-                                        if(elem.finished != null && elem.started != null) elem.calculationTime = moment.utc(moment.utc(elem.finished) - moment.utc(elem.started)).format("HH:mm:ss")
-                                        else elem.calculationTime = "-----";
                                         $scope.tasks.push(elem)
                                     });
                                 }
