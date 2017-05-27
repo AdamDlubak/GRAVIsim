@@ -12,7 +12,7 @@ class UserListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password', 'first_name', 'last_name', 'link')
+        fields = ('id', 'username', 'email', 'password', 'first_name', 'last_name', 'is_superuser', 'link')
 
     def get_link(self, obj):
         return self.context.get('request').build_absolute_uri(
@@ -34,12 +34,13 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name')
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'is_superuser')
 
     def update(self, instance, validated_data):
         instance.email = validated_data.get('email', instance.email)
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.is_superuser = validated_data.get('is_superuser', instance.is_superuser)
         instance.save()
         return instance
 
@@ -49,7 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'link')
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'is_superuser', 'link')
 
     def get_link(self, obj):
         return self.context.get('request').build_absolute_uri(

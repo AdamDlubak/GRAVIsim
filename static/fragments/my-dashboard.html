@@ -54,7 +54,8 @@
                 </div>
                 <div style="font-weight: bold;">
                     <p style="margin-bottom: -2px;">{{ user.first_name }} {{ user.last_name }}</p>
-                    <p style="font-weight: normal; font-size: 12px;">Administrator</p>
+                    <p ng-if="user.is_superuser" style="font-weight: normal; font-size: 12px;">Administrator</p>
+                    <p ng-if="!user.is_superuser" style="font-weight: normal; font-size: 12px;">Użytkownik</p>
                     <p>{{ user.email }}</p>
                     
                     <hr>

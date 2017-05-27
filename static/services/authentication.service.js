@@ -33,6 +33,7 @@
             return is_authenticated;
         };
 
+
         var register = function(data) {
             return $q(function(resolve, reject) {
                 if(data.password !== data.password2) {
@@ -50,6 +51,7 @@
                         first_name: data.firstName,
                         last_name: data.lastName,
                         username: data.username,
+                        admin: data.is_superuser
                     })
                 ).then(function(user){
                     resolve(user);
