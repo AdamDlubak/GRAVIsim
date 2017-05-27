@@ -1,0 +1,96 @@
+<div class="col-md-12 col-lg-6">
+    <div class="well">
+        <p class="well lead text-center">Order Task Using File</p>
+
+        <form method="POST" id="order-task">
+
+
+            <!-- Text input -->
+            <div class="form-group" style="margin-top: 0px;">
+                <label for="title">Title</label>
+                <input name="name" class="input-size form-control" type="text" ng-value="taskData.name" ng-model="taskData.name" id="name"
+                    placeholder="Title of task" />
+            </div>
+
+            <!-- Text input -->
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control input-size" name="description" ng-value="taskData.description" ng-model="taskData.description"
+                    placeholder="Description..." rows="4" id="description"></textarea>
+            </div>
+
+            <!-- Text input -->
+            <div class="form-group">
+                <label for="inputFile">File with simulation</label>
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <!--<div class="avatar" style="background-image: url({{ taskData.inputFile }})">-->
+                            <span class="btn button-gray">
+                                Browse&hellip; <input type="file" class="input-size form-control input-avatar" id="input-avatar" ng-value="user.inputFile" ng-model="user.inputFile"  style="display: none;" name="inputFile" ng-model="filepath">
+                            </span>
+                        </label>
+                    <input type="text" class="form-control avatar" readonly>
+                </div>
+            </div>
+
+            <script>
+                $(function () {
+
+                    // We can attach the `fileselect` event to all file inputs on the page
+                    $(document).on('change', ':file', function () {
+                        var input = $(this),
+                            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                        input.trigger('fileselect', [numFiles, label]);
+                    });
+
+                    // We can watch for our custom `fileselect` event like this
+                    $(document).ready(function () {
+                        $(':file').on('fileselect', function (event, numFiles, label) {
+
+                            var input = $(this).parents('.input-group').find(':text'),
+                                log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                            if (input.length) {
+                                input.val(log);
+                            } else {
+                                if (log) alert(log);
+                            }
+
+                        });
+                    });
+
+                });
+            </script>
+
+            <!-- Text input -->
+            <div class="form-group" style="margin-top: 0px;">
+                <label for="iterations">Iterations</label>
+                <input type="range" name="amountRange" min="0" max="10000" value="0" oninput="this.form.iterations.value=this.value"
+                />
+                <input type="text" id="iterations" name="iterations" value="0" ng-value="taskData.iterations" ng-model="taskData.iterations" class="form-control input-size"
+                    min="0" max="10000" value="0" oninput="this.form.amountRange.value=this.value" />
+            </div>
+            <!-- Text input --> 
+
+            <!-- Text input -->
+            <div class="form-group" style="margin-top: 0px;">
+                <div class="input-group">
+                    <label for="priority">Priority</label>
+                    <div id="radioBtn" class="btn-group" style="display: block" name="priority">
+                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="priority" data-value="{{ priorities[3].id }}">{{ priorities[3].value }}</span>
+                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="priority" data-value="{{ priorities[2].id }}">{{ priorities[2].value }}</span>
+                        <span style="padding: 8px 17px;" class="btn button-gray btn-sm active" data-toggle="priority" data-value="{{ priorities[1].id }}">{{ priorities[1].value }}</span>
+                        <span style="padding: 8px 17px;" class="btn btn-default btn-sm notActive" data-toggle="priority" data-value="{{ priorities[0].id }}">{{ priorities[0].value }}</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Submit button -->
+            <div class="form-group">
+                <button type="submit" ng-click="sendTask()" class="btn button-gray btn-load btn-lg top-buffer-15px " data-loading-text="password...">Order Task</button>
+            </div>
+        </form>
+
+    </div>

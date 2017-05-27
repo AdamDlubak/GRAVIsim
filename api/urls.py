@@ -12,4 +12,5 @@ router.register(r'spark-jobs', SparkJobViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^upload_data/$', csrf_exempt(FileUploadView.as_view())),
+    
 ]

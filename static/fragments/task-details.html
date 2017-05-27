@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="well main-box">
+
+            <div class="well lead" style="display: inline-block; width: 100%;">
+                <a href="/my-tasks"><button class="btn button-gray btn-load btn-md" style="float: left; width: 100px;">Back</button></a>                #{{ id }} - {{ task.name }}
+                <a href=""><button class="btn button-gray btn-load btn-md" style="float: right; width: 100px;">Delete</button></a>
+
+                <a href="/task-details-edit?id={{ task.id }}"><button class="btn button-gray btn-load btn-md" style="float: right; width: 100px; margin-right: 5px;">Edit</button></a>
+
+            </div>
+
+            <div class="col-md-4" style="text-align: left;">
+                <p style="min-height: 200px; text-align: justify; margin-top: 25px;">{{ task.description }}</p>
+                <div class="col-md-6">
+                    <p>Priority:</p>
+                    <p>Iterations:</p>
+                    <p>State:</p>
+                    <p>Created date:</p>
+                    <p>Started date:</p>
+                    <p>Finished date:</p>
+                    <p>Calcuation time:</p>
+                </div>
+
+                <div class="col-md-6">
+                </div>
+
+                <p><b>{{ task.priority}}</b></p>
+                <p><b>{{ task.iterations }}</b></p>
+                <p><b>{{ task.state }}</b></p>
+                <p><b>{{ task.createdDate }} {{ task.createdTime }}</b></p>
+                <p><b>{{ task.startedDate }} {{ task.startedTime }}</b></p>
+                <p><b>{{ task.finishedDate }} {{ task.finishedTime }}</b></p>
+                <p></p>
+
+
+            </div>
+
+            <div class="col-md-8">
+                <h3>Listing job:</h3>
+                <div>
+                    <logger style="text-align: left;" target="'52'"></logger>
+                </div>
+            </div>
+            <simulationresult></simulationresult>
+        </div>
+    </div>
+</div>

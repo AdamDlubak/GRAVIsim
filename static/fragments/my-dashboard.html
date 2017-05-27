@@ -1,163 +1,82 @@
-<script>
-    $(function () {
-
-        // We can attach the `fileselect` event to all file inputs on the page
-        $(document).on('change', ':file', function () {
-            var input = $(this),
-                numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-            input.trigger('fileselect', [numFiles, label]);
-        });
-
-        // We can watch for our custom `fileselect` event like this
-        $(document).ready(function () {
-            $(':file').on('fileselect', function (event, numFiles, label) {
-
-                var input = $(this).parents('.input-group').find(':text'),
-                    log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-                if (input.length) {
-                    input.val(log);
-                } else {
-                    if (log) alert(log);
-                }
-
-            });
-        });
-
-    });
-
-</script>
-
-<div class="container-fluid my-account-site">
-
+<div class="container-fluid my-account-site" style="max-width: 1300px; margin-left: 0px;">
     <div class="row">
+        <div class="col-xs-9">
 
-        <div class="well main-box">
-            <p class="well lead">My Current Tasks</p>
+            <div class="well main-box">
 
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>Action Time</th>
-                        <th>Ordered</th>
-                        <th>Started</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--<tr ng-repeat="user in users">-->
-                    <tr>
-                        <td>1</td>
-                        <td>Badanie gwiazdozbioru Oranzy</td>
-                        <td>3:14:65</td>
-                        <td>20.04.2017 13:45:43</td>
-                        <td>20.04.2017 14:15:45</td>
-                        <td style="color: green; font-weight: bold;">Active</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Badanie gwiazdozbioru Słonia</td>
-                        <td>3:14:65</td>
-                        <td>20.04.2017 13:45:43</td>
-                        <td>20.04.2017 14:15:45</td>
-                        <td style="color: green; font-weight: bold;">Active</td>
-                    </tr>                    
-                    <tr>
-                        <td>3</td>
-                        <td>Badanie gwiazdozbioru Tygrysa</td>
-                        <td>3:14:65</td>
-                        <td>20.04.2017 13:45:43</td>
-                        <td>20.04.2017 14:15:45</td>
-                        <td style="color: green; font-weight: bold;">Active</td>                        
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Kolonizacja Marsa</td>
-                        <td>3:14:65</td>
-                        <td>20.04.2017 13:45:43</td>
-                        <td>20.04.2017 14:15:45</td>
-                        <td style="color: orange; font-weight: bold;">Paused</td>  
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Badanie Drogi Mlecznej</td>
-                        <td>3:14:65</td>
-                        <td>20.04.2017 13:45:43</td>
-                        <td>20.04.2017 14:15:45</td>
-                        <td style="color: green; font-weight: bold;">Active</td>
-                    </tr>                                        
+                <p class="well lead">My Last Tasks</p>
 
-                </tbody>
-            </table>
 
-            <div class="well main-box" style="width: 100%">
-                <p class="well lead">Demo</p>
-                <div class="text-center" aria-label="Demo">
-                    <a href="/demo/logger" class="btn btn-primary btn-lg">Monitor</a>
-                    <a href="/demo/canvas" class="btn btn-primary btn-lg">Simulation</a>
-                </div>
+                <table class="table table-hover gravi-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Priority</th>
+                            <th>Calculation time</th>
+                            <th>Created</th>
+                            <th>Started</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="task in tasks | orderBy : '-created' | limitTo: 5" style="border: 0px;">
+                        <tr id="tasks-list">
+                            <td>{{ task.id }}</td>
+                            <td>{{ task.name }}</td>
+                            <td ng-if="task.priority == priorities[0].value" ng-style="{color: priorities[0].color}" id="task-status" ng-value="task.priority">{{ task.priority }}</td>
+                            <td ng-if="task.priority == priorities[1].value" ng-style="{color: priorities[1].color} " id="task-status" ng-value="task.priority">{{ task.priority }}</td>
+                            <td ng-if="task.priority == priorities[2].value" ng-style="{color: priorities[2].color}" id="task-status" ng-value="task.priority">{{ task.priority }}</td>
+                            <td ng-if="task.priority == priorities[3].value" ng-style="{color: priorities[3].color}" id="task-status" ng-value="task.priority">{{ task.priority }}</td>
+                            <td>{{ task.calculationTime }}</td>
+                            <td>{{ task.createdDate }}<br />{{ task.createdTime }}</td>
+                            <td>{{ task.startedDate }}<br />{{ task.startedTime }}</td>
+                            <td ng-if="task.state == status[0].value" ng-style="{color: status[0].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
+                            <td ng-if="task.state == status[1].value" ng-style="{color: status[1].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
+                            <td ng-if="task.state == status[2].value" ng-style="{color: status[2].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
+                            <td ng-if="task.state == status[3].value" ng-style="{color: status[3].color}" id="task-status" ng-value="task.state">{{ task.state }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+        <div class="col-xs-3">
+            <div class="well main-box">
+                <p class="well lead">My Profile</p>
 
-        <div class="right-box">
+                <!-- Image fields -->
+                <div class="fileinput fileinput-new form-group" data-provides="fileinput">
 
-            <div class="row">
-
-                <div class="well box">
-                    <p class="well lead text-center">Order Task with File</p>
-
-                    <form method="post" id="password-form" class="form-inline">
-
-                        <h4>Upload file with data</h4>
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                    <span class="btn btn-primary">
-                        Browse&hellip; <input type="file" class="form-input form-control" style="display: none;">
-                    </span>
-                </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>
-
-                        <!-- Text input -->
-                        <div class="form-group" style="margin-top: 0px;">
-                            <label for="title">Title</label>
-                            <input name="title" class="form-input form-control" type="text" value="" id="title" placeholder="Title of task" />
-                        </div>
-
-                        <!-- Text input -->
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control form-input" name="description" placeholder="Description..." rows="4" id="description"></textarea>
-
-                        </div>
-
-                        <!-- Submit button -->
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-load btn-lg" data-loading-text="password...">Order Task</button>
-                        </div>
-                    </form>
-                </div>
-
-
-
-                <div class="well box">
-                    <p class="well lead text-center" style="margin-bottom: 0px;">Order Task Manually</p>
-
-                    <!-- Submit button -->
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-load btn-lg" data-loading-text=" password...">Order Task</button>
+                    <div class="fileinput-new thumbnail photo-thumbnail">
+                        <img src="static/images/user.jpg" class="img-circle">
                     </div>
 
+
                 </div>
+                <div style="font-weight: bold;">
+                    <p style="margin-bottom: -2px;">{{ user.first_name }} {{ user.last_name }}</p>
+                    <p ng-if="user.is_superuser" style="font-weight: normal; font-size: 12px;">Administrator</p>
+                    <p ng-if="!user.is_superuser" style="font-weight: normal; font-size: 12px;">Użytkownik</p>
+                    <p>{{ user.email }}</p>
 
+                    <hr>
+                </div>
+                <div style="text-align: left">
+                    <p style="margin-top: 20px"><span class="glyphicon glyphicon-th-large" />&nbsp; All my tasks: <b>{{ tasksAmt[4] }}</b></p>
+                    <hr>
+                    <p><span class="glyphicon glyphicon-tags text-danger" />&nbsp; Suspended: <b>{{ tasksAmt[3] }}</b></p>
+                    <p><span class="glyphicon glyphicon-hourglass text-primary" />&nbsp; Waiting: <b>{{ tasksAmt[0] }}</b></p>
+                    <p><span class="glyphicon glyphicon-cog text-warning" />&nbsp; Running: <b>{{ tasksAmt[1] }}</b></p>
+                    <p><span class="glyphicon glyphicon-flag text-success" />&nbsp; Finished: <b>{{ tasksAmt[2] }}</b></p>
+                </div>
+                <div ng-if="user.is_superuser" class="form-group">
+                    <hr>
 
+                    <a href="/manage-users"><button class="btn button-gray btn-load btn-md">Manage Users</button></a>
+                </div>
+                <div ng-if="user.is_superuser" class="form-group">
+                    <a href="/manage-tasks"><button class="btn button-gray btn-load btn-md">Manage Tasks</button></a>
+                </div>
             </div>
-
         </div>
-
     </div>
-
 </div>

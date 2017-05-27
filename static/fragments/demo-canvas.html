@@ -4,7 +4,7 @@
             <div class="well">
                 <p class="well lead text-center">Simulation Demo</p>
                 <div class="text-center">
-                    <div class="btn-group" role="group" aria-label="Simulations">
+                    <div class="btn-group" role="group" aria-label="Simulations" ng-controller="TaskDetailsController">
                         <button type="button" class="btn btn-default"
                                 ng-repeat="item in views track by $index"
                                 ng-click="changeTo($index)">

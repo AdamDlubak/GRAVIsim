@@ -4,7 +4,7 @@
             function($window, $location, $http){
                 return {
                     restrict: 'E',
-                    scope: {},
+                    scope: { user: "@user"},
                     templateUrl: '/static/fragments/header.html',
 
                     link: function($scope, $element, $attrs){

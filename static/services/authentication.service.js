@@ -25,10 +25,14 @@
         var getUser = function(){
             return user;
         };
+        var isAdmin = function() {
+            return user.is_staff;
+        }
         
-        var isAuthenticated = function(){
+        var isAuthenticated = function() {
             return is_authenticated;
         };
+
 
         var register = function(data) {
             return $q(function(resolve, reject) {
@@ -47,6 +51,7 @@
                         first_name: data.firstName,
                         last_name: data.lastName,
                         username: data.username,
+                        admin: data.is_superuser
                     })
                 ).then(function(user){
                     resolve(user);

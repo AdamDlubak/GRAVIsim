@@ -1,5 +1,5 @@
 #wrapper {
-     padding-left: 50px;
+    margin-left: -200px;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -7,7 +7,22 @@
 }
 
 #wrapper.active {
-    padding-left: 260px;
+    margin-left: 0px;
+}
+
+.col-fixed-240{
+    width:240px;
+    background:#333;
+    position:fixed;
+    height:100%;
+    z-index:1;
+    margin-left: 0px;
+}
+.col-offset-400 {
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 #wrapper #sidebar-wrapper {
@@ -17,7 +32,6 @@
     width: 260px;
     height: 100%;
     margin-left: -260px;
-    overflow-y: auto;
     background: #222;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -143,6 +157,8 @@
 #main_icon {
     float:right;
     padding: 15px 18px 20px 0;
+    color: #999;
+    cursor: pointer;
 }
 
 .sub_icon {

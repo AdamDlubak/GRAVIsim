@@ -8,7 +8,7 @@
                         target: '='
                     },
                     templateUrl: '/static/fragments/logger.html',
-                    link: function($scope, $element) {
+                    link: function($scope, $element, $attrs) {
                         var _this = this;
 
                         $scope.log = [];
