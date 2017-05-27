@@ -9,6 +9,20 @@ import hashlib
 import datetime, time
 
 
+class SparkJobSummarySerializer(serializers.ModelSerializer):
+    started = serializers.DateTimeField(read_only=True)
+    finished = serializers.DateTimeField(read_only=True)
+    duration = serializers.SerializerMethodField()
+
+    class Meta:
+        model = SparkJob
+        fields = ('id', 'name', 'description', 'iterations',
+                  'started', 'finished', 'duration')
+
+    def get_duration(self, obj):
+        return obj.finished - obj.started
+
+
 class SparkJobSerializer(serializers.ModelSerializer):
     link = serializers.SerializerMethodField()
     author = UserSerializer(read_only=True)
