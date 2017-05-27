@@ -57,22 +57,23 @@
                     <p ng-if="user.is_superuser" style="font-weight: normal; font-size: 12px;">Administrator</p>
                     <p ng-if="!user.is_superuser" style="font-weight: normal; font-size: 12px;">Użytkownik</p>
                     <p>{{ user.email }}</p>
-                    
+
                     <hr>
                 </div>
                 <div style="text-align: left">
-                    <p style="margin-top: 20px"><span class="glyphicon glyphicon-th-large"/>&nbsp; All my tasks: <b>{{ tasksAmt[4] }}</b></p>
+                    <p style="margin-top: 20px"><span class="glyphicon glyphicon-th-large" />&nbsp; All my tasks: <b>{{ tasksAmt[4] }}</b></p>
                     <hr>
-                    <p><span class="glyphicon glyphicon-tags text-danger"/>&nbsp; Suspended: <b>{{ tasksAmt[3] }}</b></p>
-                    <p><span class="glyphicon glyphicon-hourglass text-primary"/>&nbsp; Waiting: <b>{{ tasksAmt[0] }}</b></p>
-                    <p><span class="glyphicon glyphicon-cog text-warning"/>&nbsp; Running: <b>{{ tasksAmt[1] }}</b></p>
-                    <p><span class="glyphicon glyphicon-flag text-success"/>&nbsp; Finished: <b>{{ tasksAmt[2] }}</b></p>
+                    <p><span class="glyphicon glyphicon-tags text-danger" />&nbsp; Suspended: <b>{{ tasksAmt[3] }}</b></p>
+                    <p><span class="glyphicon glyphicon-hourglass text-primary" />&nbsp; Waiting: <b>{{ tasksAmt[0] }}</b></p>
+                    <p><span class="glyphicon glyphicon-cog text-warning" />&nbsp; Running: <b>{{ tasksAmt[1] }}</b></p>
+                    <p><span class="glyphicon glyphicon-flag text-success" />&nbsp; Finished: <b>{{ tasksAmt[2] }}</b></p>
                 </div>
-                <hr>
-                                <div class="form-group">
+                <div ng-if="user.is_superuser" class="form-group">
+                    <hr>
+
                     <a href="/manage-users"><button class="btn button-gray btn-load btn-md">Manage Users</button></a>
                 </div>
-                <div class="form-group">
+                <div ng-if="user.is_superuser" class="form-group">
                     <a href="/manage-tasks"><button class="btn button-gray btn-load btn-md">Manage Tasks</button></a>
                 </div>
             </div>
