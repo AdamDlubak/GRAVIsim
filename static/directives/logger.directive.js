@@ -4,9 +4,6 @@
             function($window, $location, $http, $socket){
                 return {
                     restrict: 'E',
-                    scope: {
-                        target: '='
-                    },
                     templateUrl: '/static/fragments/logger.html',
                     link: function($scope, $element, $attrs) {
                         var _this = this;
@@ -23,14 +20,17 @@
                             'Animation duration': 'N/A'
                         };
 
-                        $socket.connect($scope.target);
-                        $socket.subscribe(function(ev) {
-                            ev.data
-                                .split('\n')
-                                .forEach(function (line) {
-                                    _this.parseLine(line);
-                                });
-                            $scope.$digest();
+                        $scope.$on('dataFetched', function(event, id) {
+                            $scope.target = id;
+                            $socket.connect(id);
+                            $socket.subscribe(function(ev) {
+                                ev.data
+                                    .split('\n')
+                                    .forEach(function (line) {
+                                        _this.parseLine(line);
+                                    });
+                                $scope.$digest();
+                            });
                         });
 
                         _this.parseLine = function(line) {

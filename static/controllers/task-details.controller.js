@@ -82,8 +82,8 @@
                                 $scope.task.finishedDate = moment($scope.task.finished).format('DD.MM.YYYY');
                                 $scope.task.finishedTime = moment($scope.task.finished).format('HH:mm:ss');
                             }
+                            $scope.$broadcast('dataFetched', $scope.task.id);
                         });
-
                 }, function (error) {
                     console.log(error);
                 };
