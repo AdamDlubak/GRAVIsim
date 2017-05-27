@@ -204,6 +204,7 @@ if __name__ == '__main__':
     kwargs = get_args()
     conf = SparkConf()
     conf.set("spark.executor.heartbeatInterval", "3600s")
+    conf.set("spark.network.timeout", "7200s")
 
     spark = SparkSession.builder.appName("Simulation").config(conf=conf).getOrCreate()
     context = spark.sparkContext
