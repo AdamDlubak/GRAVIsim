@@ -24,9 +24,9 @@
                     <div class="col-md-70 inputGroupContainer control-input">
                         <div class="input-group" style="width: 100%">
                             <span class="input-group-addon" style="width: 50px;"><i class="glyphicon glyphicon-envelope"></i></span>
-                            <select class="form-control form-input" ng-model="task.state">
+                            <select class="form-control form-input" id="select-state" ng-model="task.state">
 
-                                <option  ng-repeat="stat in status" ng-selected="{{ task.state == stat.value }}" ng-value="statusik.id = {{ stat.id }}">{{ stat.value }}</option>
+                                <option  ng-repeat="stat in status" ng-selected="{{ task.state == stat.value }}"  >{{ stat.id }}</option>
                             </select>
                         </div>
                     </div>

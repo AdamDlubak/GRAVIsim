@@ -1,7 +1,7 @@
 (function () {
     angular.module('gravisim').
-        controller('TaskDetailsController', ['$scope', '$http', '$location', 'authentication',
-            function ($scope, $http, $location, $authentication) {
+        controller('TaskDetailsController', ['$scope', '$http', '$location', 'tasks',
+            function ($scope, $http, $location, $tasks) {
                 var self = this;
 
                 $scope.status = [
@@ -59,7 +59,7 @@
                             $scope.task = result.data;
                             for (i = 0; i < 4; i++) {
                                 if ($scope.task.state == i) $scope.task.state = $scope.status[i].value;
-                                if ($scope.task.priority == i + 1) $scope.task.priority =  $scope.priorities[i].value;
+                                if ($scope.task.priority == i + 1) $scope.task.priority = $scope.priorities[i].value;
                             }
                             if ($scope.task.created == null) {
                                 $scope.task.createdDate = "-----";
@@ -92,20 +92,23 @@
 
 
 
-                $scope.changeState = function() {
+                $scope.changeState = function () {
                     var url = '/api/spark-jobs/' + $scope.id + '/';
-                    $http.put(url, $.param($scope.stat.id), {
 
-
-
-                        headers: $authentication.getHeader(),
-                    }).then(
-                        function() {
-                            $authentication.fetchUser();
-                        },
-                        function(err) { console.error(err); }
-                    );
+                    var e = document.getElementById("select-state");
+                    $scope.option = e.options[e.selectedIndex].value;
+                    console.log($scope.option);
+                    $tasks
+                        .sendTaskStatus( url, $scope.task, $scope.option)
+                        .then(function () {
+                            $scope.loginError = false;
+                            $location.path('/my-dashboard');
+                        }, function (error) {
+                            $scope.loginError = true;
+                        });
                 }
+
+
 
             }
         ]);

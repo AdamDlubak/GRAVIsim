@@ -6,7 +6,7 @@
     "use strict";
 
     var tasks = function ($window, $q, $http, $rootScope) {
-        
+
 
 
 
@@ -28,7 +28,7 @@
             $window.localStorage['gravisim-tool-token'] = newToken;
         };
 
-        var isAuthenticated = function() {
+        var isAuthenticated = function () {
             return is_authenticated;
         };
 
@@ -39,17 +39,17 @@
             } : {};
         };
 
-        (function(token){
-            if(token) {
+        (function (token) {
+            if (token) {
                 var tuser = JSON.parse($window.atob(token.split('.')[1]));
-                if(tuser) {
-                    if(new Date() >= new Date(tuser.exp*1000)){
+                if (tuser) {
+                    if (new Date() >= new Date(tuser.exp * 1000)) {
                         logout();
                         console.log("Session Expired!");
                     } else {
                         is_authenticated = true;
                         $http.get('/api/users/' + tuser.user_id + '/').then(
-                            function(data){
+                            function (data) {
                                 user = data.data;
                             }
                         );
@@ -77,19 +77,40 @@
             });
         }
 
-        return {
-            sendTask: sendTask,
-            getToken: getToken,
-            saveToken: saveToken,
-            getTokenData: getTokenData,
-            isAuthenticated: isAuthenticated,
-            getHeader: getHeader,
-        };
-    };
+        var sendTaskStatus = function (url, task, newStatus) {
 
-    angular.module('utils').factory('tasks', ['$window', '$q', '$http', '$rootScope',
-        function ($window, $q, $http, $rootScope) {
-            return new tasks($window, $q, $http, $rootScope);
+            return $q(function (resolve, reject) {
+                $http.put(url,
+                    $.param( {
+                        state: newStatus,
+                        name: task.name,
+                        inputFile: task.inputFile,
+                        iterations: task.iterations,
+                        
+
+                    })
+                ).then(function (user) {
+                    resolve(user);
+                }, function (error) {
+                    reject(error);
+                });
+            });
         }
-    ]);
-})();
+
+        return {
+                sendTask: sendTask,
+                getToken: getToken,
+                saveToken: saveToken,
+                getTokenData: getTokenData,
+                isAuthenticated: isAuthenticated,
+                getHeader: getHeader,
+                sendTaskStatus: sendTaskStatus,
+            };
+        };
+
+        angular.module('utils').factory('tasks', ['$window', '$q', '$http', '$rootScope',
+            function ($window, $q, $http, $rootScope) {
+                return new tasks($window, $q, $http, $rootScope);
+            }
+        ]);
+    })();
