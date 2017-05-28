@@ -6,11 +6,22 @@
     margin: 25px 0px 25px 15px;
 }
 .main-box {
-    margin: 0px 25px 25px 0px;
+    margin: 15px 15px 25px 0px;
     overflow: auto;
 }
 .padding-right-10 {
     padding-right: 10%;
+}
+.overflow-auto {
+    overflow: auto; 
+}
+.width-max-500 {
+    max-width: 500px;
+    width: 100%;
+}
+.width-max-1000 {
+    max-width: 1000px;
+    width: 100%;
 }
 
 
@@ -35,23 +46,6 @@
 }
 
 
-
-.accordion-toggle td.arrow-in-list:after {
-        font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
-            content: "\e114";    /* adjust as needed, taken from bootstrap.css */
-    position: relative;
-    top: 1px;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.accordion-toggle.collapsed td.arrow-in-list:after {
-        content: "\e079";    /* adjust as needed, taken from bootstrap.css */
-
-}
 body {
     font-family: 'Raleway',sans-serif;
     color: #000;
@@ -87,6 +81,10 @@ h4.login-header {
 .top-buffer-25 { margin-top: 25%; }
 .top-buffer-25px { margin-top: 25px; }
 .top-buffer-15px { margin-top: 15px; }
+.top-buffer-10px { margin-top: 10px; }
+.top-buffer-5px { margin-top: 5px; }
+.bottom-buffer-15px { margin-bottom: 15px; }
+.bottom-buffer-10px { margin-bottom: 10px; }
 .left-buffer-20px { margin-left: 20px; }
 .button-gray { background-color: #333; color: #eee;}
 .button-gray:hover { background-color: #222; color: #eee; transition: 0.4s }
@@ -218,20 +216,6 @@ input[type=range]:focus::-ms-fill-upper {
     display: none; 
     margin: 100px;
 }
-/*.row {
-    margin: 0px;
-    padding: 0px;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: row wrap;
-    flex-flow: row wrap;
-    margin-left:0px !important;
-    margin-right:0px !important;
-}*/
-
 .gravi-table > thead > tr > th {
     text-align: center;
 }
@@ -243,28 +227,6 @@ input[type=range]:focus::-ms-fill-upper {
     padding-bottom: 15px;
 }
 
-/*----------------------- SITES -----------------------*/
-
-/*--------------- ABOUT US ---------------*/
-
-.about-us-site .row .main-box {
-    width: 100%;
-    max-width: 1300px;
-}
-.about-us-site .row .main-box .well #info {
-    margin-top: 20px;
-    font-size: 14px;
-}
-
-/*--------------- MY ACCOUNT ---------------*/
-
-
-.my-account-site .row .right-box {
-    width: 40%;
-    width: 350px;
-    margin: 25px 15px 25px 0;
-    height: 100%;
-}
 
 canvas.simulator {
     width: 100%;
@@ -311,121 +273,4 @@ canvas.simulator:hover {
 
 .logger span.bold {
     font-weight: bold;
-}
-
-/*--------------- CONTACT ---------------*/
-
-.contact-site .row .right-box {
-    width: 40%;
-    width: 440px;
-    margin: 25px 15px 25px 0;
-}
-.contact-site .row .right-box .admin-info {
-    width: 100%;
-    margin-bottom: 15px;
-}
-.contact-site .row .right-box .admin-info .admin-image {
-    width: 110px;
-    margin-right: 20px;
-}
-.contact-site .row .right-box .admin-describtion {
-    line-height: 13px;
-    width: 256px;
-}
-
-@media (max-width: 1754px) {
-    .row .main-box {
-        /*width: 80%;*/
-        min-width: initial;
-    }
-    .row .right-box {
-        width: 80%;
-        margin: 0 15px 25px 15px;
-    }
-    
-    .row .right-box .row {
-        text-align: center;
-        justify-content: center;
-        flex-direction: row;
-        align-items: center;
-        display: flex;
-    }
-    .row .right-box .admin-info {
-        max-width: 300px;
-        min-width: 256px;
-        text-align: center;
-    }
-    .row .right-box .admin-info .admin-image {
-        width: 100%;
-        margin: 0;
-    }
-    .row .right-box .admin-info .admin-image .user-image {
-        margin: 0;
-    }
-    .row .right-box .admin-info .admin-describtion {
-        width: 100%;
-    }
-}
-@media (max-width: 1440px){
-
-    /*---------------------- GENERAL ----------------------*/
-    
-    .row .main-box {
-        width: 100%;
-        min-width: initial;
-    }
-    .row .right-box {
-        width: 100%;
-        margin: 0 15px 25px 15px;
-    }
-
-    /*--------------- MY ACCOUNT ---------------*/
-
-    .my-account-site .row .main-box {
-        width: 100%;
-        min-width: initial;
-    }
-    .my-account-site .row .right-box {
-    width: 100%;   
-    margin: 25px 15px 5px 15px;
-    height: 100%;
-    }
-    .my-account-site .row .right-box .row {
-        max-width: 1000px;
-        text-align: initial;
-        justify-content: initial;
-        flex-direction: row;
-        align-items: initial;
-        display: flex;
-    }
-    .my-account-site .row .right-box .row .box {
-        max-width: 493px;
-        min-width: 300px;
-        margin-left: 2%;
-        width: 48%;
-    }
-
-}
-@media (max-width: 1097px) {
-
-    /*---------------------- GENERAL ----------------------*/
-
-    .row .main-box {
-        width: 100%;
-        min-width: initial;
-    }
-    .row .right-box {
-        width: 100%;
-        margin: 0 0px 25px 0px;
-    }
-}
-@media (max-width: 915px) {
-
-    /*--------------- MY ACCOUNT ---------------*/
-    .my-account-site .row .right-box .row .box{
-    min-width: 300px;
-    width: 100% !important;
-    max-width: initial;
-    margin-left: 0px;
-    }
 }

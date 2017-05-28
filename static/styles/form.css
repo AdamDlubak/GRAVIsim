@@ -1,3 +1,6 @@
+
+
+
 .box-margin {
     margin: 25px 15px 0 15px;
 }
@@ -6,9 +9,6 @@
     min-width: 120px;
 }
 
-.form-group .control-input {
-    min-width: 300px;
-}
 .form-input {
     height: 40px;
     padding: 10px 16px;
@@ -70,9 +70,6 @@
     } 
     .form-group{
         margin-top: 10px;
-    }
-    .input-group{
-        max-width: none !important;
     }
     .form-group label {
         text-align: left;

@@ -1,61 +1,59 @@
+<form method="post" role="form" data-toggle="validator">
 
-<form method="post" id="contact-form" role="form" data-toggle="validator">
+    <!-- Text input -->
+    <div class="form-group width-max-500">
+        <label class="control-label">Recipient</label>
+        <div class="inputGroupContainer control-input">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                <select class="form-control form-input">
+                        <option value="adam.dlubak@gmail.com">Adam Dłubak</option>
+                        <option value="jakub.blaszczyk@gmail.com">Jakub Błaszczyk</option>
+                    </select>
+            </div>
+        </div>
+    </div>
 
-            <!-- Text input -->
-            <div class="form-group">
-                <label class="col-md-30 control-label">Priority</label>
-                <div class="col-md-70 inputGroupContainer control-input">
-                    <div class="input-group">
-                        <span class="input-group-addon" style="width: 50px;"><i class="glyphicon glyphicon-fire"></i></span>
-                        <select class="form-control form-input">
+    <!-- Text input -->
+    <div class="form-group width-max-500">
+        <label class="control-label">Priority</label>
+        <div class="inputGroupContainer control-input">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-fire"></i></span>
+                <select class="form-control form-input">
                         <option value="Low">Low</option>
                         <option value="Medium">Medium</option>
                         <option value="High">High</option>
                         <option value="Urgent">Urgent</option>
                     </select>
-                    </div>
-                </div>
             </div>
-            
-            <!-- Text input -->
-            <div class="form-group">
-                <label class="col-md-30 control-label">Receiver</label>
-                <div class="col-md-70 inputGroupContainer control-input">
-                    <div class="input-group">
-                        <span class="input-group-addon" style="width: 50px;"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <select class="form-control form-input">
-                        <option value="adam.dlubak@gmail.com">Adam Dłubak</option>
-                        <option value="jakub.blaszczyk@gmail.com">Jakub Błaszczyk</option>
-                        <option value="artur.schulz@gmail.com">Artur Schulz</option>
-                    </select>
-                    </div>
-                </div>
-            </div>
+        </div>
+    </div>
 
-            <!-- Text input -->
-            <div class="form-group">
-                <label class="col-md-30 control-label">Subject</label>
-                <div class="col-md-70 inputGroupContainer control-input">
-                    <div class="input-group">
-                        <span class="input-group-addon" style="width: 50px;"><i class="glyphicon glyphicon-comment"></i></span>
-                        <input name="subject" placeholder="Message Subject" class="form-control form-input" type="text">
-                    </div>
-                </div>
+    <!-- Text input -->
+    <div class="form-group width-max-500">
+        <label class="control-label">Subject</label>
+        <div class="inputGroupContainer control-input">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                <input name="subject" placeholder="Message Subject" class="form-control form-input" type="text">
             </div>
+        </div>
+    </div>
 
-            <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-30 control-label">Message</label>
-                <div class="col-md-70 inputGroupContainer">
-                    <div class="input-group" style="max-width: 750px;">
-                        <textarea class="form-control form-input" name="message" placeholder="Message content..." rows="10" id="message"></textarea>
-                    </div>
-                </div>
+    <!-- Text input-->
+    <div class="form-group width-max-1000">
+        <label class="control-label">Message</label>
+        <div class="inputGroupContainer control-input">
+            <div class="input-group" style="width: 100%">
+                <textarea class="form-control form-input" name="message" placeholder="Message content..." rows="10" id="message"></textarea>
             </div>
+        </div>
+    </div>
 
-            <!-- Submit button -->
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-load btn-lg" data-loading-text="Sending...">Send Message</button>
-            </div>
+    <!-- Submit button -->
+    <div class="form-group width-max-1000">
+        <button type="submit" class="btn button-gray btn-load btn-lg" data-loading-text="Sending...">Send Message</button>
+    </div>
 
 </form>
