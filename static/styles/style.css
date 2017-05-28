@@ -2,6 +2,24 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
 
+.content-margin {
+    margin: 25px 0px 25px 15px;
+}
+.main-box {
+    margin: 0px 25px 25px 0px;
+    overflow: auto;
+}
+.padding-right-10 {
+    padding-right: 10%;
+}
+
+
+
+
+
+
+
+
 .hiddenRow {
     padding: 0 !important;
 }
@@ -15,6 +33,7 @@
     margin-left: 255px;
     margin-bottom: 20px;
 }
+
 
 
 .accordion-toggle td.arrow-in-list:after {
@@ -71,7 +90,6 @@ h4.login-header {
 .left-buffer-20px { margin-left: 20px; }
 .button-gray { background-color: #333; color: #eee;}
 .button-gray:hover { background-color: #222; color: #eee; transition: 0.4s }
-.text-center { text-align: center; }
 .task-status { font-weight: bold; }
 .input-size { height: 42px; padding: 8px 12px; font-size: 14px; line-height: 1.42857143; border-radius: 4px; }
 .site-bg-index {
@@ -240,11 +258,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 /*--------------- MY ACCOUNT ---------------*/
 
-.main-box {
-    margin: 25px 0px 25px 15px;
-    text-align: center;
-    overflow: auto;
-}
+
 .my-account-site .row .right-box {
     width: 40%;
     width: 350px;
