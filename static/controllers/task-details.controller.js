@@ -126,6 +126,10 @@
                             $scope.loginError = true;
                         });
                 }
+
+                $scope.getSimulationFile = function () {
+                    return $scope.id + '.json';
+                }
             }
         ]);
 })();
