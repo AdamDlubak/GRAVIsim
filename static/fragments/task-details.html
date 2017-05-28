@@ -5,18 +5,42 @@
             <div class="well lead" style="display: inline-block; width: 100%;">
                 <a href="/my-tasks"><button class="btn button-gray btn-load btn-md" style="float: left; width: 100px;">Back</button></a>
                 <span>#{{ id }} - {{ task.name }}</span>
-                <a href=""><button class="btn button-gray btn-load btn-md" style="float: right; width: 100px;">Delete</button></a>
-                <a ng-href="/task-details-edit?id={{ task.id }}">
+                <a ng-if="task.state == 'Suspended'" href=""><button class="btn button-gray btn-load btn-md" style="float: right; width: 100px;">Delete</button></a>
+                <a ng-if="task.state == 'Suspended'" ng-href="/task-details-edit?id={{ task.id }}">
                     <button class="btn button-gray btn-load btn-md" style="float: right; width: 100px; margin-right: 5px;">Edit</button>
                 </a>
+
+                <button ng-if="task.state != 'Suspended'" class="btn button-gray btn-load btn-md disabled" style="float: right; width: 100px; opacity: .92">Delete</button>
+                <button ng-if="task.state != 'Suspended'" class="btn button-gray btn-load btn-md disabled" style="float: right; width: 100px; margin-right: 5px; opacity: .92">Edit</button>
             </div>
+
 
             <div class="col-md-4" style="text-align: left;">
                 <p style="min-height: 200px; text-align: justify; margin-top: 25px; white-space: pre-line">{{ task.description }}</p>
+
+       <!-- Text input -->
+                <div class="form-group" style="display: inline-block; width: 100%;">
+                    <label class="col-md-30 control-label">State</label>
+                    <div class="col-md-70 inputGroupContainer control-input">
+                        <div class="input-group" style="width: 100%">
+                            <span class="input-group-addon" style="width: 50px;"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <select class="form-control form-input" ng-model="task.state">
+
+                                <option  ng-repeat="stat in status" ng-selected="{{ task.state == stat.value }}" ng-value="statusik.id = {{ stat.id }}">{{ stat.value }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Submit button -->
+<div class="form-group">
+  <button class="btn button-gray btn-md" ng-click="changeState()">Change Task State</button>
+</div>
+             
+
                 <div class="col-md-6">
                     <p>Priority:</p>
                     <p>Iterations:</p>
-                    <p>State:</p>
                     <p>Created date:</p>
                     <p>Started date:</p>
                     <p>Finished date:</p>
@@ -27,7 +51,6 @@
 
                 <p><b>{{ task.priority}}</b></p>
                 <p><b>{{ task.iterations }}</b></p>
-                <p><b>{{ task.state }}</b></p>
                 <p><b>{{ task.createdDate }} {{ task.createdTime }}</b></p>
                 <p><b>{{ task.startedDate }} {{ task.startedTime }}</b></p>
                 <p><b>{{ task.finishedDate }} {{ task.finishedTime }}</b></p>

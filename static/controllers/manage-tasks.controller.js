@@ -1,6 +1,6 @@
 (function () {
     angular.module('gravisim').
-        controller('MyTasksController', ['$scope', '$http', '$location', 'authentication',
+        controller('ManageTasksController', ['$scope', '$http', '$location', 'authentication',
             function ($scope, $http, $location, $authentication) {
                 var self = this;
                 $scope.user = $.extend({}, $authentication.getUser());
@@ -106,13 +106,13 @@
                 }
 
                 $scope.fetchData = function () {
-                   // var api = '/api/spark-jobs/'; // Do zmiany na wyszukiwanie dla usera ------------------------------------------------------------------------------------
-                    var api = '/api/spark-jobs/?author=' + $scope.user.id;
-
+                   var api = '/api/spark-jobs/'; 
+                    
                     $http.get(api).
                         then(function (result) {
                             $scope.data = result.data;
                             $scope.tasks = [];
+                            $scope.waitingTasks = [];
                             for (i = 0; i < 4; i++) {
                                 if (choosen[i]) {
                                     ($scope.data.filter(job => job.state == i)).forEach(function (elem) {
@@ -142,7 +142,7 @@
                                             elem.finishedDate = moment(elem.finished).format('DD.MM.YYYY');
                                             elem.finishedTime = moment(elem.finished).format('HH:mm:ss');
                                         }
-
+                                        if(elem.state == $scope.status[0].value) $scope.waitingTasks.push(elem);
                                         $scope.tasks.push(elem)
                                     });
                                 }

@@ -4,8 +4,6 @@
             function($scope, $http, $location, $authentication) {
                 var self = this;
 
-               $scope.userek = $authentication.getUser();
-
                 var api = '/api/users/';
                 
                 $scope.fetchData = function(){
@@ -28,11 +26,6 @@
                         .register($scope.registerData)
                         .then(function() {
                             $scope.loginError = false;
-                            $authentication
-                                .login($scope.registerData.email, $scope.registerData.password)
-                                .then(function() {
-                                    $location.path('/');
-                                });
                         }, function(error) {
                             $scope.loginError = true;
                         });

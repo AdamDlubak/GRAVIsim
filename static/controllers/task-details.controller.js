@@ -90,6 +90,23 @@
 
                 $scope.fetchData();
 
+
+
+                $scope.changeState = function() {
+                    var url = '/api/spark-jobs/' + $scope.id + '/';
+                    $http.put(url, $.param($scope.stat.id), {
+
+
+
+                        headers: $authentication.getHeader(),
+                    }).then(
+                        function() {
+                            $authentication.fetchUser();
+                        },
+                        function(err) { console.error(err); }
+                    );
+                }
+
             }
         ]);
 })();

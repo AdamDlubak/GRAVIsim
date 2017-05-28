@@ -45,6 +45,10 @@
                 controllerAs: 'ordertask'
 
             }).
+            when('/manage-tasks', {
+                templateUrl: 'static/fragments/manage-tasks.html',
+                controller: 'ManageTasksController'
+            }).
             when('/generator', {
                 templateUrl: 'static/fragments/generator.html',
                 controller: 'GeneratorController',
