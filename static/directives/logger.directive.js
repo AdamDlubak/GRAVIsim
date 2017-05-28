@@ -56,6 +56,8 @@
                                 } else if (record.progress) {
                                     parsed = /(([\d\.]+%).+)$/.exec(record.line);
                                     $scope.progress.status = parsed[1];
+                                    $scope.progress.styles = $scope.progressGetClass(record);
+                                    $scope.progress.labelStyles = $scope.getClass(record);
                                     $scope.progress.complete = parsed[2];
                                 } else if (record.status) {
                                     $scope.progress.complete = '100%';
