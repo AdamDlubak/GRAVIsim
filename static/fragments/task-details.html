@@ -18,26 +18,10 @@
             <div class="col-md-4" style="text-align: left;">
                 <p style="min-height: 200px; text-align: justify; margin-top: 25px; white-space: pre-line">{{ task.description }}</p>
 
-       <!-- Text input -->
-                <div class="form-group" style="display: inline-block; width: 100%;">
-                    <label class="col-md-30 control-label">State</label>
-                    <div class="col-md-70 inputGroupContainer control-input">
-                        <div class="input-group" style="width: 100%">
-                            <span class="input-group-addon" style="width: 50px;"><i class="glyphicon glyphicon-envelope"></i></span>
-                            <select class="form-control form-input" id="select-state" ng-model="task.state">
-
-                                <option  ng-repeat="stat in status" ng-selected="{{ task.state == stat.value }}"  >{{ stat.id }}</option>
-                            </select>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <button class="btn btn-md" ng-class="stateButtonClass()" ng-click="changeState()">{{ stateButtonLabel }}</button>
                 </div>
-
-            <!-- Submit button -->
-<div class="form-group">
-  <button class="btn button-gray btn-md" ng-click="changeState()">Change Task State</button>
-</div>
              
-
                 <div class="col-md-6">
                     <p>Priority:</p>
                     <p>Iterations:</p>

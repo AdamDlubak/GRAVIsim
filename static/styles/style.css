@@ -49,6 +49,12 @@ h4.login-header {
 .button-blue {background: #1b5a7c; border-radius: 4px; height: 42px; padding: 8px 12px; font-weight: bold;}
 .button-blue:hover { text-decoration: underline; background: #144b68; transition-duration: 0.2s; }
 
+.button-run-state {background: #008eb2; color: #eee; font-weight: bold;}
+.button-run-state:hover {background: #006e92; color: #eee;}
+
+.button-suspended-state {background: #c10773; color: #eee; font-weight: bold;}
+.button-suspended-state:hover {background: #a10053; color: #eee;}
+
 @media(max-width: 1200px) {
     .top-buffer-25 { margin-top: 15% !important; }
 }

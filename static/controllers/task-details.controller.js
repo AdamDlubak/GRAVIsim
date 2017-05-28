@@ -4,26 +4,32 @@
             function ($scope, $http, $location, $tasks) {
                 var self = this;
 
+                // These abominations should NOT be here
+                // (assignation to undeclared var inside array)
                 $scope.status = [
                     waiting = {
                         "id": 0,
                         "value": "Waiting",
-                        "color": "#f9a702"
+                        "color": "#f9a702",
+                        "stateButtonLabel": "Suspend job",
                     },
                     running = {
                         "id": 1,
                         "value": "Running",
-                        "color": "#008eb2"
+                        "color": "#008eb2",
+                        "stateButtonLabel": "Cannot change running job",
                     },
                     completed = {
                         "id": 2,
                         "value": "Completed",
-                        "color": "#0a8429"
+                        "color": "#0a8429",
+                        "stateButtonLabel": "Cannot change completed job",
                     },
                     suspended = {
                         "id": 3,
                         "value": "Suspended",
-                        "color": "#c10773"
+                        "color": "#c10773",
+                        "stateButtonLabel": "Start job",
                     },
                 ];
                 $scope.priorities = [
@@ -51,6 +57,16 @@
 
                 $scope.id = $location.search().id;
 
+                $scope.stateButtonClass = function() {
+                    if ($scope.task && $scope.task.state === waiting.value) {
+                        return 'button-suspended-state';
+                    } else if ($scope.task && $scope.task.state === suspended.value) {
+                        return 'button-run-state';
+                    } else {
+                        return 'button-gray disabled';
+                    }
+                }
+                
                 $scope.fetchData = function () {
                     var api = '/api/spark-jobs/' + $scope.id + '/';
 
@@ -58,7 +74,10 @@
                         then(function (result) {
                             $scope.task = result.data;
                             for (i = 0; i < 4; i++) {
-                                if ($scope.task.state == i) $scope.task.state = $scope.status[i].value;
+                                if ($scope.task.state == i) {
+                                    $scope.task.state = $scope.status[i].value;
+                                    $scope.stateButtonLabel = $scope.status[i].stateButtonLabel;
+                                }
                                 if ($scope.task.priority == i + 1) $scope.task.priority = $scope.priorities[i].value;
                             }
                             if ($scope.task.created == null) {
@@ -90,16 +109,16 @@
 
                 $scope.fetchData();
 
-
-
                 $scope.changeState = function () {
                     var url = '/api/spark-jobs/' + $scope.id + '/';
+                    var newState;
 
-                    var e = document.getElementById("select-state");
-                    $scope.option = e.options[e.selectedIndex].value;
-                    console.log($scope.option);
+                    if ($scope.task.state === waiting.value) { newState = suspended.id; }
+                    else if ($scope.task.state === suspended.value) { newState = waiting.id; }
+                    else { return; }
+
                     $tasks
-                        .sendTaskStatus( url, $scope.task, $scope.option)
+                        .sendTaskStatus( url, $scope.task, newState)
                         .then(function () {
                             $scope.loginError = false;
                             $location.path('/my-dashboard');
@@ -107,9 +126,6 @@
                             $scope.loginError = true;
                         });
                 }
-
-
-
             }
         ]);
 })();

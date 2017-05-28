@@ -6,14 +6,8 @@
     "use strict";
 
     var tasks = function ($window, $q, $http, $rootScope) {
-
-
-
-
-
-
-        var user = null,
-            is_authenticated = false;
+        var user = null;
+        var is_authenticated = false;
 
         var getToken = function () {
             return $window.localStorage['gravisim-tool-token'];
@@ -78,7 +72,6 @@
         }
 
         var sendTaskStatus = function (url, task, newStatus) {
-
             return $q(function (resolve, reject) {
                 $http.put(url,
                     $.param( {
@@ -86,8 +79,6 @@
                         name: task.name,
                         inputFile: task.inputFile,
                         iterations: task.iterations,
-                        
-
                     })
                 ).then(function (user) {
                     resolve(user);
