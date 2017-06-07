@@ -27,9 +27,10 @@
                     $scope.iterations = $('#iterations').val();
                     $tasks
                         .sendTask($scope.taskData, $scope.filename, $scope.priority, $scope.iterations)
-                        .then(function () {
+                        .then(function (result) {
                             $scope.loginError = false;
-                            $location.path('/my-dashboard');
+                            $location.path('/task-details').search({ id: result.data.id });
+
                         }, function (error) {
                             $scope.loginError = true;
                         });

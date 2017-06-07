@@ -7,7 +7,7 @@
     <div class="row">
         <div class="well main-box">
 
-            <p class="well lead">Tasks in Waiting Queue</p>
+            <p class="well lead text-center">Tasks in Waiting Queue</p>
 
             <table class="table table-hover gravi-table">
                 <thead>
@@ -31,7 +31,7 @@
                         <td>{{ task.startedDate }}<br />{{ task.startedTime }}</td>
                         <td>{{ task.finishedDate }}<br />{{ task.finishedTime }}</td>
                         <td><span ng-style="{color: getStateColor(task.state)}" class="task-status">{{ task.state }}</span></td>
-                        <td><a ng-href="/task-details?id={{ task.id }}"><button class="btn button-gray btn-sm">Manage</button></a></td>
+                        <td><a ng-href="/task-details?id={{ task.id }}"><button class="btn button-gray btn-md">Manage</button></a></td>
                     </tr>
                 </tbody>
             </table>
@@ -49,7 +49,7 @@
     <div class="row">
         <div class="well main-box">
 
-            <p class="well lead">All Tasks</p>
+            <p class="well lead text-center">All Tasks</p>
             <div class="form-group" style="margin-top: 0px; text-align: center">
                 <div class="input-group" style="display: block">
                     <div id="status-selection" class="btn-group" style="display: block" name="priority">
@@ -75,7 +75,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody ng-repeat="task in tasks | orderBy : 'id'" style="border: 0px;">
+                <tbody ng-repeat="task in tasks | orderBy : 'id'" style="border: 0px;" class="text-center">
                     <tr>
                         <td>{{ task.id }}</td>
                         <td>{{ task.name }}</td>
@@ -84,7 +84,7 @@
                         <td>{{ task.startedDate }}<br />{{ task.startedTime }}</td>
                         <td>{{ task.finishedDate }}<br />{{ task.finishedTime }}</td>
                         <td><span ng-style="{color: getStateColor(task.state)}" class="task-status">{{ task.state }}</span></td>
-                        <td><a ng-href="/task-details?id={{ task.id }}"><button class="btn button-gray btn-sm">Manage</button></a></td>
+                        <td><a ng-href="/task-details?id={{ task.id }}"><button class="btn button-gray btn-md">Manage</button></a></td>
                     </tr>
                 </tbody>
             </table>

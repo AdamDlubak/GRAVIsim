@@ -29,7 +29,7 @@
 
                 when('/my-dashboard', {
                     templateUrl: 'static/fragments/my-dashboard.html',
-                    controller: 'MydashboardController',
+                    controller: 'MyDashboardController',
                     controllerAs: 'dashboard',
                 }).
                 when('/current-tasks', {

@@ -1,7 +1,9 @@
-<div class="container-fluid my-account-site">
+<div class="container-fluid content-margin">
     <div class="row">
-        <div class="well main-box" style="max-width: none; width: 90%;">
-            <p class="well lead">Generator</p>
+
+        <div class="main-box col-md-12 col-lg-12">
+            <div class="well">
+                <p class="well lead text-center">Data Generator</p>
 
             <div class="row">
                 <div class="col-sm-8 col-xs-12">
@@ -9,14 +11,16 @@
                 </div>
                 <div class="col-sm-4 col-xs-12">
                     <div class="well">
-                        <p class="well lead">Tools</p>
+                        <p class="well lead text-center">Tools</p>
 
                         <table class="table">
                             <tr ng-click="current = 0" ng-class="{success: current == 0}"><td><b>Point</b></td></tr>
                             <tr ng-show="current == 0">
                                 <td>
                                     <form>
+
                                         <div class="form-group">
+                                            Tekst:<generator>heheh</generator>   
                                             <label class="sr-only" for="exampleInputAmount">Mass</label>
                                             <div class="input-group">
                                                 <div class="input-group-addon">Mass</div>
@@ -24,34 +28,34 @@
                                                     <input type="range" placeholder="Mass"
                                                     min="0.5" max="10" step="0.01" ng-model="tools[0].size" ng-value="tools[0].size">
                                                 </div>
-                                                <div class="input-group-addon">{{ tools[0].size }} sol</div>
+                                                <div class="input-group-addon" style="width: 75px;">{{ tools[0].size }} sol</div>
                                             </div>
 
                                             <label class="sr-only" for="exampleInputAmount">Color</label>
                                             <h5>Color</h5>
-                                            <div class="input-group">
+                                            <div class="input-group bottom-buffer-10px">
                                                 <div class="input-group-addon">R</div>
                                                 <div class="form-control">
                                                     <input type="range" placeholder="Size"
                                                     min="0" max="255" ng-model="tools[0].color.r" ng-value="tools[0].color.r">
                                                 </div>
-                                                <div class="input-group-addon">{{ tools[0].color.r }}</div>
+                                                <div class="input-group-addon" style="width: 55px;">{{ tools[0].color.r }}</div>
                                             </div>
-                                            <div class="input-group">
+                                            <div class="input-group bottom-buffer-10px">
                                                 <div class="input-group-addon">G</div>
                                                 <div class="form-control">
                                                     <input type="range" placeholder="Size"
                                                     min="0" max="255" ng-model="tools[0].color.g" ng-value="tools[0].color.g">
                                                 </div>
-                                                <div class="input-group-addon">{{ tools[0].color.g }}</div>
+                                                <div class="input-group-addon" style="width: 55px;">{{ tools[0].color.g }}</div>
                                             </div>
-                                            <div class="input-group">
+                                            <div class="input-group bottom-buffer-10px">
                                                 <div class="input-group-addon">B</div>
                                                 <div class="form-control">
                                                     <input type="range" placeholder="Size"
                                                     min="0" max="255" ng-model="tools[0].color.b" ng-value="tools[0].color.b">
                                                 </div>
-                                                <div class="input-group-addon">{{ tools[0].color.b }}</div>
+                                                <div class="input-group-addon" style="width: 55px;">{{ tools[0].color.b }}</div>
                                             </div>
                                         </div>
                                     </form>
@@ -123,13 +127,13 @@
                     </div>
                 </div>
 
-                <div class="col-sm-4 col-xs-12">
+                <div class="col-sm-4 col-xs-12 text-center">
                     <div class="well">
                         <p class="well lead">Area</p>
 
                         <p><b>Total points:</b> {{ elements.length }}</p>
                         <a ng-href="{{ dataUrl }}" download="input.json">
-                            <button class="btn btn-success btn-lg">Generate</button>
+                            <button class="btn button-gray btn-load btn-md">Generate</button>
                         </a>
                     </div>
                 </div>
