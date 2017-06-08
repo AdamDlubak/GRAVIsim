@@ -653,37 +653,166 @@ Użytkownik systemu GRAVIsim po poprawnym zalogowaniu może wykonać następują
 
 
 \chapter{Charakterystyka projektu}
+\section{Cykl życia aplikacji}
+\quad \quad Każde zadanie przetwarzane jest przez wszystkie 4 podsystemy aplikacji. Moduł serwerowy
+odpowiada za przetwarzanie takich zapytań jak tworzenie czy modyfikacja zleceń.
+Moduł Spark Schedulera zarządza oczekującymi zleceniami przetwarzając ich stan
+oraz przekazując do klastra. Moduł socketów pozwala na monitorowanie stanu zlecenia
+w czasie rzeczywistym. Ponad to, szcegółowo informuje o wszystkich ewentualnych błędach
+nieżależnie od źródła ich wystąpienia. Zewnętrzny moduł Spark odpowiada za przetwarzanie
+otrzymanych zadań i generowanie symulacji.
 
-%Obliczenia odbywają się poprzez system rozproszony oparty o Apache Spark, natomiast 
-% komunikacja odbywa się o autorski system Job Schedulera oraz Loggera.
+Jako wynik pracy podsystemów jest gotowa symulacja w postaci pliku `JSON` wizualizowana
+w wartwie prezentacji aplikacji klienckiej.
+
+Pełen cykl życia zadania przedstawia poniższy diagram:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{lifecycle}
+	\caption{Schemat modułów aplikacji GRAVIsim}
+	\label{fig:stronaTytulowa}
+\end{figure}
+
+\section{Technologia}
+\quad \quad Aplikacja podzielona została na kilka logicznych modułów, z których każdy pełni odrębną
+rolę w całym cyklu życia. Można wyróżnić 4 podsystemy:
+\begin{itemize}
+\item Serwer Django - Aplikacja
+\item Spark - Klaster
+\item Spark Scheduler - Zarządzanie
+\item Sockets server - Logger
+\end{itemize}
+
+\subsection{Moduł aplikacji (Django)}
+\quad \quad Główny moduł aplikacji. Jego główną rolą jest przetwarzanie zapytań użytkowników,
+serwowanie statycznych zasobów oraz zarządzanie całym stanem aplikacji.\\
+\\
+Serwer podzielony jest na 2 logiczne warstwy: serwerową oraz API. Pierwsza warstwa
+pełni interfejs pomiędzy warstwą prezentacji (frontend) a cała logiką systemu.
+Druga warstwa jest znacznie bardziej rozbudowana. Oparta na frameworku `Django REST
+framework` zajmuje się przetwarzaniem oraz interpretacją zapytań pozwalając na
+komunikację - odczyt bądź bezpieczny zapis danych - z bazą danych.\\
+\\
+Warstwa API jest głównym mechanizmem generowania zleceń badawczych. Zaimplementowane
+mechanizmy serializacji dbają, aby użytkownik mógł być w stanie edytować tylko
+wybrane pola przy określonych warunkach - eliminuje to ryzyko utraty spójności
+danych.\\
+
+\subsection{Moduł klastra (Apache Spark)}
+\quad \quad 
+\subsection{Moduł zarządzający (Spark-Scheduler)}
+\quad \quad To główny moduł zarządzający wykonywanymi zadaniami. Podobnie jak serwer socketów
+uruchamiany jest jako komenda głównego serwera. Jego główną ideą jest
+przekazywanie oczekujących zadań zgodnie z ustaloną kolejnością priorytetów
+do obliczeń w klastrze. Moduł odpowiedzialny jest zachowanie spójności zadań
+(klaster równocześnie może obsłużyć tylko 1 zadanie) oraz ciągłość pracy
+(po zakończeniu 1 zadania lub w stanie bezczyności, klaster autmatycznie otrzymuje
+nowe zadanie).\\
+\\
+Zasada działania spark schedulera oparta jest na cyklicznym odpytywaniu bazy danych
+w poszukiwaniu zadań oczekujących na dostępność klastra. Gdy w systemie znajdują się
+takie zadania, moduł szereguje je zgodnie z ustaloną kolejką priorytetów (im wyższy
+priorytet - tym szybciej zadanie zostanie obsłużone) oraz w przypadku równoznacznych
+priorytetów - zgodnie z czasem oczekiwania (eliminacja zjawiska zagłodzenia).
+Zadanie znajdujące się na początku kolejki jest blokowane poprzez zmianę stanu
+na `RUNNING` oraz przekazane do klastra.\\
+\\
+Przekazanie zadania do obliczenia w klastrze odbywa się poprzez wywołanie komendy
+`spark-submit` z odpowiednimi parametrami, przy użyciu funkcji Popen. Idea tego
+rozwiązania pozwala na przekierowanie całego wyjścia komendy - zarówno zwykłych
+komunikatów jak i błędów systemowych czy własnych infomarcji jak stan czy postęp
+zadania - do określonego pliku zewnętrzengo służącego jako log zadania. Tak przekazane
+zadanie może być asynchronicznie śledzone przez inne moduły oraz użytkoników końcowych.\\
+\\
+Po zakończeniu komendy - zarówno pozytywnego jak i w przypadku wystąpienia dowolnego
+błędu - zadanie jest finalizowane poprzez ustawienie stanu na `FINISHED`. Rezultat
+zadania przekazany jest automatycznie w logu zadania oraz w przypadku sukcesu -
+plik symulacyjny jest zapisany na dysku serwera z ustaloną kowencją nazewnictwa
+gwarantującą unikalność oraz dostępność.\\
+
+\subsection{Moduł asynchroniczny (Socket-Server)}
+\quad \quad Asynchroniczny moduł uruchamiany jako komenda głownego serwera. Pozwala on na
+komunikację aplikacji klienckiej z serwerem za pośrednictwem otwartego na oddzielnym
+porcie gniazda. Jego główna ideą jest umożliwienie asynchronicznego śledzenia
+stanu i postępu zleconych badań oraz ewentualnych komunikatów błędów i ostrzeżeń.\\
+\\
+Główna zasada działania modułu opiera się cyklicznym odczycie zadanego pliku z logiem
+zadania i przekazywaniu przetworzonej informacji do socketa. Bardzo ważnym aspektem
+było zapewnienie nieblokującego przetwarzania - w przeciwnym wypadku serwer byłby
+w stanie równocześnie obsłużyć tylko i wyłącznie 1 użytkownika.\\
+\\
+Zapytanie jest przetwarzane wg. poniższego schematu:
+\begin{enumerate}
+\item Utworzenie połączenia i określenie identyfikatora monitorowanego zadania
+\item Sprawdzenie czy plik z logiem zadanie istnieje na serwerze: jeśli nie istnieje
+to wysłanie komunikatu, że zadanie się jeszcze nie rozpoczęło, następnie nieblokujące
+oczekiwanie przez 1000ms i ponownie krok 2
+\item Ustalenie znacznika na początek pliku
+\item Odczyt do bufora wszystkich linii od znacznika do końca pliku
+\item Ustalenie znacznika na końcu pliku
+\item Wysłanie do gniazda komunikatu z buforem linii
+\item Nieblokujące oczekiwanie przez 500ms i powrót do kroku 4
+\end{enumerate}
+
+Połączenia po stronie serwera zamykane są automatycznie po zamknięciu ich w aplikacji
+klienckiej.\\
+
 \chapter{Implementacja}
-
+\section{Aplikacja}
+%podział na api, SPA na frontendzie, autoryzacja itp.
+\section{Logger}
+\section{Zarządzanie zadaniami}
 
 
 \chapter{Instalacja i uruchomienie aplikacji}
-
-\section{Instalacja Apache Spark na systemie Windows}
+{\emph{\quad \quad W celu uruchomienia aplikacji GRAVIsim ze wszystkimi jej funkcjonalnością, konieczna jest instalacja dodatkowych zależności, z których główną jest \textit{Apache Spark} zajmujący się obsługą klastra obliczeniowego.}
+\section{Proces instalacji}
 \definecolor{light-gray}{RGB}{226,226,226}
 \sethlcolor{light-gray}
-W celu zainstalowania Apache Spark na systemie Windows (konieczny do uruchomienia Job Schedulera dla aplikacji GRAVIsim) należy wykonać następujące kroki:
+W pierwszej kolejności należy pobrać i zainstalować następujące oprogramowanie:
 
-\begin{itemize}
-\item Pobrać i zainstalować oprogramowanie:
-\begin{itemize}
+
+\begin{enumerate}
+
 \item {
 \textbf{Java SE Development Kit (SDK) w wersji 8 lub nowszej} - \underline{\href{http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html}{Link do pobrania}}  \\
 Aby zweryfikować poprawność instalacji, należy otworzyć konsolę (\texttt{\hl{cmd}}), wpisać \texttt{\hl{java}} i kliknąć \textit{Enter}. Jeśli pojawi się wiadomość: \\
  \centerline{\texttt{\hl{Java is not recognized as an internal or external command.}}}
-należy skonfigurować zmienne środowiskowe: 	\texttt{\hl{JAVA{\char`_}HOME}} (podając ścieżkę do miejsca zainstalowania \textit{Java JDK}) oraz \texttt{\hl{PATH}} jako \texttt{\hl{\%JAVA{\char`_}HOME\%\textbackslash bin}} (instrukcja poniżej).
+lub podobna, należy:
+
+\vspace{2mm}
+\begin{quote}
+\item \textbf{Windows:} skonfigurować zmienne środowiskowe: 	\texttt{\hl{JAVA{\char`_}HOME}} (podając ścieżkę do miejsca zainstalowania \textit{Java JDK}) oraz \texttt{\hl{PATH}} jako \texttt{\hl{\%JAVA{\char`_}HOME\%\textbackslash bin}} 
+\end{quote}
+\vspace{2mm}
+
+\begin{enumerate}
+\item Przejdź do Control \texttt{\hl{Panel\textbackslash System and Security\textbackslash System }}
+\item Wybierz \texttt{\hl{Advance System Settings}} 
+\item Wybierz \texttt{\hl{Environment Variables}}
+\item W polu \texttt{\hl{user variables}} dodaj  nową zmienną środowiskową np. \texttt{\hl{SCALA{\char`_}HOME}} podając jako wartość ścieżkę do miejsca zainstalowania \textit{Scali}.
+\item W polu \texttt{\hl{user variables}} edytuj zmienną \texttt{\hl{PATH}} dodając nowy klucz np. \texttt{\hl{\%SCALA{\char`_}HOME\%\textbackslash bin}}
+
+
+\end{enumerate}
+
+\vspace{2mm}
+\begin{quote}
+\item \textbf{Linux:} dodać ścieżkę z plikiem wykonywalnym do \texttt{\hl{PATH}}
+\end{quote}
+\vspace{2mm}
+
+
 }
-\\
+
 \item {
 \textbf{Scala} - \underline{\href{http://www.scala-lang.org/download/}{Link do pobrania}}  \\
 Gdy Scala zostanie zainstalowana, należy ustawić zmienne środowiskowe \texttt{\hl{SCALA{\char`_}HOME}} do folderu, gdzie zainstalowano \textit{Scalę} i \texttt{\hl{PATH}} jako \texttt{\hl{\%SCALA{\char`_}HOME\%\textbackslash bin}}.
 }
 \\
 \item {
-\textbf{Python w wersji 3.5} (jeśli jeszcze nie został zainstalowany) - \underline{\href{https://www.python.org/downloads/windows/}{Link do pobrania}}  
+\textbf{Python w wersji 3.5} - \underline{\href{https://www.python.org/downloads/windows/}{Link do pobrania}}  
 }
 \\
 \item {
@@ -692,89 +821,144 @@ Gdy \textit{SBT} zostanie zainstalowane, należy ustawić zmienną środowiskow�
 }
 \\
 \item {
-\textbf{WinUtils} - \underline{\href{http://public-repo-1.hortonworks.com/hdp-win-alpha/winutils.exe}{Link do pobrania}}  \\
+\textbf{WinUtils} - Tylko Windows - \underline{\href{http://public-repo-1.hortonworks.com/hdp-win-alpha/winutils.exe}{Link do pobrania}}  \\
 Dopóki nie ma zainstalowanego lokalnego \textit{Hadoop’a} na Windows konieczne jest pobranie \texttt{\hl{winutils.exe}} i umieszczenia go w folderze \texttt{\hl{Hadoop/bin/}}, który należy uprzednio utworzyć w dowolnej lokalizacji na dysku, a następnie ustawić zmienną środowiskową :
 
 \centerline{\texttt{\hl{HADOOP{\char`_}HOME = Lokalizacja{\char`_}utworzonego{\char`_}folderu{\char`_}Hadoop}}}
 }
-\pagebreak
-\vspace*{1mm}
+
+\vspace{6mm}
 \item {
 \textbf{Apache Spark z Hadoop 2.7} - \underline{\href{http://spark.apache.org/downloads.html}{Link do pobrania}}  \\
-Wybierz najnowszą wersję oraz \textit{package type} jako \textit{Pre-built for Apache Hadoop 2.7 and later}. Gdy \textit{Spark} zostanie zainstalowany, należy ustawić zmienne środowiskowe: \texttt{\hl{SPARK{\char`_}HOME}} jako ścieżkę do miejsca, gdzie zainstalowano \textit{Spark’a} oraz dodać ścieżkę \texttt{\hl{\%SPARK{\char`_}HOME\%\textbackslash bin}} do \texttt{\hl{PATH}}.
+Należy wybrać najnowszą wersję oraz \textit{package type} jako \textit{Pre-built for Apache Hadoop 2.7 and later}. Gdy \textit{Spark} zostanie zainstalowany, należy ustawić zmienne środowiskowe: \texttt{\hl{SPARK{\char`_}HOME}} jako ścieżkę do miejsca, gdzie zainstalowano \textit{Spark’a} oraz dodać ścieżkę \texttt{\hl{\%SPARK{\char`_}HOME\%\textbackslash bin}} do \texttt{\hl{PATH}}.
 }
-\end{itemize}
 
-\item Otworzyć konsolę (\texttt{\hl{cmd}}), i wpisać komendę: \\
-\centerline{\texttt{\hl{Spark-shell}}}
-\item[] Apache Spark powinien przejść proces instalacji i wyświetlić charakterystyczny napis Spark. Wówczas instalacja została zakończona pomyślnie.
-
+\vspace{6mm}
+\item {
+\textbf{SSHFS} - \underline{\href{https://www.digitalocean.com/community/tutorials/how-to-use-sshfs-to-mount-remote-file-systems-over-ssh}{Link do instrukcji instalacji}} \\
+Pozwala na podmontowanie poprzez \textit{ssh} lokalnie folderu z innej maszyny.
+Jest to niezbędne przy klastrach składających się z więcej niż 1 maszyny.
+}
+\end{enumerate}
+\vspace{6mm}
+Po zakończonej instalacji można zweryfikować stan klastra wpisując komendę
+{\texttt{\hl{Spark-shell}}} w konsoli systemowej. \textit{Apache Spark} powinien przejść proces instalacji i wyświetlić
+charakterystyczny napis \textit{Spark}. Wówczas instalacja została zakończona pomyślnie.
 
 \begin{figure}[h]
 	\centering
-	\fbox{\includegraphics[width=1\linewidth]{spark-installed}}
+	\includegraphics[width=1\linewidth]{spark-installed}
 	\caption{Komunikat informujący o poprawnie zakończonej instalacji Apache Spark}
 	\label{fig:stronaTytulowa}
 \end{figure}
 
 
-\begin{framed}
-\textbf{Jak ustawić zmienne środowiskowe:}
-\begin{enumerate}[labelwidth=\widthof{\ref{last-item}},label=\arabic*.]
-\item Przejdź do Control \texttt{\hl{Panel\textbackslash System and Security\textbackslash System }}
-\item Wybierz \texttt{\hl{Advance System Settings}} 
-\item Wybierz \texttt{\hl{Environment Variables}}
-\item W polu \texttt{\hl{user variables}} dodaj  nową zmienną środowiskową np. \texttt{\hl{SCALA{\char`_}HOME}} podając jako wartość ścieżkę do miejsca zainstalowania \textit{Scali}.
-\item W polu \texttt{\hl{user variables}} edytuj zmienną \texttt{\hl{PATH}} dodając nowy klucz np. \texttt{\hl{\%SCALA{\char`_}HOME\%\textbackslash bin}}
 
-\end{enumerate}
-\end{framed}
-
-\end{itemize}
 \pagebreak
 \vspace*{1mm}
-\section{Uruchomienie Apache Spark}
+\section{Tworzenie klastra}
+Tworzenie klastra rozpoczyna się od uruchomienia głównego węzła na maszynie
+mającej być węzłem zarządzającym.
+Odbywa się to przy użyciu komendy: \vspace{2mm}
 
-\begin{enumerate}
-\item Poprzez konsolę uruchomić węzeł zarządzający - Master:  \\
+\centerline{\texttt{\hl{start-master.sh}}}
+\vspace{2mm} znajdującej się w folderze \texttt{\hl{sbin}} katalogu głównego \textit{Apache Spark'a}. \\
+W przypadku problemów z uruchomieniem powyższej komendy (szczególnie w systemie \textit{Windows}, należy w konsoli systemowej wpisać: \vspace{2mm}
+
 \centerline{\texttt{\hl{Spark-class org.apache.spark.deploy.master.Master}}}
-\\
-\item Przejść pod adres: \\
-\centerline{\texttt{\hl{localhost:8080}}}
-\\
-\item Znaleźć URL Spark Master i skopiować, np. \\  
+\vspace{2mm}Po uruchomienia konieczne jest udanie się pod adres \texttt{\hl{localhost:8080}}, gdzie powinien zostać aktywowany główny panel webowy klastra. Ukazany tam adres URL węzła zarządzającego będzie adresem
+docelowym wszystkich węzłów obliczeniowych, np.\vspace{2mm}
 \centerline{\texttt{\hl{spark://192.168.56.1:7077}}}
 \begin{figure}[h]
 	\centering
-	\fbox{\includegraphics[width=1\linewidth]{spark-working}}
-	\caption{Spark Master - Adres URL}
+	\includegraphics[width=1\linewidth]{spark-working}
+	\caption{Spark Master - Adres URL węzła zarządzającego klastrem}
 	\label{fig:stronaTytulowa}
 \end{figure}
 
-\item Poprzez konsolę uruchomić węzeł wykonawczy - Worker:
+Kolejnym krokiem jest aktywacja wszystkich pozostałych maszyn jako węzły obliczeniowe. Wykonuje się to poprzez użycie komendy znajdującej się jak uprzednio w folderze \texttt{\hl{sbin}} katalogu głównego \textit{Apache Spark'a}: \\ \vspace{2mm}
+\centerline{\texttt{\hl{start-slave.sh -c <max-cores> -m <max-memory ><master-url>}}, np.}
+\centerline{\texttt{\hl{start-slave.sh -c 4 -m 2G spark://192.168.56.1:7077}}}
+Jeśli wystąpią problemy z powyższą komendą, należy skorzystać z:\\
+\centerline{\texttt{\hl{Spark-class org.apache.spark.deploy.worker.Worker }}}
+\centerline{\texttt{\hl{-c <max-cores> -m <max-memory ><master-url>}}}
+Jeśli węzły prawidłowo skomunikują się z głównym węzłem, będzie to widoczne
+w panelu webowym głównej maszyny. \textbf{Klaster obliczeniowy został uruchomiony poprawnie}.
+\pagebreak
+\vspace*{1mm}
+\section{Uruchomienie GRAVIsim}
+Uruchamianie aplikacji należy rozpocząć od aktywowania właściwej wersji \textit{Python'a} (3.5)
+najlepiej przy użyciu narzędzia \textit{Virtual-Env}. Dla tak przygotowanej konfiguracji
+należy zainstalować wszystkie wymagane zależności \textit{Python'a} poprzez komendę:\vspace{2mm}
+\centerline{\texttt{\hl{pip install -r requirements.txt}}}\vspace{2mm}
+oraz wszystkie zależności aplikacji klienckiej poprzez komendę:\\\vspace{2mm}
+\centerline{\texttt{\hl{bower install}}}\vspace{2mm}
+
+Kolejnym krokiem jest uruchomienie klastra (instrukcja w poprzednim rozdziale) - bardzo ważne jest aby komendy
+tworzenia klastra wywołane były w konfiguracji \textit{Python 3.5} (aktywnym wirtualnym
+środowisku).
+\\
+\\
+Aby zapewnić prawidłowe działanie \textit{logger’a} zaleca się zmianę ustawień logowania \textit{Sparka} poprzez zmianę poziomu logowania z \textit{\textbf{INFO}} na \textit{\textbf{WARN}}. W tym celu należy w pliku:\vspace{2mm}
+ \centerline{\texttt{\hl{\%SPARK{\char`_}HOME/conf/log4j.properties}}}
+\begin{framed}
+Jeśli plik nie istnieje, należy powielić plik:\\ \vspace{2mm}
+  \centerline{\texttt{\hl{\%SPARK{\char`_}HOME/conf/log4j.properties.template}}}
+
+oraz zmienić jego nazwę na \texttt{\hl{log4j.properties}} 
+\end{framed}
+dokonać modyfikacji  następującego kodu: \\ \vspace{2mm}
+  \centerline{\texttt{\hl{Log4j.rootCategory=INFO, console}, na}}
+  \centerline{\texttt{\hl{Log4j.rootCategory=WARN, console}}}\vspace{2mm}
+
+Następnie należy uruchomić wszystkie moduły:
+\begin{enumerate}
+\item Serwer: \texttt{\hl{python manage.py runserver}}
+\item Sockets-Server: \texttt{\hl{python manage.py sockets-server}}
+\item Spark-Scheduler: \texttt{\hl{python manage.py spark-scheduler <master-url>}}
 \end{enumerate}
-\centerline{\texttt{\hl{Spark-class org.apache.spark.deploy.worker.Worker spark://MASTER-ADRES}}}
-\vspace*{4mm}
-W tym momencie Spark zostanie uruchomiony z jednym węzłem zarządzającym oraz jednym węzłem obliczeniowym. W celu uruchomienia wielu węzłów obliczeniowych należy powtórzyć wykonywanie ostatniej komendy.
 
+Komendy są blokujące w związku z czym zaleca się użycie kilku terminali lub uruchomieniu
+komend w trybie odłączonym i przekierowaniu wyjścia do pliku zewnętrznego.\vspace{2mm}
 
-\chapter{Instrukcja użytkowa}
+Dodatkowo - na wszystkich maszynach oprócz maszyny głównej - należy podmontować folder
+\texttt{\hl{media}} przy użyciu skryptu \texttt{\hl{mount.sh}} dostarczonym z aplikacją lub ręcznie przy użyciu
+komendy \texttt{\hl{sshfs}}.\\
+\vspace{2mm} Aplikacja dostępna jest pod adresem hosta głównego na porcie \textbf{\textit{8000}}, np.\\
+\centerline{\texttt{\hl{http://localhost:8000}}}
+\chapter{Instrukcja użytkownika}
 
 
 \chapter{Badanie złożoności obliczeniowej}
-\emph{Badania przeprowadzono w politechnicznym laboratorium komputerowym przy pomocy 9 identycznych komputerów, z których jeden służył za główny serwer aplikacji oraz zarządcę klastra, a pozostałe 8 za węzły obliczeniowe (równolegle od 1 do 8 - zależnie od specyfikacji testu).}
+\emph{Badania przeprowadzono w politechnicznym laboratorium komputerowym z wykorzystaniem 9 identycznych komputerów, z których jeden służył za główny serwer aplikacji oraz zarządcę klastra, a pozostałe 8 za węzły obliczeniowe (równolegle od 1 do 8 - zależnie od specyfikacji testu).}
 
 \section{Zestaw konfiguracyjny}
 
 Testy przeprowadzono dla wybranych zestawów konfiguracyjnych, gdzie parametrami były:
-•	Ilość węzłów obliczeniowych
-•	Wielkość pliku wejściowego (ilość punktów masy)
-•	Ilość iteracji symulacji
-Każdy z węzłów obliczeniowych otrzymywał na wyłączność badań po 2 rdzenie (procesor i7 3.4MHz) oraz 2.0 GB pamięci RAM (DDR3). W trakcie badania parametry oraz zasoby poszczególnych węzłów nie były zmieniane.
+\begin{itemize}
+\item Ilość węzłów obliczeniowych
+\item Wielkość pliku wejściowego (ilość punktów masy)
+\item Ilość iteracji symulacji
+\end{itemize}
+Każdy z węzłów obliczeniowych otrzymywał na wyłączność badań:
+\begin{itemize}
+\item 2 rdzenie (procesor i7 3.4MHz)
+\item 2.0 GB pamięci RAM (DDR3)
+\end{itemize}
+W trakcie badania parametry oraz zasoby poszczególnych węzłów nie były zmieniane.\\
 Symulacja ma charakter liniowy (liniowa charakterystyka iteracji) dlatego dla większych wartości istnieje możliwość dokładnej estymacji czasu obliczania w oparciu o empiryczne wyniki pomiarów dla wartości mniejszych.
 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{klaster}
+	\caption{Konfiguracja klastra wykorzystywanego do wykonywania pomiarów}
+	\label{fig:stronaTytulowa}
+\end{figure}
+
+\pagebreak
+\vspace*{1mm}
 \section{Wyniki badań}
-Wyniki badań oraz analizy przedstawia poniższe zestawienie oraz wykresy:
+Wyniki badań oraz analizy przedstawia poniższe zestawienie tabelaryczne oraz wykresy.
 
 
 
@@ -804,24 +988,45 @@ Wyniki badań oraz analizy przedstawia poniższe zestawienie oraz wykresy:
   \end{tabular}
   \caption{Wyniki czasowe pomiarów wydajności klastra obliczeniowego}\label{tab1}
 \end{table}
-
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
-	\fbox{\includegraphics[width=1\linewidth]{wykres-2}}
+	\includegraphics[width=0.93\linewidth]{wykres-4}
+	\caption{Zużycie zasobów dla różnej konfiguracji klastra}
+	\label{fig:stronaTytulowa}
+\end{figure}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{wykres-1}
+	\caption{Złożoność czasowa dla symulacji wielu punktów zależnie od ilości węzłów oraz ilości iteracji}
+	\label{fig:stronaTytulowa}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{wykres-2}
 	\caption{Porównanie złożoności czasowych symulacji małej ilości punktów dla skrajnych konfiguracji klastra}
 	\label{fig:stronaTytulowa}
 \end{figure}
 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{wykres-3}
+	\caption{Porównanie złożoności czasowych symulacji dużej ilości punktów dla skrajnych konfiguracji klastra}
+	\label{fig:stronaTytulowa}
+\end{figure}
+
+\vspace*{1mm}
 \section{Analiza wyników}
 Na podstawie wyników przeprowadzonych badań można zaobserwować, iż wszystkie 3 badane parametry mają znaczący wpływ na czas wykonywania zadania.
-Klaster obliczeniowy opiera się na komunikacji poszczególnych węzłów, która odbywając się poprzez sieć skutkuje znaczącym opóźnieniem w wykonywaniu zadania. Ma to ogromny wpływ dla zadań liczonych stosunkowo szybko (mała ilość punktów masy w symulacji), stąd też zaobserwowano, iż klaster o większej ilości węzłów obliczył to samo zadanie w czasie o 10-15% dłuższym niż klaster składający się z 1 węzła. Dla większych zadań, narzut komunikacyjny staje się znikomo mały i czas tego samego zadania zależy tylko od dostępności zasobów.
+Klaster obliczeniowy opiera się na komunikacji poszczególnych węzłów, która odbywając się poprzez sieć skutkuje znaczącym opóźnieniem w wykonywaniu zadania. Ma to ogromny wpływ dla zadań liczonych stosunkowo szybko (mała ilość punktów masy w symulacji), stąd też zaobserwowano, iż klaster o większej ilości węzłów obliczył to samo zadanie w czasie o 10-15\% dłuższym niż klaster składający się z 1 węzła. Dla większych zadań, narzut komunikacyjny staje się znikomo mały i czas tego samego zadania zależy tylko od dostępności zasobów.
 
-	
 \chapter{Podsumowanie i wnioski}
 
 \mbox{}\pdfbookmark[0]{Spis rysunków}{spisRysunkow.1}
 %\addcontentsline{toc}{chapter}{Spis rysunków}
 \listoffigures*
+
 \begin{flushleft}
 
 \end{flushleft}
@@ -832,10 +1037,6 @@ Klaster obliczeniowy opiera się na komunikacji poszczególnych węzłów, któr
 %}
 
 
-\newpage
-\mbox{}\pdfbookmark[0]{Spis tabel}{spisTabel.1}
-%\addcontentsline{toc}{chapter}{Spis tabel}
-\listoftables*
 
 
 
