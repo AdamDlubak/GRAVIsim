@@ -1,17 +1,16 @@
-(function () {
+(function() {
     angular.module("gravisim").
-        directive("generator", ['$window', '$location', '$http',
-            function ($window, $location, $http) {
+        directive("generatorInput", function() {
                 return {
                     restrict: 'E',
                     scope: {
-                        min: '0.5',
-                        max: '10',
-                        step: '0.5',
-                        model: 'tools[0].size',
-                        value: 'tools[0].size',
+                        name: '=name',
+                        min: '=min',
+                        max: '=max',
+                        curvalue: '=curvalue',
                     },
-                    templateUrl: '/static/fragments/range-input.html',
-                }
-            }])
+                    templateUrl: '/static/fragments/forms/range-input.html',
+                };
+            })
 })();
+

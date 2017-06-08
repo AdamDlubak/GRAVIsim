@@ -4,6 +4,16 @@
             function($scope, $window) {
                 var self = this;
 
+$scope.pointGenerator= true;
+$scope.changePoint = function () {
+    $scope.pointGenerator = true;
+}
+$scope.changeCloud = function () {
+    $scope.pointGenerator = false;
+}
+                $scope.name = "Mass";
+                $scope.min = "0.5";
+                $scope.max =  '10';
                 $scope.tools = [
                     // Point
                     {
