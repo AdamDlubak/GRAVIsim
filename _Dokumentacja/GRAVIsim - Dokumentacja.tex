@@ -760,9 +760,227 @@ klienckiej.\\
 
 \chapter{Implementacja}
 \section{Aplikacja}
-%podział na api, SPA na frontendzie, autoryzacja itp.
+\quad \quad Aplikacja została podzielona na 3 logiczne warstwy: aplikację użytkową, serwer oraz
+warstwę API. Frontend został zrealizowany z wykorzystaniem frameworka AngularJS oraz wzorca projektowego MVC.
+Wykorzystanie mechanizmów routingu po stronie aplikacji klienckej pozwoliło na stworzenie aplikacji SPA (Single
+Page Application), dzięki czemu strona wczytywana jest dynamicznie przez obciążąnia połączenia z serwerem.
+Zgodnie z tą ideą - wszystkie niezbędne zasoby wczytywane są w dopiero wtedy, gdy są potrzebne a nie
+wszystkie przy każdym ładowaniu strony.
+
+Główną ideą warstwy serwerowej jest udostępnianie statycznych zasobów oraz pośredniczenie w przetwarzaniu
+zapytań i odpowiedzi (serwer jest jedynym punktem dostępowym aplikacji). Wszelka logika samego procesu przetwarzania
+oraz komunikacji z bazą danych odbywa się tylko i wyłącznie w warstwie API, która została zabezpieczona biblioteką JWT.
+Każde zapytanie musi przechowywać w nagłówku odpowiedni token (otrzymany uprzednio w trakcie logowania) aby zapytanie
+było przetworzone. W przeciwnym wypadku, biblioteka JWT znajdująca się na styku warstwy serwerower i API, odrzuci
+zapytanie i odeśle odpowiedź z kodem błędu 403.
+
+W warstwie API można rozróżnić 2 główne kategorie klas obiektów: widoki oraz serializery.
+Pierwsze z nich odpowiadają za obsługę zapytań: GET, POST, DELETE. Ponadto, mają zaimplementowane
+mechanizmy bezpieczeństwa oraz ogólną konfigurację sposobu generowania odpowiedzi.
+Widoki dziedziczą po generycznej klasie, mającej zdefiniowane metody dostępu.
+
+\begin{lstlisting}[language=Python, caption=Generyczne klasy widoków API]
+class DefaultsMixin(viewsets.ModelViewSet):
+    authentication_classes = (
+        authentication.SessionAuthentication,
+        JSONWebTokenAuthentication
+    )
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    filter_backends = (
+		filters.DjangoFilterBackend,
+		filters.SearchFilter,
+		filters.OrderingFilter
+	)
+
+class ReadOnlyDefaultsMixin(viewsets.ReadOnlyModelViewSet):
+    authentication_classes = (
+        authentication.SessionAuthentication,
+        JSONWebTokenAuthentication
+    )
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    filter_backends = (
+		filters.DjangoFilterBackend,
+		filters.SearchFilter,
+		filters.OrderingFilter
+	)
+\end{lstlisting}
+
+Parametr authentication\_classes przechowuje krotkę klas odpowiadających za schemat autoryzacyjny.
+Obie klasy generyczne autoryzują zapytania przy użyciu tokenów. Parametr permission\_classes
+odpowiada za warunkowe przyznanie dostępu do danych realizowanych w ramach konkretnej
+instancji widoku. Z racji, że nie ma rozróżnienia na administratorów wśród użytkowników,
+dostęp do danych jest ujednolicony i wymaga jedynie autoryzacji. Ostatni parametr
+filter\_backends odpowiada za mechanizm filtrowania (selekcji) oraz sortowania rekordów
+wśród kolekcji danych.
+
+Każdy z widoków odwołuje do konkretnej klasy serializera. Druga kategoria klas API
+odpowiada za sposób prezentacji oraz walidację danych konkretnej instancji modelu
+(adekwatnie: rekordu relacji). Każdy widok czy serializer może się odwoływać do
+innych serializerów – zależnie od potrzeb sposobu obsługi danych.
+
 \section{Logger}
+\quad \quad Mechanizm śledzenia postepu zadań został zrealizowany w formie komendy
+serwera głównego. Strumień wyjściowy każdego uruchomionego zadania jest przekierowywany
+do zewnętrznego pliku o unikalnej nazwie, utworzonego na dysku serwara. Każda informacja
+związana z zadaniem - niezależnie czy to komunikat o stanie, czy zmiana stanu zadania
+w klastrze lub błąd systemowy skutkujący przerwaniem wykonywania zadania - jest zapisywana
+do pliku. Pozwala to na skuteczne i bardzo dokładne monitorowanie przebiegu symulacji
+oraz wykrywania i eliminacji źródeł ewentualnych błędów.
+
+Sposób przekierowania strumienii zadań do pliku logującego przedstawia poniższy fragment:
+
+\begin{lstlisting}[language=Python, caption=Tworzenie logu]
+path =  os.path.join(LOGS_DIR, "{}.log".format(instance.id))
+with open(path, 'wb') as log:
+	p = Popen(command, stdout=log, stderr=log, shell=True)
+	p.wait()
+\end{lstlisting}
+
+Wszystkie wewnętrzene komunikaty - np. informacja o symulacji, zmiana stanu realizacji -
+formatowane są według ustalej reguły tokenów, co pozwala na jednoznaczną identyfikacje
+i adektwatne parsowanie wiadomości. Dostępny jest poniższy zestaw komunikatów:
+\begin{itemize}
+\item \textbf{D} - data - komunikat traktowany jako parametr symulacji i jest zapisywany
+do słownika
+\item \textbf{P} - progress - informacja o bieżącym postępie oraz estymowanym czasie
+zakończenia zadania
+\item \textbf{X} - status - słowny komunikat informujący o stanie zadanie
+\item \textbf{W} - ostrzeżenie - w monitorze zadania wiadomość będzie wyróżniona
+\item \textbf{E} - error - wiadomość krytyczna dla zadania
+\item \textbf{S} - success - informacja o prawidłowym zakończeniu zadania
+\item \textbf{I} - info - istotny komunikat informacyjny
+\end{itemize}
+
+Zawartość logu przesyłana jest asynchronicznie za pomocą serwera socketów. Serwer
+odpowiada za pierwszą fazę selekcji oraz parsowania komunikatów. Cała logika prezentacji
+znajduje się w dyrektywnie w aplikacji klienckiej.
+
 \section{Zarządzanie zadaniami}
+\quad \quad W celu sprawnego zarządzania zasobami klastrami napisany został dedykowany
+serwer - spark scheduler - uruchamiany jako komenda serwera głównego. Głównymi zadaniami
+schedulera są: zapewnienie spójności pracy klastra (jednocześnie tylko jedno zadanie
+może być realizowane) oraz zapewnienie ciągłości pracy (zadanie oczekujące w kolejce
+jest przekazywane do klastra niezwłocznie po zakończeniu poprzedniego zadania lub
+natychmiastowo w przypadku bezczynności klastra).
+
+Spark scheduler zrealizowany został jako nieskończona pętla, cyklicznie sprawdzająca
+bazę danych w poszukiwaniu i sortowaniu zadań oraz ich realizacji pod kątem umożliwienia
+pracy loggera:
+
+\begin{lstlisting}[language=Python, caption=Główna pętla Spark Schedulera]
+def job(self, *args, **options):
+	jobs = SparkJob.objects\
+		.filter(state=SparkJobStates['WAITING'])\
+		.order_by('-priority')\
+		.order_by('id')
+	if jobs.count() == 0:
+		self.log("No jobs in queue: waiting...")
+
+	while(jobs.count() == 0):
+		sleep(SLEEP_DELAY)
+
+	instance = jobs.first()
+	instance.state = SparkJobStates['RUNNING']
+	instance.started = datetime.now()
+	instance.save()
+
+	self.log(self.style.WARNING("Starting job: #{}".format(instance.id)))
+	self.process_job(instance, *args, **options)
+\end{lstlisting}
+
+Pierwszym elementem pętli jest sortowanie zadań: wszystkie oczekujące zadanie (i tylko takie)
+szeregowane są wg. malejącego priorytetu, a w przypadku jednakowej wartości - pierwszeństwo
+zyskuje zadanie z mniejszym id (czyli zadanie starsze). Następnie wątek zasypia i cyklicznie
+werfykuje kolejkę aż do znaleznia przynajmniej jednego zadania gotowego do przekazania.
+Skorzystano tutaj w atrybutu \"leniwej-ewaluacji\" QuerySet'ów, dzięki czemu przygotowane
+pod zmienną jobs zapytanie jest wywoływane każdorazowo przy użyciu metody count.
+Następnie zadanie ma zmieniany status na aktywny oraz przekazywane do wywołania w klastrze.
+Po zakończeniu obliczeń, zadanie wraca do scheduler gdzie ma ustawiany status na zakończony
+i pętla główna rozpoczyna kolejna iterację.
+
+\section{Symulacja}
+\quad \quad Symulacja napisana została w języku Python i interpretowana jest przez Apache Sparka
+z modułem PySpark. Cała symulacja - z logicznego punktu widzenia - spełnia dogmat czystej funkcji,
+czyli jej wyjście zależy tylko i wyłącznie od wejścia (eliminacja stanu wewnętrzego). Symulacja
+przyjmuje 3 parametry wejściowe: nazwę pliku wejściowego, identyfikator zadania (zgodny z id
+rekordu zadania w bazie danych) oraz ilość iteracji. Dla tak przedstawionych danych zwrócony
+zostanie plik wynikowy pełnej symulacji, zapisany na dysku serwera z nazwą przekazanego
+identyfikatora zadania.
+
+Aby symulacja mogła być prawidłowo przeprowadzona, konieczne jest zapewnie pliku wejściowego
+wg. poniższego schematu:
+
+\begin{lstlisting}[caption=Plik wejściowy symulacji]
+[
+    {
+        "mass": <Number range(1, 8)>,
+        "colour": <String as "RRGGBB">,
+        "x": <Number range(-800, 800)>,
+        "y": <Number range(-800, 800)>,
+    },
+    { ... }
+]
+\end{lstlisting}
+
+Symulacja podzielona została na kilka etapów:
+\begin{enumerate}
+\item inicjalizacja parametrów
+\item odczyt danych
+\item przygotowanie struktury wynikowej
+\item obliczanie pojedynczej klatki
+	\begin{enumerate}
+	\item zrównoleglenie danych
+	\item normalizacja
+	\item obliczenie przyśpieszenia ciał
+	\item obliczenie prędkości ciał
+	\item przemieszczenie ciał
+	\item zapis danych klatki w strukturze
+	\end{enumerate}
+\item zapis pełnej struktury do pliku wyjściowego
+\end{enumerate}
+
+Każdy z etapów został wydzielony do odrębnej metody (operacje do odrębnej klasy) co
+pozwoliło zachować przejrzystość kodu i łatwość ewentualnego rozwoju. Pełen cykl
+pojedynczej iteracji symulacji przedstawia poniższy fragment kody:
+
+\begin{lstlisting}[language=Python, caption=Plik wejściowy symulacji]
+for frame in range(1, self.iterations):
+	progressBar.print(frame, self.iterations)
+	rdd = context.parallelize(data)
+	rdd = self.normalize(rdd)
+	rdd = ParticlesOperations.updateAccelerations(rdd)
+	rdd = ParticlesOperations.updateVelocity(rdd)
+	rdd = ParticlesOperations.updatePosition(rdd)
+	frame, data = self.saveStep(rdd)
+	result['timeline'].append(frame)
+\end{lstlisting}
+
+Mimo iż symulacja opiera się na obliczeniu sił każdego ciała względem wszystkich pozostałych
+(co daje złożoność kwadratową) symulację zrównoleglono liniowo. W trakcie projektowania
+zweryfikowano 2 metody: rozkładu jedno-poziomowego ciał na zadania oraz dokładnego jako
+iloczyn kartezjański ciał. Z racji, iż same obliczenia sił mają małą złożoność obliczeniową,
+nakład opóźnienia komunikacyjnego znacząco spowolnił symulację tworzoną jako iloczyn kartezjański.
+
+W wyniku działania symulacji utworzony zostaje plik wg. poniższego schematu przedstawiającego
+fragment funkcji generującej szkic struktury wynikowej:
+
+\begin{lstlisting}[language=Python, caption=Wynik symulacji]
+def prepareResult(self, data):
+	return {
+		'particles': map(lambda p: {
+			'mass': p['mass'],
+			'colour': p['colour'],
+		}, data),
+		'timeline': [map(lambda p: [
+			p['x'],
+			p['y']
+		], data)],
+	}
+\end{lstlisting}
 
 
 \chapter{Instalacja i uruchomienie aplikacji}

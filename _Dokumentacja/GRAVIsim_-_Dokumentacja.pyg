@@ -1,0 +1,19 @@
+class DefaultsMixin(viewsets.ModelViewSet):
+    authentication_classes = (
+        authentication.SessionAuthentication,
+        JSONWebTokenAuthentication
+    )
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+
+class ReadOnlyDefaultsMixin(viewsets.ReadOnlyModelViewSet):
+    authentication_classes = (
+        authentication.SessionAuthentication,
+        JSONWebTokenAuthentication
+    )
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
