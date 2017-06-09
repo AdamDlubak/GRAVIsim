@@ -68,8 +68,8 @@
                     controller: 'AuthController',
                     controllerAs: 'auth',
                 }).
-                when('/users', {
-                    templateUrl: 'static/fragments/users.html',
+                when('/manage-users', {
+                    templateUrl: 'static/fragments/manage-users.html',
                     controller: 'UsersController',
                     controllerAs: 'users'
                 }).

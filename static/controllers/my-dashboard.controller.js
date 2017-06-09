@@ -10,22 +10,23 @@
                     $location.path('/task-details').search({ id: $taskId });
                 };
 
+                $scope.tasks = [];
 
-$('.btn-toggle').click(function() {
-    $(this).find('.btn').toggleClass('active');  
-    
-    if ($(this).find('.button-gray').size()>0) {
-    	$(this).find('.btn').toggleClass('button-gray');
-    }
-    
-    $(this).find('.btn').toggleClass('btn-default');
-       
-});
+                $('.btn-toggle').click(function () {
+                    $(this).find('.btn').toggleClass('active');
 
-$('form').submit(function(){
-	alert($(this["options"]).val());
-    return false;
-});
+                    if ($(this).find('.button-gray').size() > 0) {
+                        $(this).find('.btn').toggleClass('button-gray');
+                    }
+
+                    $(this).find('.btn').toggleClass('btn-default');
+
+                });
+
+                $('form').submit(function () {
+                    alert($(this["options"]).val());
+                    return false;
+                });
 
                 $scope.status = [
                     waiting = {
@@ -112,8 +113,7 @@ $('form').submit(function(){
                     $http.get(api).
                         then(function (result) {
                             $scope.data = result.data;
-                            $scope.tasksAmt = [0, 0, 0, 0, $scope.data.length]
-                            $scope.tasks = [];
+                            $scope.tasksAmt = [0, 0, 0, 0, $scope.data.length];
                             for (i = 0; i < 4; i++) {
                                 ($scope.data.filter(job => job.state == i)).forEach(function (elem) {
                                     elem.state = $scope.status[i].value;
@@ -155,13 +155,10 @@ $('form').submit(function(){
 
                 $scope.fetchData();
 
-
-
-
-
-
-
-
+                $scope.isEmpty = function () {
+                    if ($scope.tasks.length == 0) return true;
+                    else false;
+                }
 
 
                 $scope.filename = '';

@@ -54,7 +54,10 @@
                         "color": "#840000"
                     }
                 ];
-
+                $scope.stateisCompleted = function (state){
+                    if(state == "Completed") return true;
+                    else false;
+                }
                 $scope.id = $location.search().id;
 
                 $scope.stateButtonClass = function() {

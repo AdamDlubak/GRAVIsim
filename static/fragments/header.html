@@ -11,9 +11,9 @@
     <li><a href="/my-tasks">My Tasks<span class="sub_icon glyphicon glyphicon-eye-open"></span></a></li>
     <li><a href="/order-task">Order Task<span class="sub_icon glyphicon glyphicon-cloud-upload"></span></a></li>
     <li><a href="/generator">Generator<span class="sub_icon glyphicon glyphicon-plus"></span></a></li>
-    
-    <li><a href="/users" style="padding-left: 20px;">Manage Users<span class="sub_icon glyphicon glyphicon-tower"></span></a></li>    
-    <li><a href="/manage-tasks" style="padding-left: 20px;">Manage Tasks<span class="sub_icon glyphicon glyphicon-th-list"></span></a></li>    
+
+    <li ng-if="user.is_superuser" ><a href="/manage-users" style="padding-left: 20px;">Manage Users<span class="sub_icon glyphicon glyphicon-tower"></span></a></li>    
+    <li ng-if="user.is_superuser" ><a href="/manage-tasks" style="padding-left: 20px;">Manage Tasks<span class="sub_icon glyphicon glyphicon-th-list"></span></a></li>    
 
   </ul>
 

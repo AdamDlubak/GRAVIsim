@@ -1,16 +1,24 @@
-(function() {
+(function(){    
     angular.module("gravisim").
-        directive("generatorInput", function() {
+        directive("generator", [function(){
                 return {
                     restrict: 'E',
-                    scope: {
-                        name: '=name',
-                        min: '=min',
-                        max: '=max',
-                        curvalue: '=curvalue',
-                    },
-                    templateUrl: '/static/fragments/forms/range-input.html',
+                    scope: {},
+                    templateUrl: '/static/fragments/forms/generator-form.html',
                 };
-            })
+        }])
+        .directive("changelogin", [function(){
+                return {
+                    restrict: 'E',
+                    scope: {},
+                    templateUrl: '/static/fragments/forms/change-login.html',
+                };
+        }])
+        .directive("changepassword", [function(){
+                return {
+                    restrict: 'E',
+                    scope: {},
+                    templateUrl: '/static/fragments/forms/change-password.html',
+                };
+        }])
 })();
-

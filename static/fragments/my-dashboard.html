@@ -17,22 +17,31 @@
                             <th>Status</th>
                         </tr>
                     </thead>
+
                     <tbody ng-repeat="task in tasks | orderBy : '-created' | limitTo: 5" style="border: 0px; cursor: pointer;">
-                            <tr id="tasks-list" ng-click="rowLink(task.id);">
-                                <td>{{ task.id }}</td>
-                                <td>{{ task.name }}</td>
-                                <td><span ng-style="{color: getPriorityColor(task.priority)}" class="task-status">{{ task.priority }}</span></td>
-                                <td>{{ task.calculationTime }}</td>
-                                <td>{{ task.createdDate }}<br />{{ task.createdTime }}</td>
-                                <td>{{ task.startedDate }}<br />{{ task.startedTime }}</td>
-                                <td><span ng-style="{color: getStateColor(task.state)}" class="task-status">{{ task.state }}</span></td>
-                            </tr>
+
+                        <tr id="tasks-list" ng-click="rowLink(task.id);">
+                            <td>{{ task.id }}</td>
+                            <td>{{ task.name }}</td>
+                            <td><span ng-style="{color: getPriorityColor(task.priority)}" class="task-status">{{ task.priority }}</span></td>
+                            <td>{{ task.calculationTime }}</td>
+                            <td>{{ task.createdDate }}<br />{{ task.createdTime }}</td>
+                            <td>{{ task.startedDate }}<br />{{ task.startedTime }}</td>
+                            <td><span ng-style="{color: getStateColor(task.state)}" class="task-status">{{ task.state }}</span></td>
+                        </tr>
+
                         </a>
                     </tbody>
+                    <tbody>
+                        <tr id="tasks-list" ng-if="isEmpty()">
+                            <td colspan="7" class="text-center" style="font-weight: bold; font-size: 20px; vertical-align: middle;" height="100">Brak wyników wyszukiwania</td>
+                        </tr>
+                    </tbody>
+
                 </table>
             </div>
         </div>
-<div class="main-box col-md-12 col-lg-3">
+        <div class="main-box col-md-12 col-lg-3">
             <div class="well text-center overflow-auto">
                 <p class="well lead text-center">My Profile</p>
 
@@ -53,10 +62,10 @@
                     <hr>
                 </div>
 
-      <div class="btn-group btn-toggle"> 
-        <button class="btn btn-sm button-gray active"  ng-if="user.is_superuser" ng-click="fetchData()">My Tasks</button>
-    	<button class="btn btn-sm btn-default"  ng-if="user.is_superuser" ng-click="fetchAllData()">All Tasks</button>
-    	</div>
+                <div class="btn-group btn-toggle">
+                    <button class="btn btn-sm button-gray active" ng-if="user.is_superuser" ng-click="fetchData()">My Tasks</button>
+                    <button class="btn btn-sm btn-default" ng-if="user.is_superuser" ng-click="fetchAllData()">All Tasks</button>
+                </div>
                 <div style="text-align: left">
 
                     <p style="margin-top: 20px"><span class="glyphicon glyphicon-th-large" />&nbsp; All tasks: <b>{{ tasksAmt[4] }}</b></p>
@@ -78,5 +87,3 @@
         </div>
     </div>
 </div>
-
-
