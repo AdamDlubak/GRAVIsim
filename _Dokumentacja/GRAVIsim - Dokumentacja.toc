@@ -24,9 +24,13 @@
 \contentsline {section}{\numberline {5.2}Tworzenie klastra}{19}{section.5.2}
 \contentsline {section}{\numberline {5.3}Uruchomienie GRAVIsim}{20}{section.5.3}
 \contentsline {chapter}{\chapternumberline {6}Instrukcja u\IeC {\.z}ytkownika}{21}{chapter.6}
-\contentsline {chapter}{\chapternumberline {7}Badanie z\IeC {\l }o\IeC {\.z}ono\IeC {\'s}ci obliczeniowej}{22}{chapter.7}
-\contentsline {section}{\numberline {7.1}Zestaw konfiguracyjny}{22}{section.7.1}
-\contentsline {section}{\numberline {7.2}Wyniki bada\IeC {\'n}}{23}{section.7.2}
-\contentsline {section}{\numberline {7.3}Analiza wynik\IeC {\'o}w}{25}{section.7.3}
-\contentsline {chapter}{\chapternumberline {8}Podsumowanie i wnioski}{26}{chapter.8}
-\contentsline {chapter}{Indeks rzeczowy}{27}{section*.1}
+\contentsline {section}{\numberline {6.1}Panel Logowania}{21}{section.6.1}
+\contentsline {section}{\numberline {6.2}Panel Sterowania GRAVIsim}{22}{section.6.2}
+\contentsline {section}{\numberline {6.3}Obs\IeC {\l }uga zada\IeC {\'n}}{23}{section.6.3}
+\contentsline {section}{\numberline {6.4}Zarz\IeC {\k a}dzanie u\IeC {\.z}ytkownikiem}{26}{section.6.4}
+\contentsline {chapter}{\chapternumberline {7}Badanie z\IeC {\l }o\IeC {\.z}ono\IeC {\'s}ci obliczeniowej}{27}{chapter.7}
+\contentsline {section}{\numberline {7.1}Zestaw konfiguracyjny}{27}{section.7.1}
+\contentsline {section}{\numberline {7.2}Wyniki bada\IeC {\'n}}{28}{section.7.2}
+\contentsline {section}{\numberline {7.3}Analiza wynik\IeC {\'o}w}{30}{section.7.3}
+\contentsline {chapter}{\chapternumberline {8}Podsumowanie i wnioski}{31}{chapter.8}
+\contentsline {chapter}{Indeks rzeczowy}{32}{section*.1}

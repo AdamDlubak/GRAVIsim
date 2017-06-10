@@ -878,6 +878,7 @@ with open(path, 'wb') as log:
 Wszystkie wewnętrzene komunikaty - np. informacja o symulacji, zmiana stanu realizacji -
 formatowane są według ustalej reguły tokenów, co pozwala na jednoznaczną identyfikacje
 i adektwatne parsowanie wiadomości. Dostępny jest poniższy zestaw komunikatów:
+\pagebreak
 \begin{itemize}
 \item \textbf{D} - data - komunikat traktowany jako parametr symulacji i jest zapisywany
 do słownika
@@ -981,7 +982,7 @@ Symulacja podzielona została na kilka etapów:
 Każdy z etapów został wydzielony do odrębnej metody (operacje do odrębnej klasy) co
 pozwoliło zachować przejrzystość kodu i łatwość ewentualnego rozwoju. Pełen cykl
 pojedynczej iteracji symulacji przedstawia poniższy fragment kody:
-
+\pagebreak
 \begin{lstlisting}[language=Python, caption=Plik wejściowy symulacji]
 for frame in range(1, self.iterations):
 	progressBar.print(frame, self.iterations)
@@ -1180,6 +1181,93 @@ komendy \texttt{\hl{sshfs}}.\\
 \vspace{2mm} Aplikacja dostępna jest pod adresem hosta głównego na porcie \textbf{\textit{8000}}, np.\\
 \centerline{\texttt{\hl{http://localhost:8000}}}
 \chapter{Instrukcja użytkownika}
+\emph{\quad \quad Interfejs graficzny aplikacji GRAVIsim jest bardzo prosty i intuicyjny. Wszystkie funkcjonalności systemu są łatwo dostępne i osiągalne w maksimum 3 krokach. W rozdziale tym zostaną krótko opisane poszczególny widoki udostępnione użytkownikowi systemu.
+}
+\section{Panel Logowania}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{pictures/screen-1}
+	\caption{Widok początkowy - ekran logowania użytkownika}
+\end{figure}
+Jest to pierwszy ekran aplikacji \textit{GRAVIsim}, na który napotyka użytkownik systemu. Jego zadaniem jest przeprowadzenia użytkownika przez proces logowania do aplikacji. Warto zaznaczyć, iż w widoku tym nie ma możliwości rejestracji nowego użytkownika. Z racji, iż z założenia system ten jest systemem dostępnym jedynie dla pracowników ośrodka badawczego, nowe konta może tworzyć jedynie administrator systemu z poziomu panelu administracyjnego.
+\pagebreak
+\vspace*{1mm}
+\section{Panel Sterowania GRAVIsim}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{pictures/screen-2}
+	\caption{Panel zarządzania dla zalogowanego użytkownika}
+\end{figure}
+Jest to główny widok dostępny dla zalogowanego użytkownika. Po lewej stronie widoczny jest główny pasek nawigacyjny pojawiający się na każdym poziomie korzystania z systemu przez zalogowanego użytkownika. Znajdują się tam m.in. odnośniki do konkretnych funkcjonalności systemu, informacja o obecnie zalogowanym pracowniku, możliwość wylogowania z systemu oraz edycji konta i kontaktu z administracją.
+\pagebreak
+\vspace*{1mm}
+\section{Obsługa zadań}
+W sekcji tej widoczne są widoki przygotowane w celu obsługi zadań obliczeniowych.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{pictures/screen-5}
+	\caption{Generator danych pomiarowych}
+\end{figure}
+Jest to zaawansowany generator danych wejściowych zgodny z systemem wykonywania obliczeń grawitacyjnych N-ciał \textit{GRAVIsim}. Umożliwia on wizualne budowanie odpowiednich struktur, uwzględniając przy tym ich typ (punktowy lub chmurowy), kolor, masę oraz rozpiętość. Z tak przygotowanego schematu istnieje możliwość wygenerowania pliku z danymi.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{pictures/screen-4}
+	\caption{Formularz zlecania zadań}
+\end{figure}
+Prosty formularz umożliwiający zlecenie zadania z uwzględnieniem takich parametrów jak: nazwa, opis, priorytet, plik wejściowy oraz ilość iteracji.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{pictures/screen-3}
+	\caption{Lista zadań użytkownika}
+\end{figure}
+W widoku tym wylistowane są wszystkie zadania zlecone przez użytkownika wraz z ich podstawowymi danymi. Istnieje możliwość sortowania ich według obecnego statusu lub przejście do sekcji zarządzania konkretnym zadaniem.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{pictures/screen-9}
+	\caption{Podgląd zleconego zadania}
+\end{figure}
+W sekcji tej możliwa jest zmiana statusu zadania z \textit{SUSPENDED} na \textit{WAITING} lub odwrotnie. Możliwe jest również kontrolowanie procesu wykonywania zadania paskiem postępu oraz dokładnymi logami systemowymi.\\
+\pagebreak
+\vspace*{1mm}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{pictures/screen-8}
+	\caption{Efekt końcowy pomiarów - symulacja}
+\end{figure}
+\\
+Jest to kontynuacja widoku poglądu zadania. Panel ten uaktywnia się w przypadku zadań o statusie \textit{COMPLETED}. Możliwe jest tutaj wyświetlanie wyników pomiarów w postaci animacji z różnymi parametrami podglądu lub pobranie pliku wynikowego.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{pictures/screen-10}
+	\caption{Edycja zleconego zadania}
+\end{figure}
+\vspace*{1mm}
+Kiedy zadanie znajduje się w statusie \textit{SUSPENDED}, możliwa jest jego edycja właśnie dzięki temu widokowi. Można tutaj edytować takie wartości jak: nazwa, opis, priorytet oraz ilość iteracji.
+
+\pagebreak
+\vspace*{1mm}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{pictures/screen-6}
+	\caption{Panel użytkownika - Edycja konta}
+\end{figure}
+Standardowy widok edycji profilu użytkownika.
+
+
+\section{Zarządzanie użytkownikiem}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{pictures/screen-7}
+	\caption{Formularz kontaktowy}
+\end{figure}
+Każdy użytkownik może skontaktować się z administratorami systemu za pomocą dostępnego formularza kontaktowego. Poza standardowymi możliwościami wprowadzenia tytułu oraz treści maila, dodatkowo istnieje możliwość zdefiniowania priorytetu oraz konkretnego odbiorcy wiadomości.
+
+
 
 
 \chapter{Badanie złożoności obliczeniowej}
