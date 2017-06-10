@@ -10,11 +10,10 @@
 \contentsline {section}{\numberline {2.4}Wymagania technologiczne}{8}{section.2.4}
 \contentsline {chapter}{\chapternumberline {3}Charakterystyka projektu}{9}{chapter.3}
 \contentsline {section}{\numberline {3.1}Cykl \IeC {\.z}ycia aplikacji}{9}{section.3.1}
-\contentsline {section}{\numberline {3.2}Technologia}{9}{section.3.2}
+\contentsline {section}{\numberline {3.2}Technologia}{10}{section.3.2}
 \contentsline {subsection}{\numberline {3.2.1}Modu\IeC {\l } aplikacji (Django)}{10}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Modu\IeC {\l } klastra (Apache Spark)}{10}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Modu\IeC {\l } zarz\IeC {\k a}dzaj\IeC {\k a}cy (Spark-Scheduler)}{10}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Modu\IeC {\l } asynchroniczny (Socket-Server)}{11}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.2}Modu\IeC {\l } zarz\IeC {\k a}dzaj\IeC {\k a}cy (Spark-Scheduler)}{10}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Modu\IeC {\l } asynchroniczny (Socket-Server)}{11}{subsection.3.2.3}
 \contentsline {chapter}{\chapternumberline {4}Implementacja}{12}{chapter.4}
 \contentsline {section}{\numberline {4.1}Aplikacja}{12}{section.4.1}
 \contentsline {section}{\numberline {4.2}Logger}{13}{section.4.2}
@@ -30,4 +29,4 @@
 \contentsline {section}{\numberline {7.2}Wyniki bada\IeC {\'n}}{23}{section.7.2}
 \contentsline {section}{\numberline {7.3}Analiza wynik\IeC {\'o}w}{25}{section.7.3}
 \contentsline {chapter}{\chapternumberline {8}Podsumowanie i wnioski}{26}{chapter.8}
-\contentsline {chapter}{Indeks rzeczowy}{26}{section*.1}
+\contentsline {chapter}{Indeks rzeczowy}{27}{section*.1}

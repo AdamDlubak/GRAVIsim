@@ -689,18 +689,19 @@ Użytkownik systemu GRAVIsim po poprawnym zalogowaniu może wykonać następują
 
 
 
+
 \chapter{Charakterystyka projektu}
 \section{Cykl życia aplikacji}
 \quad \quad Każde zadanie przetwarzane jest przez wszystkie 4 podsystemy aplikacji. Moduł serwerowy
 odpowiada za przetwarzanie takich zapytań jak tworzenie czy modyfikacja zleceń.
 Moduł Spark Schedulera zarządza oczekującymi zleceniami przetwarzając ich stan
 oraz przekazując do klastra. Moduł socketów pozwala na monitorowanie stanu zlecenia
-w czasie rzeczywistym. Ponad to, szcegółowo informuje o wszystkich ewentualnych błędach
-nieżależnie od źródła ich wystąpienia. Zewnętrzny moduł Spark odpowiada za przetwarzanie
+w czasie rzeczywistym. Ponadto, szczegółowo informuje o wszystkich ewentualnych błędach
+niezależnie od źródła ich wystąpienia. Zewnętrzny moduł Spark odpowiada za przetwarzanie
 otrzymanych zadań i generowanie symulacji.
 
-Jako wynik pracy podsystemów jest gotowa symulacja w postaci pliku `JSON` wizualizowana
-w wartwie prezentacji aplikacji klienckiej.
+Wynikiem pracy podsystemów jest gotowa symulacja w postaci pliku \textbf{\textit{JSON}} wizualizowana
+w warstwie prezentacji aplikacji klienckiej.
 
 Pełen cykl życia zadania przedstawia poniższy diagram:
 
@@ -710,7 +711,8 @@ Pełen cykl życia zadania przedstawia poniższy diagram:
 	\caption{Schemat modułów aplikacji GRAVIsim}
 	\label{fig:stronaTytulowa}
 \end{figure}
-
+\pagebreak
+\vspace*{1mm}
 \section{Technologia}
 \quad \quad Aplikacja podzielona została na kilka logicznych modułów, z których każdy pełni odrębną
 rolę w całym cyklu życia. Można wyróżnić 4 podsystemy:
@@ -723,12 +725,12 @@ rolę w całym cyklu życia. Można wyróżnić 4 podsystemy:
 
 \subsection{Moduł aplikacji (Django)}
 \quad \quad Główny moduł aplikacji. Jego główną rolą jest przetwarzanie zapytań użytkowników,
-serwowanie statycznych zasobów oraz zarządzanie całym stanem aplikacji.\\
+serwowanie statycznych zasobów oraz zarządzanie całym stanem aplikacji. \\
 \\
 Serwer podzielony jest na 2 logiczne warstwy: serwerową oraz API. Pierwsza warstwa
-pełni interfejs pomiędzy warstwą prezentacji (frontend) a cała logiką systemu.
-Druga warstwa jest znacznie bardziej rozbudowana. Oparta na frameworku `Django REST
-framework` zajmuje się przetwarzaniem oraz interpretacją zapytań pozwalając na
+pełni interfejs pomiędzy warstwą prezentacji (frontend), a cała logiką systemu.
+Druga warstwa jest znacznie bardziej rozbudowana. Oparta na frameworku \textbf{\textit{Django REST
+framework}} zajmuje się przetwarzaniem oraz interpretacją zapytań pozwalając na
 komunikację - odczyt bądź bezpieczny zapis danych - z bazą danych.\\
 \\
 Warstwa API jest głównym mechanizmem generowania zleceń badawczych. Zaimplementowane
@@ -736,64 +738,60 @@ mechanizmy serializacji dbają, aby użytkownik mógł być w stanie edytować t
 wybrane pola przy określonych warunkach - eliminuje to ryzyko utraty spójności
 danych.\\
 
-\subsection{Moduł klastra (Apache Spark)}
-\quad \quad 
 \subsection{Moduł zarządzający (Spark-Scheduler)}
 \quad \quad To główny moduł zarządzający wykonywanymi zadaniami. Podobnie jak serwer socketów
-uruchamiany jest jako komenda głównego serwera. Jego główną ideą jest
+uruchamiany jest jako komenda głównego serwera. Jego ideą jest
 przekazywanie oczekujących zadań zgodnie z ustaloną kolejnością priorytetów
-do obliczeń w klastrze. Moduł odpowiedzialny jest zachowanie spójności zadań
+do obliczeń w klastrze. Moduł odpowiedzialny jest za zachowanie spójności zadań
 (klaster równocześnie może obsłużyć tylko 1 zadanie) oraz ciągłość pracy
-(po zakończeniu 1 zadania lub w stanie bezczyności, klaster autmatycznie otrzymuje
+(po zakończeniu 1 zadania lub w stanie bezczynności, klaster automatycznie otrzymuje
 nowe zadanie).\\
 \\
-Zasada działania spark schedulera oparta jest na cyklicznym odpytywaniu bazy danych
+Zasada działania \textit{Spark Scheduler'a} oparta jest na cyklicznym odpytywaniu bazy danych
 w poszukiwaniu zadań oczekujących na dostępność klastra. Gdy w systemie znajdują się
 takie zadania, moduł szereguje je zgodnie z ustaloną kolejką priorytetów (im wyższy
 priorytet - tym szybciej zadanie zostanie obsłużone) oraz w przypadku równoznacznych
 priorytetów - zgodnie z czasem oczekiwania (eliminacja zjawiska zagłodzenia).
 Zadanie znajdujące się na początku kolejki jest blokowane poprzez zmianę stanu
-na `RUNNING` oraz przekazane do klastra.\\
-\\
+na \textbf{\textit{RUNNING}} oraz przekazane do klastra.\\
 Przekazanie zadania do obliczenia w klastrze odbywa się poprzez wywołanie komendy
-`spark-submit` z odpowiednimi parametrami, przy użyciu funkcji Popen. Idea tego
+\textbf{\textit{spark-submit}} z odpowiednimi parametrami, przy użyciu funkcji \textit{Popen}. Idea tego
 rozwiązania pozwala na przekierowanie całego wyjścia komendy - zarówno zwykłych
-komunikatów jak i błędów systemowych czy własnych infomarcji jak stan czy postęp
-zadania - do określonego pliku zewnętrzengo służącego jako log zadania. Tak przekazane
-zadanie może być asynchronicznie śledzone przez inne moduły oraz użytkoników końcowych.\\
+komunikatów jak i błędów systemowych czy własnych informacji jak stan czy postęp
+zadania - do określonego pliku zewnętrznego służącego jako log zadania. Tak przekazane
+zadanie może być asynchronicznie śledzone przez inne moduły oraz użytkowników końcowych.\\
 \\
 Po zakończeniu komendy - zarówno pozytywnego jak i w przypadku wystąpienia dowolnego
-błędu - zadanie jest finalizowane poprzez ustawienie stanu na `FINISHED`. Rezultat
+błędu - zadanie jest finalizowane poprzez ustawienie stanu na \textbf{\textit{FINISHED}}. Rezultat
 zadania przekazany jest automatycznie w logu zadania oraz w przypadku sukcesu -
-plik symulacyjny jest zapisany na dysku serwera z ustaloną kowencją nazewnictwa
+plik symulacyjny jest zapisany na dysku serwera z ustaloną konwencją nazewnictwa
 gwarantującą unikalność oraz dostępność.\\
 
 \subsection{Moduł asynchroniczny (Socket-Server)}
-\quad \quad Asynchroniczny moduł uruchamiany jako komenda głownego serwera. Pozwala on na
+\quad \quad Asynchroniczny moduł uruchamiany jako komenda głównego serwera. Pozwala on na
 komunikację aplikacji klienckiej z serwerem za pośrednictwem otwartego na oddzielnym
 porcie gniazda. Jego główna ideą jest umożliwienie asynchronicznego śledzenia
 stanu i postępu zleconych badań oraz ewentualnych komunikatów błędów i ostrzeżeń.\\
-\\
-Główna zasada działania modułu opiera się cyklicznym odczycie zadanego pliku z logiem
+
+Główna zasada działania modułu opiera się na cyklicznym odczycie zadanego pliku z logiem
 zadania i przekazywaniu przetworzonej informacji do socketa. Bardzo ważnym aspektem
 było zapewnienie nieblokującego przetwarzania - w przeciwnym wypadku serwer byłby
 w stanie równocześnie obsłużyć tylko i wyłącznie 1 użytkownika.\\
-\\
+
 Zapytanie jest przetwarzane wg. poniższego schematu:
 \begin{enumerate}
-\item Utworzenie połączenia i określenie identyfikatora monitorowanego zadania
-\item Sprawdzenie czy plik z logiem zadanie istnieje na serwerze: jeśli nie istnieje
-to wysłanie komunikatu, że zadanie się jeszcze nie rozpoczęło, następnie nieblokujące
-oczekiwanie przez 1000ms i ponownie krok 2
-\item Ustalenie znacznika na początek pliku
-\item Odczyt do bufora wszystkich linii od znacznika do końca pliku
-\item Ustalenie znacznika na końcu pliku
-\item Wysłanie do gniazda komunikatu z buforem linii
-\item Nieblokujące oczekiwanie przez 500ms i powrót do kroku 4
+\item Utworzenie połączenia i określenie identyfikatora monitorowanego zadania.
+\item Sprawdzenie, czy plik z logiem zadania istnieje na serwerze: jeśli nie istnieje
+następuje wysłanie komunikatu, że zadanie się jeszcze nie rozpoczęło, następnie przechodzi w tryb nieblokującego
+oczekiwania przez 1000 ms i ponawia krok 2.
+\item Ustalenie znacznika na początek pliku.
+\item Odczyt do bufora wszystkich linii od znacznika do końca pliku.
+\item Ustalenie znacznika na końcu pliku.
+\item Wysłanie do gniazda komunikatu z buforem linii.
+\item Nieblokujące oczekiwanie przez 500 ms i powrót do kroku 4.
 \end{enumerate}
-
 Połączenia po stronie serwera zamykane są automatycznie po zamknięciu ich w aplikacji
-klienckiej.\\
+klienckiej.
 
 \chapter{Implementacja}
 \section{Aplikacja}
@@ -1276,7 +1274,19 @@ Wyniki badań oraz analizy przedstawia poniższe zestawienie tabelaryczne oraz w
 Na podstawie wyników przeprowadzonych badań można zaobserwować, iż wszystkie 3 badane parametry mają znaczący wpływ na czas wykonywania zadania.
 Klaster obliczeniowy opiera się na komunikacji poszczególnych węzłów, która odbywając się poprzez sieć skutkuje znaczącym opóźnieniem w wykonywaniu zadania. Ma to ogromny wpływ dla zadań liczonych stosunkowo szybko (mała ilość punktów masy w symulacji), stąd też zaobserwowano, iż klaster o większej ilości węzłów obliczył to samo zadanie w czasie o 10-15\% dłuższym niż klaster składający się z 1 węzła. Dla większych zadań, narzut komunikacyjny staje się znikomo mały i czas tego samego zadania zależy tylko od dostępności zasobów.
 
+
 \chapter{Podsumowanie i wnioski}
+\quad \quad Projekt GRAVIsim okazał się trudnym i skomplikowanym przedsięwzięciem, które wymagało bardzo dużej ilości czasu, a także wiedzy. W czasie realizacji poszczególnych zadań konieczne okazało się poznanie i zrozumienie wielu rozwiązań, z którymi wcześniej nie mieliśmy do czynienia.
+
+Proces tworzenia projektu nie obył się bez problemów i trudności, z którymi należało się zmierzyć. Były to między innymi problemy personalne, wskutek czego ostatecznie zespół projektowy liczy jedynie 2 członków. Pojawiły się również problemy technologiczne jak np. multiplatformowość napisanego przez nas \textit{Job-Schedulera}. Początkowo kod utworzony na systemie \textit{Unixowym} nie działał poprawnie na komputerach z zainstalowanym systemem \textit{Windows}. Ostatecznie jednak udało się zmodyfikować kod w taki sposób aby spełniał swoje zadanie na obydwu klasach systemów.\\
+\\
+Analiza przeprowadzonych pomiarów wykazała, iż narzut transmisji danych w klastrze obliczeniowych dla małych zadań jest na tyle duży, że nieoptymalne jest jego wykorzystanie. Przy zadaniach stosunkowo większych, wzrastają możliwości i zalety wykorzystywania \textit{Apache-Spark'a}. Narzut informacji transmitowanych między węzłami obliczeniowymi staje się coraz mniejszy, a moc obliczeniowa wielu węzłów pozwala stanowczo przyspieszyć realizację powierzonych zadań, co potwierdza zasadność korzystania z rozproszonych rozwiązań obliczeniowych. \\
+\\
+Podsumowując projekt można stwierdzić, iż wszystkie założone funkcjonalności, zarówno podstawowe jak i rozszerzone zostały zaimplementowane i wdrożone. \textbf{\textit{GRAVIsim}} umożliwia pełną obsługę: przygotowanie, zlecanie oraz analizowanie symulacji grawitacyjnej N-ciał wykonywanej na systemie rozproszonym.
+
+
+\pagebreak
+
 
 \mbox{}\pdfbookmark[0]{Spis rysunków}{spisRysunkow.1}
 %\addcontentsline{toc}{chapter}{Spis rysunków}
