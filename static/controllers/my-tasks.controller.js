@@ -5,9 +5,8 @@
                 var self = this;
                 $scope.user = $.extend({}, $authentication.getUser());
 
-                $scope.tasks = [];
                 var state = 2;
-                var choosen = [false, false, true, false];
+                var choosen = [true, true, true, true];
 
                 $scope.status = [
                     waiting = {
@@ -83,7 +82,6 @@
                             $('span[data-toggle="' + tog).removeClass('notActive btn-default').addClass('active button-gray');
                             choosen[tog] = !choosen[tog];
                         }
-
                         $scope.fetchData();
                     });
                 });
@@ -107,8 +105,8 @@
                 }
 
                 $scope.fetchData = function () {
-                    // var api = '/api/spark-jobs/'; // Do zmiany na wyszukiwanie dla usera ------------------------------------------------------------------------------------
                     var api = '/api/spark-jobs/?author=' + $scope.user.id;
+                    $scope.tasks = [];
 
                     $http.get(api).
                         then(function (result) {

@@ -6,10 +6,9 @@
                 $scope.user = $.extend({}, $authentication.getUser());
 
                 var state = 2;
-                var choosen = [false, false, true, false];
+                var choosen = [true, true, true, true];
 
                 $scope.waitingTasks = [];
-                $scope.tasks = [];
                 $scope.status = [
                     waiting = {
                         "id": 0,
@@ -151,6 +150,7 @@
                 }
                 $scope.fetchData = function () {
                     var api = '/api/spark-jobs/';
+                $scope.tasks = [];
 
                     $http.get(api).
                         then(function (result) {

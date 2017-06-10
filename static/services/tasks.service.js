@@ -52,7 +52,7 @@
             }
         })(getToken());
 
-        var sendTask = function (data, filename, priorities, iterations) {
+        var sendTask = function (data, filename, priorities, iterations, userid) {
             return $q(function (resolve, reject) {
                 $http.post(
                     '/api/spark-jobs/',
@@ -62,6 +62,7 @@
                         inputFile: filename,
                         iterations: iterations,
                         priority: priorities,
+                        author_id: userid,
                     })
                 ).then(function (user) {
                     resolve(user);
