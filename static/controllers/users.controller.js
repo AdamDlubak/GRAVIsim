@@ -36,11 +36,12 @@
                         .deleteUser(id)
                         .then(function () {
                             $scope.deleteError = false;
-                            $location.path('/my-dashboard');
+                            location.reload(); 
                         }, function (error) {
                             $scope.deleteError = true;
                         });
                 }
+
 
             }
         ]);

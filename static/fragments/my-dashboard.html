@@ -20,7 +20,7 @@
 
                     <tbody ng-repeat="task in tasks | orderBy : '-created' | limitTo: 5" style="border: 0px; cursor: pointer;">
 
-                        <tr id="tasks-list" ng-click="rowLink(task.id);">
+                        <tr id="tasks-list" ng-click="rowLink(task.id);" class="text-center">
                             <td>{{ task.id }}</td>
                             <td>{{ task.name }}</td>
                             <td><span ng-style="{color: getPriorityColor(task.priority)}" class="task-status">{{ task.priority }}</span></td>

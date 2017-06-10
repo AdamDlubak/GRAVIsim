@@ -74,34 +74,53 @@
         var sendTaskStatus = function (url, task, newStatus) {
             return $q(function (resolve, reject) {
                 $http.put(url,
-                    $.param( {
+                    $.param({
                         state: newStatus,
                         name: task.name,
                         inputFile: task.inputFile,
                         iterations: task.iterations,
                     })
-                ).then(function (user) {
-                    resolve(user);
+                ).then(function (task) {
+                    resolve(task);
                 }, function (error) {
                     reject(error);
                 });
             });
         }
+        var editTask = function (url, task) {
 
+            return $q(function (resolve, reject) {
+                $http.put(url,
+                    $.param({
+                        state: task.state,
+                        name: task.name,
+                        description: task.description,
+                        priority: task.priority.id,
+                        inputFile: task.inputFile,
+                        iterations: task.iterations,
+                    })
+                ).then(function (task) {
+                    resolve(task);
+                }, function (error) {
+                    reject(error);
+                });
+            });
+        }
         return {
-                sendTask: sendTask,
-                getToken: getToken,
-                saveToken: saveToken,
-                getTokenData: getTokenData,
-                isAuthenticated: isAuthenticated,
-                getHeader: getHeader,
-                sendTaskStatus: sendTaskStatus,
-            };
+            sendTask: sendTask,
+            getToken: getToken,
+            saveToken: saveToken,
+            getTokenData: getTokenData,
+            isAuthenticated: isAuthenticated,
+            getHeader: getHeader,
+            sendTaskStatus: sendTaskStatus,
+            editTask: editTask,
         };
+    };
 
-        angular.module('utils').factory('tasks', ['$window', '$q', '$http', '$rootScope',
-            function ($window, $q, $http, $rootScope) {
-                return new tasks($window, $q, $http, $rootScope);
-            }
-        ]);
-    })();
+    angular.module('utils').factory('tasks', ['$window', '$q', '$http', '$rootScope',
+        function ($window, $q, $http, $rootScope) {
+            return new tasks($window, $q, $http, $rootScope);
+        }
+    ]);
+})();
