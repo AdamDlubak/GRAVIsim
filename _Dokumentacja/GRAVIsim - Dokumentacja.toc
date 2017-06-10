@@ -20,14 +20,14 @@
 \contentsline {section}{\numberline {4.2}Logger}{13}{section.4.2}
 \contentsline {section}{\numberline {4.3}Zarz\IeC {\k a}dzanie zadaniami}{14}{section.4.3}
 \contentsline {section}{\numberline {4.4}Symulacja}{15}{section.4.4}
-\contentsline {chapter}{\chapternumberline {5}Instalacja i uruchomienie aplikacji}{18}{chapter.5}
-\contentsline {section}{\numberline {5.1}Proces instalacji}{18}{section.5.1}
-\contentsline {section}{\numberline {5.2}Tworzenie klastra}{20}{section.5.2}
-\contentsline {section}{\numberline {5.3}Uruchomienie GRAVIsim}{21}{section.5.3}
-\contentsline {chapter}{\chapternumberline {6}Instrukcja u\IeC {\.z}ytkownika}{22}{chapter.6}
-\contentsline {chapter}{\chapternumberline {7}Badanie z\IeC {\l }o\IeC {\.z}ono\IeC {\'s}ci obliczeniowej}{23}{chapter.7}
-\contentsline {section}{\numberline {7.1}Zestaw konfiguracyjny}{23}{section.7.1}
-\contentsline {section}{\numberline {7.2}Wyniki bada\IeC {\'n}}{24}{section.7.2}
-\contentsline {section}{\numberline {7.3}Analiza wynik\IeC {\'o}w}{26}{section.7.3}
-\contentsline {chapter}{\chapternumberline {8}Podsumowanie i wnioski}{27}{chapter.8}
-\contentsline {chapter}{Indeks rzeczowy}{27}{section*.1}
+\contentsline {chapter}{\chapternumberline {5}Instalacja i uruchomienie aplikacji}{17}{chapter.5}
+\contentsline {section}{\numberline {5.1}Proces instalacji}{17}{section.5.1}
+\contentsline {section}{\numberline {5.2}Tworzenie klastra}{19}{section.5.2}
+\contentsline {section}{\numberline {5.3}Uruchomienie GRAVIsim}{20}{section.5.3}
+\contentsline {chapter}{\chapternumberline {6}Instrukcja u\IeC {\.z}ytkownika}{21}{chapter.6}
+\contentsline {chapter}{\chapternumberline {7}Badanie z\IeC {\l }o\IeC {\.z}ono\IeC {\'s}ci obliczeniowej}{22}{chapter.7}
+\contentsline {section}{\numberline {7.1}Zestaw konfiguracyjny}{22}{section.7.1}
+\contentsline {section}{\numberline {7.2}Wyniki bada\IeC {\'n}}{23}{section.7.2}
+\contentsline {section}{\numberline {7.3}Analiza wynik\IeC {\'o}w}{25}{section.7.3}
+\contentsline {chapter}{\chapternumberline {8}Podsumowanie i wnioski}{26}{chapter.8}
+\contentsline {chapter}{Indeks rzeczowy}{26}{section*.1}

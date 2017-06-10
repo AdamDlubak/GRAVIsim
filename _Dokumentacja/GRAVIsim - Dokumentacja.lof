@@ -5,13 +5,13 @@
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Schemat modu\IeC {\l }\IeC {\'o}w aplikacji GRAVIsim}}{9}{figure.3.1}
 \addvspace {10pt}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Komunikat informuj\IeC {\k a}cy o poprawnie zako\IeC {\'n}czonej instalacji Apache Spark}}{19}{figure.5.1}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Spark Master - Adres URL w\IeC {\k e}z\IeC {\l }a zarz\IeC {\k a}dzaj\IeC {\k a}cego klastrem}}{20}{figure.5.2}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Komunikat informuj\IeC {\k a}cy o poprawnie zako\IeC {\'n}czonej instalacji Apache Spark}}{18}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Spark Master - Adres URL w\IeC {\k e}z\IeC {\l }a zarz\IeC {\k a}dzaj\IeC {\k a}cego klastrem}}{19}{figure.5.2}
 \addvspace {10pt}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Konfiguracja klastra wykorzystywanego do wykonywania pomiar\IeC {\'o}w}}{23}{figure.7.1}
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Zu\IeC {\.z}ycie zasob\IeC {\'o}w dla r\IeC {\'o}\IeC {\.z}nej konfiguracji klastra}}{24}{figure.7.2}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Z\IeC {\l }o\IeC {\.z}ono\IeC {\'s}\IeC {\'c} czasowa dla symulacji wielu punkt\IeC {\'o}w zale\IeC {\.z}nie od ilo\IeC {\'s}ci w\IeC {\k e}z\IeC {\l }\IeC {\'o}w oraz ilo\IeC {\'s}ci iteracji}}{25}{figure.7.3}
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Por\IeC {\'o}wnanie z\IeC {\l }o\IeC {\.z}ono\IeC {\'s}ci czasowych symulacji ma\IeC {\l }ej ilo\IeC {\'s}ci punkt\IeC {\'o}w dla skrajnych konfiguracji klastra}}{25}{figure.7.4}
-\contentsline {figure}{\numberline {7.5}{\ignorespaces Por\IeC {\'o}wnanie z\IeC {\l }o\IeC {\.z}ono\IeC {\'s}ci czasowych symulacji du\IeC {\.z}ej ilo\IeC {\'s}ci punkt\IeC {\'o}w dla skrajnych konfiguracji klastra}}{26}{figure.7.5}
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Konfiguracja klastra wykorzystywanego do wykonywania pomiar\IeC {\'o}w}}{22}{figure.7.1}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Zu\IeC {\.z}ycie zasob\IeC {\'o}w dla r\IeC {\'o}\IeC {\.z}nej konfiguracji klastra}}{23}{figure.7.2}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Z\IeC {\l }o\IeC {\.z}ono\IeC {\'s}\IeC {\'c} czasowa dla symulacji wielu punkt\IeC {\'o}w zale\IeC {\.z}nie od ilo\IeC {\'s}ci w\IeC {\k e}z\IeC {\l }\IeC {\'o}w oraz ilo\IeC {\'s}ci iteracji}}{24}{figure.7.3}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Por\IeC {\'o}wnanie z\IeC {\l }o\IeC {\.z}ono\IeC {\'s}ci czasowych symulacji ma\IeC {\l }ej ilo\IeC {\'s}ci punkt\IeC {\'o}w dla skrajnych konfiguracji klastra}}{24}{figure.7.4}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Por\IeC {\'o}wnanie z\IeC {\l }o\IeC {\.z}ono\IeC {\'s}ci czasowych symulacji du\IeC {\.z}ej ilo\IeC {\'s}ci punkt\IeC {\'o}w dla skrajnych konfiguracji klastra}}{25}{figure.7.5}
 \addvspace {10pt}
