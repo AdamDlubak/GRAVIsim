@@ -20,6 +20,11 @@
             };
         };
 
+        var disconnect = function() {
+            _this.ws.close();
+            _this.ws = null;
+        }
+
         var subscribe = function(fn) {
             _this.onMessageListeners.push(fn);
         };
@@ -32,6 +37,7 @@
             connect: connect,
             subscribe: subscribe,
             unsubscribe: unsubscribe,
+            disconnect: disconnect,
         }
     }
 

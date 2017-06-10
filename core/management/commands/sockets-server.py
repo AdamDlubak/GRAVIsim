@@ -32,6 +32,8 @@ class Command(BaseCommand):
                             messages.append(line)
                         if len(messages) > 0:
                             await websocket.send('\n'.join(messages))
+                        else:
+                            await websocket.ping()
                     await asyncio.sleep(0.5)
                 except FileNotFoundError as e:
                     await websocket.send("$[XBI]Waiting for start")
