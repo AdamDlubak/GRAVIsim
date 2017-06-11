@@ -45,14 +45,6 @@
             <div class="well text-center overflow-auto">
                 <p class="well lead text-center">My Profile</p>
 
-                <!-- Image fields -->
-                <div class="fileinput fileinput-new form-group" data-provides="fileinput">
-
-                    <div class="fileinput-new thumbnail photo-thumbnail">
-                        <img src="static/images/user.jpg" class="img-circle">
-                    </div>
-
-                </div>
                 <div style="font-weight: bold;">
                     <p style="margin-bottom: -2px;">{{ user.first_name }} {{ user.last_name }}</p>
                     <p ng-if="user.is_superuser" style="font-weight: normal; font-size: 12px;">Administrator</p>
