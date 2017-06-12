@@ -6,8 +6,9 @@
                 $scope.user = $.extend({}, $authentication.getUser());
 
                 var state = 2;
-                var choosen = [false, false, true, false];
+                var choosen = [true, true, true, true];
 
+                $scope.waitingTasks = [];
                 $scope.status = [
                     waiting = {
                         "id": 0,
@@ -87,7 +88,7 @@
                     });
                 });
 
-                $scope.getPriorityColor = function(priority) {
+                $scope.getPriorityColor = function (priority) {
                     for (var item in $scope.priorities) {
                         if (priority === $scope.priorities[item].value) {
                             return $scope.priorities[item].color;
@@ -95,8 +96,34 @@
                     }
                     return '#333';
                 }
-
-                $scope.getStateColor = function(state) {
+                $scope.setVariables = function (elem) {
+                    for (j = 0; j < 4; j++) {
+                        if (elem.priority == j + 1)
+                            elem.priority = $scope.priorities[j].value;
+                    }
+                    if (elem.created == null) {
+                        elem.createdDate = "-----";
+                        elem.createdTime = "";
+                    } else {
+                        elem.createdDate = moment(elem.created).format('DD.MM.YYYY');
+                        elem.createdTime = moment(elem.created).format('HH:mm:ss');
+                    }
+                    if (elem.started == null) {
+                        elem.startedDate = "-----";
+                        elem.startedTime = "";
+                    } else {
+                        elem.startedDate = moment(elem.started).format('DD.MM.YYYY');
+                        elem.startedTime = moment(elem.started).format('HH:mm:ss');
+                    }
+                    if (elem.finished == null) {
+                        elem.finishedDate = "-----";
+                        elem.finishedTime = "";
+                    } else {
+                        elem.finishedDate = moment(elem.finished).format('DD.MM.YYYY');
+                        elem.finishedTime = moment(elem.finished).format('HH:mm:ss');
+                    }
+                }
+                $scope.getStateColor = function (state) {
                     for (var item in $scope.status) {
                         if (state === $scope.status[item].value) {
                             return $scope.status[item].color;
@@ -104,45 +131,35 @@
                     }
                     return '#333';
                 }
+                $scope.fetchWaitingTaskData = function () {
+                    var api = '/api/spark-jobs/';
+                    $http.get(api).
+                        then(function (result) {
 
+                            $scope.data = result.data;
+                            ($scope.data.filter(job => job.state == 0)).forEach(function (elem) {
+                                elem.state = $scope.status[0].value;
+                                $scope.setVariables(elem);
+                                if (elem.state == $scope.status[0].value) $scope.waitingTasks.push(elem);
+                            });
+
+
+                        }, function (error) {
+                            console.log(error);
+                        });
+                }
                 $scope.fetchData = function () {
-                   var api = '/api/spark-jobs/'; 
-                    
+                    var api = '/api/spark-jobs/';
+                $scope.tasks = [];
+
                     $http.get(api).
                         then(function (result) {
                             $scope.data = result.data;
-                            $scope.tasks = [];
-                            $scope.waitingTasks = [];
                             for (i = 0; i < 4; i++) {
                                 if (choosen[i]) {
                                     ($scope.data.filter(job => job.state == i)).forEach(function (elem) {
                                         elem.state = $scope.status[i].value;
-                                        for (j = 0; j < 4; j++) {
-                                            if (elem.priority == j + 1)
-                                                elem.priority = $scope.priorities[j].value;
-                                        }
-                                        if (elem.created == null) {
-                                            elem.createdDate = "-----";
-                                            elem.createdTime = "";
-                                        } else {
-                                            elem.createdDate = moment(elem.created).format('DD.MM.YYYY');
-                                            elem.createdTime = moment(elem.created).format('HH:mm:ss');
-                                        }
-                                        if (elem.started == null) {
-                                            elem.startedDate = "-----";
-                                            elem.startedTime = "";
-                                        } else {
-                                            elem.startedDate = moment(elem.started).format('DD.MM.YYYY');
-                                            elem.startedTime = moment(elem.started).format('HH:mm:ss');
-                                        }
-                                        if (elem.finished == null) {
-                                            elem.finishedDate = "-----";
-                                            elem.finishedTime = "";
-                                        } else {
-                                            elem.finishedDate = moment(elem.finished).format('DD.MM.YYYY');
-                                            elem.finishedTime = moment(elem.finished).format('HH:mm:ss');
-                                        }
-                                        if(elem.state == $scope.status[0].value) $scope.waitingTasks.push(elem);
+                                        $scope.setVariables(elem);
                                         $scope.tasks.push(elem)
                                     });
                                 }
@@ -151,9 +168,12 @@
                             console.log(error);
                         });
                 };
-
+                $scope.fetchWaitingTaskData();
                 $scope.fetchData();
-
+                $scope.isEmpty = function () {
+                    if ($scope.tasks.length == 0) return true;
+                    else false;
+                }
             }
         ]);
 })();

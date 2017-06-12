@@ -39,6 +39,7 @@
                         });
                         $scope.$on('$destroy', function() {
                             $socket.unsubscribe(socketCallback);
+                            $socket.disconnect();
                         });
 
                         _this.parseLine = function(line) {

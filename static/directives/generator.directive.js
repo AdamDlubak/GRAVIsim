@@ -1,10 +1,10 @@
 (function(){    
     angular.module("gravisim").
-        directive("editprofile", [function(){
+        directive("generator", [function(){
                 return {
                     restrict: 'E',
                     scope: {},
-                    templateUrl: '/static/fragments/forms/edit-my-profile.html',
+                    templateUrl: '/static/fragments/forms/generator-form.html',
                 };
         }])
         .directive("changelogin", [function(){

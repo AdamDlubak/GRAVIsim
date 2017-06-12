@@ -3,7 +3,28 @@
         controller('GeneratorController', ['$scope', '$window',
             function($scope, $window) {
                 var self = this;
-
+                $scope.current = 0;
+$scope.pointGenerator = true;
+$scope.cloudGenerator = false;
+$scope.changePoint = function () {
+    $scope.pointGenerator = true;    
+    $scope.cloudGenerator = false;
+    $scope.current = 0;
+}
+$scope.changeCloud = function () {
+    $scope.cloudGenerator = true;
+    $scope.pointGenerator = false;
+    $scope.current = 1;
+}
+$('.btn-toggle').click(function() {
+    $(this).find('.btn').toggleClass('active');  
+    
+    if ($(this).find('.btn-default').size()>0) {
+    	$(this).find('.btn').toggleClass('btn-default');
+    }
+        $(this).find('.btn').toggleClass('button-gray');
+       
+});
                 $scope.tools = [
                     // Point
                     {
@@ -26,7 +47,7 @@
                         },
                     },
                 ];
-                $scope.current = 0;
+
                 $scope.elements = [];
                 $scope.dataUrl = '#';
 

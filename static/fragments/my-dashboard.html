@@ -1,11 +1,9 @@
-<div class="container-fluid my-account-site" style="max-width: 1300px; margin-left: 0px;">
+<div class="container-fluid content-margin">
     <div class="row">
-        <div class="col-xs-9">
 
-            <div class="well main-box">
-
-                <p class="well lead">My Last Tasks</p>
-
+        <div class="main-box col-md-12 col-lg-8">
+            <div class="well">
+                <p class="well lead text-center">My Last Tasks</p>
 
                 <table class="table table-hover gravi-table">
                     <thead>
@@ -19,8 +17,10 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody ng-repeat="task in tasks | orderBy : '-created' | limitTo: 5" style="border: 0px;">
-                        <tr id="tasks-list">
+
+                    <tbody ng-repeat="task in tasks | orderBy : '-created' | limitTo: 5" style="border: 0px; cursor: pointer;">
+
+                        <tr id="tasks-list" ng-click="rowLink(task.id);" class="text-center">
                             <td>{{ task.id }}</td>
                             <td>{{ task.name }}</td>
                             <td><span ng-style="{color: getPriorityColor(task.priority)}" class="task-status">{{ task.priority }}</span></td>
@@ -29,23 +29,22 @@
                             <td>{{ task.startedDate }}<br />{{ task.startedTime }}</td>
                             <td><span ng-style="{color: getStateColor(task.state)}" class="task-status">{{ task.state }}</span></td>
                         </tr>
+
+                        </a>
                     </tbody>
+                    <tbody>
+                        <tr id="tasks-list" ng-if="isEmpty()">
+                            <td colspan="7" class="text-center" style="font-weight: bold; font-size: 20px; vertical-align: middle;" height="100">Brak wyników wyszukiwania</td>
+                        </tr>
+                    </tbody>
+
                 </table>
             </div>
         </div>
-        <div class="col-xs-3">
-            <div class="well main-box">
-                <p class="well lead">My Profile</p>
+        <div class="main-box col-md-12 col-lg-3">
+            <div class="well text-center overflow-auto">
+                <p class="well lead text-center">My Profile</p>
 
-                <!-- Image fields -->
-                <div class="fileinput fileinput-new form-group" data-provides="fileinput">
-
-                    <div class="fileinput-new thumbnail photo-thumbnail">
-                        <img src="static/images/user.jpg" class="img-circle">
-                    </div>
-
-
-                </div>
                 <div style="font-weight: bold;">
                     <p style="margin-bottom: -2px;">{{ user.first_name }} {{ user.last_name }}</p>
                     <p ng-if="user.is_superuser" style="font-weight: normal; font-size: 12px;">Administrator</p>
@@ -54,8 +53,14 @@
 
                     <hr>
                 </div>
+
+                <div class="btn-group btn-toggle">
+                    <button class="btn btn-sm button-gray active" ng-if="user.is_superuser" ng-click="fetchData()">My Tasks</button>
+                    <button class="btn btn-sm btn-default" ng-if="user.is_superuser" ng-click="fetchAllData()">All Tasks</button>
+                </div>
                 <div style="text-align: left">
-                    <p style="margin-top: 20px"><span class="glyphicon glyphicon-th-large" />&nbsp; All my tasks: <b>{{ tasksAmt[4] }}</b></p>
+
+                    <p style="margin-top: 20px"><span class="glyphicon glyphicon-th-large" />&nbsp; All tasks: <b>{{ tasksAmt[4] }}</b></p>
                     <hr>
                     <p><span class="glyphicon glyphicon-tags text-danger" />&nbsp; Suspended: <b>{{ tasksAmt[3] }}</b></p>
                     <p><span class="glyphicon glyphicon-hourglass text-primary" />&nbsp; Waiting: <b>{{ tasksAmt[0] }}</b></p>

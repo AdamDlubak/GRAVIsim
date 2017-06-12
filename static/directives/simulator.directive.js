@@ -25,7 +25,16 @@
                         scope.updateFPS();
 
                         scope.fullscreen = function () {
-                            canvas.requestFullscreen();
+                            var element = document.getElementById('simulation-canvas');
+                            if (element.requestFullscreen) {
+                                element.requestFullscreen();
+                            } else if (element.webkitRequestFullscreen) {
+                                element.webkitRequestFullscreen();
+                            } else if (element.mozRequestFullScreen) {
+                                element.mozRequestFullScreen();
+                            } else if (element.msRequestFullscreen) {
+                                element.msRequestFullscreen();
+                            }
                         }
 
                         scope.changeFrame = function () {

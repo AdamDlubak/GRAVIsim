@@ -3,7 +3,6 @@
         controller('TaskDetailsController', ['$scope', '$http', '$location', 'tasks',
             function ($scope, $http, $location, $tasks) {
                 var self = this;
-
                 // These abominations should NOT be here
                 // (assignation to undeclared var inside array)
                 $scope.status = [
@@ -54,10 +53,13 @@
                         "color": "#840000"
                     }
                 ];
-
+                $scope.stateisCompleted = function (state) {
+                    if (state == "Completed") return true;
+                    else false;
+                }
                 $scope.id = $location.search().id;
 
-                $scope.stateButtonClass = function() {
+                $scope.stateButtonClass = function () {
                     if ($scope.task && $scope.task.state === waiting.value) {
                         return 'button-suspended-state';
                     } else if ($scope.task && $scope.task.state === suspended.value) {
@@ -66,7 +68,8 @@
                         return 'button-gray disabled';
                     }
                 }
-                
+
+
                 $scope.fetchData = function () {
                     var api = '/api/spark-jobs/' + $scope.id + '/';
 
@@ -108,7 +111,19 @@
                 };
 
                 $scope.fetchData();
+                
+                $(document).ready(function () {
+                    $('#radioBtn span').on('click', function () {
+                        var sel = $(this).data('value');
+                        var tog = $(this).data('toggle');
+                        $scope.priority = sel;
+                        // You can change these lines to change classes (Ex. btn-default to btn-danger)
+                        $('span[data-toggle="' + tog + '"]').not('[data-value="' + sel + '"]').removeClass('active button-gray').addClass('notActive btn-default');
+                        $('span[data-toggle="' + tog + '"][data-value="' + sel + '"]').removeClass('notActive btn-default').addClass('active button-gray');
+                        $('#' + tog).val(sel);
 
+                    });
+                });
                 $scope.changeState = function () {
                     var url = '/api/spark-jobs/' + $scope.id + '/';
                     var newState;
@@ -118,18 +133,37 @@
                     else { return; }
 
                     $tasks
-                        .sendTaskStatus( url, $scope.task, newState)
+                        .sendTaskStatus(url, $scope.task, newState)
                         .then(function () {
                             $scope.loginError = false;
-                            $location.path('/my-dashboard');
+                            location.reload(); 
                         }, function (error) {
                             $scope.loginError = true;
                         });
-                }
+                };
+
+
+                $scope.editTask = function () {
+                    var url = '/api/spark-jobs/' + $scope.id + '/';
+                            for (i = 0; i < 4; i++) {
+                                if ($scope.task.state == $scope.status[i].value) {
+                                    $scope.task.state = $scope.status[i].id;
+                                }
+                            }
+                    $tasks
+                        .editTask(url, $scope.task)
+                        .then(function () {
+                            $scope.loginError = false;
+                            $location.path('/task-details');
+                        }, function (error) {
+                            $scope.loginError = true;
+                        });
+                };
+
 
                 $scope.getSimulationFile = function () {
                     return $scope.id + '.json';
-                }
+                };
             }
         ]);
 })();

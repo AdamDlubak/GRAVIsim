@@ -1,58 +1,63 @@
-<div class="container-fluid">
+<div class="container-fluid content-margin">
+
     <div class="row">
-        <div class="well main-box">
+        <div class="well main-box  col-xs-12 col-lg-8">
 
-            <div class="well lead" style="display: inline-block; width: 100%;">
-                <a href="/task-details?id={{ task.id }}"><button class="btn button-gray btn-load btn-md" style="float: left;">Back without saving</button></a>                #{{ id }} - {{ task.name }}
-                <a href=""><button class="btn button-gray btn-load btn-md" style="float: right; width: 100px;">Save</button></a>
-
-
-            </div>
-
-            <div class="col-md-12" style="text-align: left;">
-                <!-- Text input -->
-                <div class="form-group" style="margin-top: 0px; margin-bottom: 0px;">
-                    <label for="title">Title</label>
-                    <input name="name" class="input-size form-control" type="text" ng-value="task.name" ng-model="task.name" id="name" placeholder="Title of task"
-                    />
-                </div>
-
-                <!-- Text input -->
-                <div class="form-group" style="margin-bottom: 0px;">
-                    <label for="description">Description</label>
-                    <textarea class="form-control input-size" name="description" ng-value="task.description" ng-model="task.description" placeholder="Description..."
-                        rows="7" id="description"></textarea>
-                </div>
-                <!-- Text input -->
-                <div class="form-group" style="margin-top: 0px; margin-bottom: 0px;">
-                    <label for="priority">Priority</label>
-                    <input name="priority" class="input-size form-control" type="text" ng-value="task.priority" ng-model="task.priority" id="priority"
-                        placeholder="Title of task" />
-                </div>
-                <!-- Text input -->
-                <div class="form-group" style="margin-top: 0px;">
-                    <label for="iterations">Iterations</label>
-                    <input name="iterations" class="input-size form-control" type="text" ng-value="task.iterations" ng-model="task.iterations"
-                        id="iterations" placeholder="Title of task" />
-                </div>
-                <div class="col-md-3">
-                    <p>State:</p>
-                    <p>Created date:</p>
-                    <p>Started date:</p>
-                    <p>Finished date:</p>
-                    <p>Calcuation time:</p>
-                </div>
-
-                <div class="col-md-3">
-                    <p><b>{{ task.state }}</b></p>
-                    <p><b>{{ task.createdDate }} {{ task.createdTime }}</b></p>
-                    <p><b>{{ task.startedDate }} {{ task.startedTime }}</b></p>
-                    <p><b>{{ task.finishedDate }} {{ task.finishedTime }}</b></p>
-                    <p></p>
+            <form method="POST" id="edit-task">
+                <div class="well lead" style="display: inline-block; width: 100%; text-align: center">
+                    <a href="/task-details?id={{ task.id }}"><button class="btn button-gray btn-load btn-md" style="float: left;">Back without saving</button></a>                    #{{ id }} - {{ task.name }}
+                    <button class="btn button-gray btn-load btn-md" ng-click="editTask()" style="float: right; width: 100px;">Save</button>
 
 
                 </div>
-            </div>
+
+                <div class="col-md-12" style="text-align: left;">
+                    <!-- Text input -->
+                    <div class="form-group" style="margin-top: 0px; margin-bottom: 0px;">
+                        <label for="title">Title</label>
+                        <input name="name" class="input-size form-control" type="text" ng-value="task.name" ng-model="task.name" id="name" placeholder="Title of task"
+                        />
+                    </div>
+
+                    <!-- Text input -->
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <label for="description">Description</label>
+                        <textarea class="form-control input-size" name="description" ng-value="task.description" ng-model="task.description"
+                            placeholder="Description..." rows="7" id="description"></textarea>
+                    </div>
+                    <!-- Text input -->
+                    <div class="form-group" style="margin-top: 0px;">
+                        <div class="input-group">
+                            <div class="dropdown">
+                                <label for="priority">Priority</label>
+                                <select class="form-control" name="priority" ng-options="option.value for option in priorities track by option.id" ng-model="task.priority"
+                                    def></select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Text input -->
+                    <div class="form-group" style="margin-top: 0px;">
+                        <label for="iterations">Iterations</label>
+                        <input name="iterations" class="input-size form-control" type="text" ng-value="task.iterations" ng-model="task.iterations"
+                            id="iterations" placeholder="Title of task" />
+                    </div>
+                    <div class="col-md-3">
+                        <p>State:</p>
+                        <p>Created date:</p>
+                        <p>Started date:</p>
+                        <p>Finished date:</p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <p><b>{{ task.state }}</b></p>
+                        <p><b>{{ task.createdDate }} {{ task.createdTime }}</b></p>
+                        <p><b>{{ task.startedDate }} {{ task.startedTime }}</b></p>
+                        <p><b>{{ task.finishedDate }} {{ task.finishedTime }}</b></p>
+
+
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
