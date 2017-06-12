@@ -1,10 +1,9 @@
 (function(){
     "use strict";
 
-    var endpoint = 'ws://localhost:8888';
-
-    function Socket() {
+    function Socket($location) {
         var _this = this;
+        var endpoint = 'ws://' + $location.host() + ':8888';
 
         _this.ws = null;
         _this.onMessageListeners = [];
@@ -42,7 +41,7 @@
     }
 
     angular.module('utils')
-        .factory('socket', function() {
-            return new Socket();
-        });
+        .factory('socket', ['$location', function($location) {
+            return new Socket($location);
+        }]);
 })();
