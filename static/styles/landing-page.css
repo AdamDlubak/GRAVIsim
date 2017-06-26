@@ -1,0 +1,25 @@
+
+body {
+    font-family: 'Raleway',sans-serif;
+    color: #eee;
+}
+
+.logo {
+    background-image: url(../images/logo.png);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-size: contain;
+    height: 100px;
+    width: 100%;
+}
+h4.login-header {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.button-blue {background: #1b5a7c; border-radius: 4px; height: 42px; padding: 8px 12px; font-weight: bold;}
+.button-blue:hover { text-decoration: underline; background: #144b68; transition-duration: 0.2s; }
+
+@media(max-width: 1200px) {
+    .top-buffer-25 { margin-top: 15% !important; }
+}

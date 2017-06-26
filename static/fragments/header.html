@@ -1,36 +1,49 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                    aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">GRAVIsim</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li ng-class="{ active: isActive('/about')}"><a href="about">About</a></li>
-                <li ng-class="{ active: isActive('/simulate')}"><a href="simulate">Simulate</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                        role="button" aria-haspopup="true" aria-expanded="false">
-                        {{ username }}<span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div id="sidebar-wrapper"  ng-controller="HeaderController">
+  <ul id="sidebar_menu" class="sidebar-nav">
+
+        <li><span id="main_icon" onclick="whichButton(this)"  style="margin-left: 200px;" class="glyphicon glyphicon-align-justify"></span></li>
+    <!--<a id="menu-toggle" href="#"><span id="main_icon" class="glyphicon glyphicon-align-justify" ></span></a>-->
+    <li class="sidebar-brand"></li>
+  </ul>
+  <ul class="sidebar-nav" id="sidebar">
+    <li><a href="/my-dashboard">My Dashboard<span class="sub_icon glyphicon glyphicon-home"></span></a></li>
+ 
+    <li><a href="/my-tasks">My Tasks<span class="sub_icon glyphicon glyphicon-eye-open"></span></a></li>
+    <li><a href="/order-task">Order Task<span class="sub_icon glyphicon glyphicon-cloud-upload"></span></a></li>
+    <li><a href="/generator">Generator<span class="sub_icon glyphicon glyphicon-plus"></span></a></li>
+
+    <li ng-if="user.is_superuser" ><a href="/manage-users" style="padding-left: 20px;">Manage Users<span class="sub_icon glyphicon glyphicon-tower"></span></a></li>    
+    <li ng-if="user.is_superuser" ><a href="/manage-tasks" style="padding-left: 20px;">Manage Tasks<span class="sub_icon glyphicon glyphicon-th-list"></span></a></li>    
+
+  </ul>
+
+  <ul class="sidebar-nav" id="sidebar" style="position: absolute; bottom: 0px;">
+    <li>
+             <a data-toggle="modal" data-target="#myModal" style="background: none; border: 0px; float: none">
+
+      <div class="row">
+
+          <div class="col-xs-9" style="color: #BBB; font-weight: bold; font-size: 14px; padding-left: 5px; line-height: 15px;">
+            <p style="font-size: 8px; font-weight: normal;  margin: 7px 0 0 0; line-height: 0px;">Logged as:</p> <br />
+            <p style="font-size: 14px; line-height: 8px; padding-left: 10px;">{{ user.first_name }} {{ user.last_name }}</p>
+          </div>
+
+          <div class="col-xs-2" style="padding-right: 5px;">
+            <span class="sub_icon glyphicon glyphicon-off" style="color: rgb(153, 153, 153); padding-right: 4px;"></span>
+          </div>
+      </div>
+          </a>
+
+
+    </li>
+    <li><a href="/my-account">My account<span class="sub_icon glyphicon glyphicon-user"></span></a></li>
+    <li><a href="/contact">Contact with admin<span class="sub_icon glyphicon glyphicon-envelope"></span></a></li>
+    <li><a href="/about-us">About us<span class="sub_icon glyphicon glyphicon-bullhorn"></span></a></li>
+    <li class="footer">&copy; 2017 GRAVIsim. All Right Reserved</li>
+    <li class="footer-active">&copy;</li>
+  </ul>
+</div>
+<!-- /#sidebar-wrapper -->
+
+
+

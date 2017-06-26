@@ -1,21 +1,302 @@
-html {
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300,100);
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
+
+.content-margin {
+    margin: 25px 0px 25px 15px;
+}
+.main-box {
+    margin: 15px 15px 25px 0px;
+    overflow: auto;
+}
+.padding-right-10 {
+    padding-right: 10%;
+}
+.overflow-auto {
+    overflow: auto; 
+}
+.width-max-500 {
+    max-width: 500px;
+    width: 100%;
+}
+.width-max-1000 {
+    max-width: 1000px;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+.hiddenRow {
+    padding: 0 !important;
+}
+
+.vertical-margin {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.site-offset{
+    margin-left: 255px;
+    margin-bottom: 20px;
+}
+
+
+body {
+    font-family: 'Raleway',sans-serif;
+    color: #000;
+}
+
+.logo {
+    background-image: url(../images/logo.png);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-size: contain;
+    height: 100px;
+    width: 100%;
+}
+h4.login-header {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.button-blue {background: #1b5a7c; border-radius: 4px; height: 42px; padding: 8px 12px; font-weight: bold;}
+.button-blue:hover { text-decoration: underline; background: #144b68; transition-duration: 0.2s; }
+
+.button-run-state {background: #008eb2; color: #eee; font-weight: bold;}
+.button-run-state:hover {background: #006e92; color: #eee;}
+
+.button-suspended-state {background: #c10773; color: #eee; font-weight: bold;}
+.button-suspended-state:hover {background: #a10053; color: #eee;}
+
+@media(max-width: 1200px) {
+    .top-buffer-25 { margin-top: 15% !important; }
+}
+/*---------------------- GENERAL ----------------------*/
+.top-buffer-10 { margin-top: 10%; }
+.top-buffer-25 { margin-top: 25%; }
+.top-buffer-25px { margin-top: 25px; }
+.top-buffer-15px { margin-top: 15px; }
+.top-buffer-10px { margin-top: 10px; }
+.top-buffer-5px { margin-top: 5px; }
+.bottom-buffer-15px { margin-bottom: 15px; }
+.bottom-buffer-10px { margin-bottom: 10px; }
+.left-buffer-20px { margin-left: 20px; }
+
+.button-gray { background-color: #333; color: #eee;}
+.button-gray:hover { background-color: #222; color: #eee; transition: 0.4s }
+
+ /* Override .btn bootstrap */
+.btn:hover, .btn:focus {
+    color: #eee;
+    text-decoration: none;
+}
+
+.table > tbody >tr.success > td {
+min-height: 20px;
+padding: 19px;
+margin-bottom: 20px;
+background-color: #f5f5f5;
+border: 1px solid #e3e3e3;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+/* My DashBoard */
+.btn-toggle .btn:hover, #radioBtn .btn:hover {
+    color: #333;
+}
+.btn-toggle .active.btn:hover, #radioBtn .active.btn:hover{
+    color: #eee;
+}
+.task-status { font-weight: bold; }
+.input-size { height: 42px; padding: 8px 12px; font-size: 14px; line-height: 1.42857143; border-radius: 4px; }
+.site-bg-index {
+
+    height: 100%;
+    width: 100%;
+    background-image: url(../images/pattern_bg.png);   
+    position: fixed;
     overflow-y: scroll;
 }
 
-body {
-    padding-top: 40px;
-    padding-bottom: 40px;
+
+
+
+
+
+
+
+
+
+
+
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 2px 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6.7px;
+  cursor: pointer;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  background: rgba(40, 96, 143, 0.78);
+  border-radius: 25px;
+  border: 0px solid rgba(0, 0, 0, 0);
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px rgba(3, 0, 0, 0), 0px 0px 0px rgba(29, 0, 0, 0);
+  border: 0px solid rgba(0, 0, 0, 0);
+  height: 20px;
+  width: 20px;
+  border-radius: 50px;
+  background: #333333;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6.65px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: rgba(40, 96, 143, 0.78);
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 6.7px;
+  cursor: pointer;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  background: rgba(40, 96, 143, 0.78);
+  border-radius: 25px;
+  border: 0px solid rgba(0, 0, 0, 0);
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0px 0px 0px rgba(3, 0, 0, 0), 0px 0px 0px rgba(29, 0, 0, 0);
+  border: 0px solid rgba(0, 0, 0, 0);
+  height: 20px;
+  width: 20px;
+  border-radius: 50px;
+  background: #333333;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 6.7px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: rgba(40, 96, 143, 0.78);
+  border: 0px solid rgba(0, 0, 0, 0);
+  border-radius: 50px;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+}
+input[type=range]::-ms-fill-upper {
+  background: rgba(40, 96, 143, 0.78);
+  border: 0px solid rgba(0, 0, 0, 0);
+  border-radius: 50px;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 0px 0px 0px rgba(3, 0, 0, 0), 0px 0px 0px rgba(29, 0, 0, 0);
+  border: 0px solid rgba(0, 0, 0, 0);
+  height: 20px;
+  width: 20px;
+  border-radius: 50px;
+  background: #333333;
+  cursor: pointer;
+  height: 6.7px;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: rgba(40, 96, 143, 0.78);
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: rgba(40, 96, 143, 0.78);
 }
 
-.simulator {
-    position: relative;
-    width: 600px;
-    height: 600px;
-    margin: auto;
+
+
+
+
+
+
+
+.site-bg-login {
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/bg_photo3.jpg);   
+    display: block;
+    position: absolute;
+    color: #eee;
+}
+#success_message{ 
+    display: none; 
+    margin: 100px;
+}
+.gravi-table > thead > tr > th {
+    text-align: center;
+}
+.gravi-table > tbody > tr:hover {
+    background-color: #eee;
+}
+.gravi-table > tbody > tr > td {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
-.simulator canvas {
+
+canvas.simulator {
     width: 100%;
     height: 100%;
     background-color: rgb(30, 30, 30);
+}
+
+canvas.simulator:hover {
+    cursor: crosshair;
+}
+
+.logger {
+    background-color: rgb(230, 230, 230);
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 15px;
+    color: rgb(30, 30, 30);
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 0.8em;
+    padding: 15px 0;
+    overflow-y: scroll;
+    max-height: 400px;
+}
+
+.logger div {
+    padding: 0 30px;
+}
+
+.logger div:hover {
+    background-color: rgba(30, 30, 30, 0.15);
+}
+
+.logger span {
+    padding: 0 5px;
+    white-space: pre-wrap;
+}
+
+.logger span:first-child {
+    font-weight: bold;
+    display: inline-block;
+    text-align: right;
+    width: 30px;
+    border-right: 2px solid rgb(120, 120, 120);
+}
+
+.logger span.bold {
+    font-weight: bold;
 }

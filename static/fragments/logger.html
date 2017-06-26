@@ -1,0 +1,35 @@
+<div>
+    <div class="row">
+        <div class="col-xs-100 text-center">
+            <span ng-class="progress.labelStyles">
+                <b>{{ progress.status }}</b>
+            </span>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped"
+                     ng-class="progress.styles"
+                     role="progressbar"
+                     ng-style="{'width': progress.complete}">
+                    <span class="sr-only">{{ progress.complete }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-100">
+            <table class="table table-condensed">
+                <tbody>
+                    <tr ng-repeat="(key, data) in jobData">
+                        <td class="col-xs-50">{{ key }}</td>
+                        <td class="col-xs-50">{{ data }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="logger">
+        <div ng-repeat="record in log track by $index">
+            <span>{{ $index + 1 }}</span>
+            <span ng-class="getClass(record)">{{ record.line }}</span>
+        </div>
+    </div>
+</div>

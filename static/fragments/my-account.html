@@ -1,0 +1,99 @@
+<div class="container-fluid content-margin">
+  <div class="row">
+
+    <div class="main-box col-md-12 col-lg-7">
+      <div class="well">
+        <p class="well lead text-center">Edit My Profile</p>
+        <editprofile></editprofile>
+<!--<script src="/static/js/scripts.js"></script>-->
+<script src="/static/js/jasny-bootstrap.min.js"></script>
+<link href="/static/styles/jasny-bootstrap.min.css" rel="stylesheet">
+
+
+
+<div class="col-xs-12" style="padding-left: 0px;">
+ 
+  <!-- Text input -->
+  <div class="form-group bottom-buffer-10px" style="margin-bottom: 10px;">
+    <label class="col-md-30 control-label">Login</label>
+    <div class="col-md-70 inputGroupContainer control-input">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+        <input name="username" placeholder="{{ user.username }}" ng-value="user.username" ng-model="user.username"  class="form-control form-input" type="text">
+      </div>
+    </div>
+  </div>
+
+  <!-- Text input -->
+  <div class="form-group bottom-buffer-10px">
+    <label class="col-md-30 control-label">First Name</label>
+    <div class="col-md-70 inputGroupContainer control-input">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input name="first_name" placeholder="{{ user.first_name }}" ng-value="user.first_name" ng-model="user.first_name" class="form-control form-input"
+          type="text">
+      </div>
+    </div>
+  </div>
+
+  <!-- Text input -->
+  <div class="form-group bottom-buffer-10px">
+    <label class="col-md-30 control-label">Last Name</label>
+    <div class="col-md-70 inputGroupContainer control-input">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-tower"></i></span>
+        <input name="last_name" placeholder="{{ user.last_name }}" ng-value="user.last_name" ng-model="user.last_name" class="form-control form-input"
+          type="text">
+      </div>
+    </div>
+  </div>
+
+  <!-- Text input -->
+  <div class="form-group bottom-buffer-10px">
+    <label class="col-md-30 control-label">E-Mail</label>
+    <div class="col-md-70 inputGroupContainer control-input">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <input name="email" placeholder="{{ user.email }}" ng-value="user.email" ng-model="user.email" class="form-control form-input"
+          type="text">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Submit button -->
+<div class="form-group">
+  <button class="btn button-gray btn-lg top-buffer-15px" ng-click="updateAccount()">Update Profile</button>
+</div>
+      </div>
+    </div>
+
+    <div class="main-box col-md-12 col-lg-4">
+      <div class="well">
+        <p class="well lead text-center">Change Password</p>
+<form method="post">
+
+    <!-- Text input -->
+    <div class="form-group bottom-buffer-10px">
+        <label for="password">New Password</label>
+        <input name="password" class="form-input form-control" type="password" value="" id="password" placeholder="Insert your new password"
+        />
+    </div>
+
+    <!-- Text input -->
+    <div class="form-group bottom-buffer-10px">
+        <label for="password_repeat">Repeat Password</label>
+        <input name="password_repeat" class="form-input form-control" type="password" value="" id="password_repeat" placeholder="Repeat your new password"
+        />
+    </div>
+
+    <!-- Submit button -->
+    <div class="form-group">
+        <button type="submit" class="btn button-gray btn-load btn-md top-buffer-5px" data-loading-text="<Changing></Changing> password...">Update Password</button>
+    </div>
+</form>
+      </div>
+    </div>
+
+  </div>
+</div>

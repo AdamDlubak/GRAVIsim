@@ -14,3 +14,11 @@ db.sqlite3
 
 __pycache__
 *.pyc
+
+*.log
+metastore_db/
+
+/share
+/static/media/input/*.json
+/static/media/output/*.json
+/static/media/tmp/*.json
